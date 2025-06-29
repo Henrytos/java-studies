@@ -1,41 +1,46 @@
-import java.util.Date;
-import java.util.String;
+import java.time.LocalDate;
+import java.util.List;
 
 public class BankAccount {
 	int numberAccount;
 	int numberAgency;
 	double sale;
  	String username;
-	Date dateOfBirth;
+	LocalDate LocalDateOfBirth;
+	boolean active = true;
 
-	public BankAccount(int numberAccount, int numberAgency, double sale,  String username, Date dateOfBirth){
+	public BankAccount(int numberAccount, int numberAgency, double sale,  String username, LocalDate LocalDateOfBirth){
 		this.numberAccount = numberAccount;
 		this.numberAgency = numberAgency;
 		this.sale = sale;
 		this.username = username;
-		this.dateOfBirth = dateOfBirth;
+		this.LocalDateOfBirth = LocalDateOfBirth;
 	}
 
-	protected double withdraw(double value){
-		if(this.sale < value){
-			return 0.0;
+	protected void withdraw(double value){
+		if(this.sale >= value){
+			this.sale = this.sale - value;
 		}
-
-		this.sale = this.sale - value;
-
-		return value;
 	}
 
 	protected void cancellation(String justification){
 		System.out.println("Parabéns pelo cancelamento, efetuado com sucesso");
-		Sytem.out.println("Seu motivo foi:"+justification);
+		System.out.println("Seu motivo foi:"+justification);
 	}
 
-	protected void consult(){
-	        Sytem.out.println("Seu saldo atual eh:"+this.sale);
+	protected double consult(){
+		System.out.println("Seu saldo atual eh:"+this.sale);
+		return  this.sale;
 	}
 
-	protected void 	consultationBetweenTwoDates(Date starAt, Date endAt){
-		// logica
+	protected List<BankAccount> consultationBetweenTwoLocalDates(LocalDate starAt, LocalDate endAt){
+		return  ;
+	}
+
+	protected void makeTransfer(
+			BankAccount accountToTransfer,
+			double transferValue
+	){
+		accountToTransfer.sale += transferValue;
 	}
 }
