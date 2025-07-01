@@ -17,8 +17,12 @@ public class BankAccount {
 		this.LocalDateOfBirth = LocalDateOfBirth;
 	}
 
-	protected void withdraw(double value){
-		if(this.sale >= value){
+	protected void withdraw(double value) throws Error{
+		if(value > this.sale){
+			throw  new Error("error");
+		}
+
+		if(this.sale > value){
 			this.sale = this.sale - value;
 		}
 	}
@@ -33,9 +37,9 @@ public class BankAccount {
 		return  this.sale;
 	}
 
-	protected List<BankAccount> consultationBetweenTwoLocalDates(LocalDate starAt, LocalDate endAt){
-		return  ;
-	}
+//	protected List<BankAccount> consultationBetweenTwoLocalDates(LocalDate starAt, LocalDate endAt){
+//		return  ;
+//	}
 
 	protected void makeTransfer(
 			BankAccount accountToTransfer,
