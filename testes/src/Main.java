@@ -4,13 +4,11 @@ public  class Main {
 
     public static void main(String[] args) {
 
-        LocalDate currentDate = LocalDate.now();
-        BankAccount account  = new BankAccount(1,1,1.0,"henry",currentDate);
-        System.out.println(account.username+" - R$"+account.sale);
-        account.withdraw(1.0);
-        System.out.println(account.username+" - R$"+account.sale);
-        account.withdraw(1.0);
-        System.out.println(account.username+" - R$"+account.sale);
-        Aritimeticos.dividir(10,2);
+        for(EstadosBrasileiros estadosBrasileiro: EstadosBrasileiros.values()){
+            System.out.println("ESTADO LOCALIZADO");
+            System.out.println("Nome do estado ".concat(estadosBrasileiro.getNome()));
+            System.out.println("Sigla do estado ".concat(estadosBrasileiro.getSigla()));
+            System.out.println();
+        }
     }
 }
