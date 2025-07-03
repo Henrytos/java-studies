@@ -2,18 +2,19 @@ package POO;
 
 public class CoputadorPedrinho {
     public static void main(String[] args) {
-        MsnMessanger msnMessanger = new MsnMessanger();
-        msnMessanger.enviarMenssagem();
-        msnMessanger.receberMenssagem();
+        MensagerInstantaneo mi;
+        String tipo = "msnf";
 
-        MsnFacebook msnFacebook = new MsnFacebook();
-        msnFacebook.enviarMenssagem();
-        msnFacebook.receberMenssagem();
+        if(tipo == "msnf"){
+            mi = new MsnFacebook();
+        } else if(tipo == "msnt"){
+            mi = new MsnTelegram();
+        } else {
+            mi = new MsnMessanger();
+        }
 
-        MsnTelegram msnTelegram = new MsnTelegram();
-        msnTelegram.enviarMenssagem();
-        msnTelegram.receberMenssagem();
-
+        mi.enviarMenssagem();
+        mi.receberMenssagem();
 
         // metodos protegidos
         //msnMessanger.salvarHistoricoDeMenssagem();
