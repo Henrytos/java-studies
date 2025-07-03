@@ -1,23 +1,12 @@
 package POO;
 
-public class MensagerInstantaneo {
+public abstract class MensagerInstantaneo {
 
-    public void enviarMenssagem(){
-        if (this.verificarSeEstaConcetado())
-            System.out.println("ENVIANDO MENSSAGEM");
-    }
+    public abstract void enviarMenssagem();
 
-    public void  receberMenssagem(){
-        if (this.verificarSeEstaConcetado())
-            System.out.println("RECEBER MENSSAGEM");
-    }
+    public abstract void  receberMenssagem();
 
-    private boolean verificarSeEstaConcetado(){
-        System.out.println("VERIFICANDO SE ESTA CONECTADO");
-        return true;
-    }
+    protected abstract boolean verificarSeEstaConcetado();
 
-    private void salvarHistoricoDeMenssagem(){
-        System.out.println("SALVANDO HISTORICO DE MENSSAGEM");
-    }
+    protected abstract void salvarHistoricoDeMenssagem();
 }
