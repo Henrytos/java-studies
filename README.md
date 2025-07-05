@@ -32,14 +32,7 @@ Desenvolver pequenos projetos práticos.
 
 ---
 
-🧠 Autor
-Henry Arcaya
-📧 henry.dev@email.com
-🔗 linkedin.com/in/henry
-
-
-
-## 🧰 Comando de Auxílio para Commit
+🧰 Comando de Auxílio para Commit
 
 ```bash
 git add . && git commit -m "message" && git pull && git push
