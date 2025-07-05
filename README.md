@@ -8,17 +8,6 @@ A trilha de Java da Rocketseat ensina os fundamentos da linguagem, orientação 
 
 ---
 
-## 🛠️ Tecnologias e Ferramentas
-
-- Java (JDK 17+)
-- IntelliJ IDEA / VSCode
-- Maven ou Gradle
-- Git e GitHub
-- Terminal Linux (Ubuntu)
-- Testes com JUnit (quando aplicável)
-
----
-
 🚀 Objetivos
 Reforçar os fundamentos da linguagem Java.
 
@@ -32,27 +21,14 @@ Desenvolver pequenos projetos práticos.
 
 ---
 
-📌 Progresso na Trilha
- Fundamentos da linguagem Java
-
- Orientação a Objetos
-
- Manipulação de arquivos e pastas
-
- Projeto completo com Java
-
- Testes e boas práticas
-
----
-
 💡 Dicas Pessoais
 
-Use comentários no código para lembrar o propósito dos trechos estudados.
-
-Crie exemplos próprios para fixar o conteúdo.
-
-Leia a documentação oficial da Oracle para aprofundamento.
-
+ - Use comentários quando necessario
+ - Crie exemplos próprios para fixar o conteúdo.
+ - Leia a documentação oficial da Oracle para aprofundamento.
+ - Contatar pessoas mais experientes na aréa
+ - Sempre Consultar documentação 
+ - Anotar em um caderno ideas e deduções
 
 ---
 
