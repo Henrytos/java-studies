@@ -9,7 +9,7 @@ public class Introducao {
         if(!directory.exists())
             directory.mkdirs();
 
-        File file = new File(directory,"text.txt");
+        File file = new File(directory,"file.csv");
 
         try {
             file.createNewFile();
