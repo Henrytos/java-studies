@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 @RestController()
@@ -42,6 +41,20 @@ public class PrimeiroController {
     public String primeiroMetodoPost(@RequestBody Usuario usuario) {        
         return "Parabéns " + usuario.username() + ", você conseguiu fazer um POST!";
     }
+
+    @PostMapping("/primeiroMetodoComHeader")
+    public String primeiroMetodoComHeader(@RequestHeader("username") String username) {
+        
+        return "Parabéns " + username + ", você conseguiu fazer um POST com header!";
+    }
+
+
+    @PostMapping("/primeiroMetodoComMultiplosHeader")
+    public String primeiroMetodoComMultiplosHeader(@RequestHeader Map<String,String> headers) {
+
+        return "Parabéns , você conseguiu fazer um POST com múltiplos headers!" + headers.entrySet();
+    }
+    
 
     record Usuario(String username) {
     }
