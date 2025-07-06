@@ -8,11 +8,14 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
 @RestController()
-@RequestMapping("/primeiroCotroller")
+@RequestMapping("/primeiraCotroller")
 public class PrimeiroController {
 
     @GetMapping("/primeiroMetodo")
@@ -34,4 +37,13 @@ public class PrimeiroController {
     public String queryParamAll(@RequestParam Map<String, String> allParams) {
         return "Todos os parâmetros são: " + allParams.toString(); // allParams.entrySet()
     }
+
+    @PostMapping("/primeiroMetodoPost")
+    public String primeiroMetodoPost(@RequestBody Usuario usuario) {        
+        return "Parabéns " + usuario.username() + ", você conseguiu fazer um POST!";
+    }
+
+    record Usuario(String username) {
+    }
+    
 }
