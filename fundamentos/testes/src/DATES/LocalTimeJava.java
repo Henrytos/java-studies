@@ -1,10 +1,11 @@
 package testes.src.DATES;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class LocalTimeJava {
     public static void main(String[] args) {
-        LocalTime localTime = LocalTime.of(12,30,10,0);
+        LocalTime localTime = LocalTime.of(12, 30, 10, 0);
         System.out.println(localTime); // HH:mm:ss
 
         LocalTime localTimePlusOneHour = localTime.plusHours(1);
@@ -18,7 +19,7 @@ public class LocalTimeJava {
         LocalTime currentTime = LocalTime.parse(currentTimeInText);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm-ss");
-        String currentTimeFormat =  currentTime.format(formatter);
+        String currentTimeFormat = currentTime.format(formatter);
         System.out.println(currentTimeInText.concat(" ").concat(currentTimeFormat));
 
         currentTime = LocalTime.parse(currentTimeFormat, formatter);

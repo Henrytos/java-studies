@@ -6,14 +6,14 @@ public class Introducao {
     public static void main(String[] args) {
         File directory = new File("./uploads");
 
-        if(!directory.exists())
+        if (!directory.exists())
             directory.mkdirs();
 
-        File file = new File(directory,"file.csv");
+        File file = new File(directory, "file.csv");
 
         try {
             file.createNewFile();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println("error in create file");
         }
     }

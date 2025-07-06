@@ -1,7 +1,7 @@
 package testes.src.EXCEPTIONS;
 
 public class ExceptionExample extends Exception {
-    public ExceptionExample(){
+    public ExceptionExample() {
         super("example exception");
     }
 }

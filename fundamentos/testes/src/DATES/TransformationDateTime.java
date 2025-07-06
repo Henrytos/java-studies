@@ -21,15 +21,15 @@ public class TransformationDateTime {
         // .atDate(date) adicionar uma data a uma "LocalTime"
     }
 
-    static void waitLocalDate(LocalDate date){
+    static void waitLocalDate(LocalDate date) {
         System.out.println("waitLocalDate:".concat(String.valueOf(date)));
     }
 
-    static void waitLocalTime(LocalTime time){
+    static void waitLocalTime(LocalTime time) {
         System.out.println("waitLocalTime:".concat(String.valueOf(time)));
     }
 
-    static void waitLocalDateTime(LocalDateTime dateTime){
+    static void waitLocalDateTime(LocalDateTime dateTime) {
         System.out.println("waitLocalDateTime:".concat(String.valueOf(dateTime)));
     }
 }

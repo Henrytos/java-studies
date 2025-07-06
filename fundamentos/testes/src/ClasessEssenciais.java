@@ -14,14 +14,14 @@ public class ClasessEssenciais {
         Double altura = 0.0;
 
         int index = 0;
-        while (index < 4){
-            if(index == 0){
+        while (index < 4) {
+            if (index == 0) {
                 nome = scanner.next();
-            }else if(index == 1){
+            } else if (index == 1) {
                 sobrenome = scanner.next();
             } else if (index == 2) {
                 idade = Integer.valueOf(scanner.next());
-            }else{
+            } else {
                 altura = Double.valueOf(scanner.next());
             }
 

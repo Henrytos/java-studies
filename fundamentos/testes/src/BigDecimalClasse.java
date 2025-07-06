@@ -1,3 +1,5 @@
+package testes.src;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -14,7 +16,7 @@ public class BigDecimalClasse {
         System.out.println(valorFormatado);
 
         // dizima periodica da erro se não definimos escala
-        System.out.println(BigDecimal.TEN.divide(BigDecimal.valueOf(3), 2 , RoundingMode.HALF_EVEN));
+        System.out.println(BigDecimal.TEN.divide(BigDecimal.valueOf(3), 2, RoundingMode.HALF_EVEN));
     }
 
 }

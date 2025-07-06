@@ -5,10 +5,11 @@ public class Main {
         String estado = "RJ";
         try {
             verificarEstado(estado);
-        } catch (ExceptionExample e){
+        } catch (ExceptionExample e) {
             System.err.println(e.getMessage());
-        } catch (Exception e){
-            System.err.println(e.getMessage());;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            ;
         } finally {
             System.out.println("finalização do programa");
         }

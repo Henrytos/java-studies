@@ -1,7 +1,7 @@
 package testes.src.EXCEPTIONS;
 
 public class RunTimeExceptionExample extends RuntimeException {
-    public RunTimeExceptionExample(){
+    public RunTimeExceptionExample() {
         super("example run time exception");
     }
 }

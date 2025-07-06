@@ -16,9 +16,9 @@ public class Exeptions {
             System.out.println("DIGITE SEU EMAIL:");
             String email = scanner.next();
 
-            System.out.println("OLÁ "+ nome);
-            System.out.println("SUA IDADE "+ idade);
-            System.out.println("SEU EMAIL "+ email);
+            System.out.println("OLÁ " + nome);
+            System.out.println("SUA IDADE " + idade);
+            System.out.println("SEU EMAIL " + email);
         } catch (Exception e) {
             System.out.println("OCORREU UM ERRO");
         } finally {

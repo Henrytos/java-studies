@@ -10,13 +10,13 @@ import java.util.List;
 
 public class LeituraEscrita {
     public static void main(String[] args) {
-        try{
+        try {
             // LEER BYTES DE UM ARQUIVO
             Path path = Paths.get("./uploads/text.txt");
             byte[] bytesFile = Files.readAllBytes(path);
 
             // LEER CONTEUDO DE UM ARQUIVO
-            String content  = new String(bytesFile);
+            String content = new String(bytesFile);
             System.out.println(content);
 
             // LEER CONTEUDO DE UM ARQUIVO
@@ -40,7 +40,7 @@ public class LeituraEscrita {
 
             // ESCREVER CONTEUDO DE UM ARQUIVO(STRING BUILDER)
             StringBuilder contentBuilder = new StringBuilder();
-            names.forEach(name-> contentBuilder.append(name.concat("\n")));
+            names.forEach(name -> contentBuilder.append(name.concat("\n")));
 
             Files.writeString(path, contentBuilder.toString()); // Files.writeString(path, contentBuilder.toString().getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {

@@ -7,9 +7,9 @@ public class CoputadorPedrinho {
         MensagerInstantaneo mi;
         String tipo = "msnf";
 
-        if(tipo == "msnf"){
+        if (tipo == "msnf") {
             mi = new MsnFacebook();
-        } else if(tipo == "msnt"){
+        } else if (tipo == "msnt") {
             mi = new MsnTelegram();
         } else {
             mi = new MsnMessanger();
