@@ -7,13 +7,17 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Separadores {
 // qual diferença entre ArrayList e List ?
     public static void main(String[] args) {
+
+    }
+
+    static void  leitura()throws IOException{
         Path path = Paths.get("./uploads/file.csv");
 
-        try {
             List<String> lines  =  Files.readAllLines(path);
             ArrayList<Pessoa> pessoas = new ArrayList();
 
@@ -25,9 +29,7 @@ public class Separadores {
                 System.out.format("nome:%s email:%s data de nascimento:%s %s",pessoa.getNome(), pessoa.getEmail(), pessoa.getDataDeNascimento().toString(), System.lineSeparator());
             }
             System.out.format("Quantidade de pessoas %d", pessoas.size());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     static void escrevendo(){
@@ -58,6 +60,4 @@ public class Separadores {
             System.out.println("finalizando programa");
         }
     }
-
-
 }
