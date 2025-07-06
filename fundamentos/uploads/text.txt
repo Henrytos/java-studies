@@ -1,0 +1,6 @@
+henry;henry@example.com;2007-07-06
+nathalia;nathalia@example.com;2006-07-06
+maria;maria@example.com;2005-07-06
+joao;joao@example.com;2004-07-06
+ana;ana@example.com;2003-07-06
+lucas;lucas@example.com;2002-07-06
