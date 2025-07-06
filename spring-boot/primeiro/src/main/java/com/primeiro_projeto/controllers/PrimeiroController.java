@@ -1,4 +1,4 @@
-package com.primeiro_projeto.primeiro;
+package com.primeiro_projeto.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,5 +12,6 @@ public class PrimeiroController {
     @GetMapping("/primeiroMetodo")
     public String primeiroMetodo() {
         return "Parabéns henry você conseguiu!";
-    }    
+    }
+    
 }
