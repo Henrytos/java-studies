@@ -34,8 +34,8 @@ Desenvolver pequenos projetos práticos.
 
 🚀 Desafios
 
-[Desafo Fundamentos (1)](https://github.com/Henrytos/java-studies/tree/main/fundamentos/desafio.md)
-[Resolução do desafio (1)]([#controle-de-fluxo](https://github.com/Henrytos/java-studies/tree/main/fundamentos/desafio.md))
+- [Desafio dos Fundamentos (1)](https://github.com/Henrytos/java-studies/tree/main/fundamentos/desafio.md)😨
+- [Resolução do Desafio dos Fundamentos (1)](https://github.com/Henrytos/java-studies/tree/main/fundamentos/desafio.md)😲
 
 
 🧰 Comando de Auxílio para Commit
