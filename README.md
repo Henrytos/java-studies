@@ -8,7 +8,7 @@ A trilha de Java da Rocketseat ensina os fundamentos da linguagem, orientação 
 
 ---
 
-🚀 Objetivos
+## 🚀 Objetivos
 Reforçar os fundamentos da linguagem Java.
 
 Aplicar conceitos de programação orientada a objetos.
@@ -21,7 +21,7 @@ Desenvolver pequenos projetos práticos.
 
 ---
 
-💡 Dicas Pessoais
+## 💡 Dicas Pessoais
 
  - Use comentários quando necessario
  - Crie exemplos próprios para fixar o conteúdo.
@@ -32,13 +32,13 @@ Desenvolver pequenos projetos práticos.
 
 ---
 
-🚀 Desafios
+## 🚀 Desafios
 
 - [Desafio dos Fundamentos (1)](https://github.com/Henrytos/java-studies/tree/main/fundamentos/desafio.md)😨
 - [Resolução do Desafio dos Fundamentos (1)](https://github.com/Henrytos/java-studies/tree/main/fundamentos/desafio.md)😲
 
 
-🧰 Comando de Auxílio para Commit
+## 🧰 Comando de Auxílio para Commit
 
 ```bash
 git add . && git commit -m "message" && git pull && git push
