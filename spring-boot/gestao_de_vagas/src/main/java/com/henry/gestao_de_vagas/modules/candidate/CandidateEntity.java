@@ -30,6 +30,7 @@ public class CandidateEntity {
     private String username;
 
     @Email(message = "Email inválido")
+    @Column(unique = true) // garante que o email seja unico
     private String email;
 
     @Length(min = 6, max = 20, message = "senha deve ter entre 6 e 20 caracteres")
