@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,8 +56,22 @@ public class PrimeiroController {
         return "Parabéns , você conseguiu fazer um POST com múltiplos headers!" + headers.entrySet();
     }
     
+    @PostMapping("/metodoComResponseEntity/{id}")
+    public ResponseEntity<Object> metodoComResponseEntity(@PathVariable(name = "id") Long id) {
+        
+        Usuario entity = new Usuario("henry");
+        
+        if(id> 5 ){
+            return ResponseEntity.badRequest().body(new Response("O ID não pode ser maior que 5"));
+        }
+
+        return ResponseEntity.ok(entity);
+    }
+    
 
     record Usuario(String username) {
     }
     
+    public record Response(String message) {
+    }
 }
