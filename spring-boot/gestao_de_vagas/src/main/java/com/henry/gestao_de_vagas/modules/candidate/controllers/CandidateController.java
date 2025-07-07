@@ -1,7 +1,9 @@
-package com.henry.gestao_de_vagas.modules.candidate;
+package com.henry.gestao_de_vagas.modules.candidate.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.henry.gestao_de_vagas.modules.candidate.CandidateEntity;
 
 import jakarta.validation.Valid;
 
