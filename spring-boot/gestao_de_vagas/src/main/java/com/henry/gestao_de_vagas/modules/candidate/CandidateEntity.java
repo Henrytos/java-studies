@@ -1,16 +1,23 @@
 package com.henry.gestao_de_vagas.modules.candidate;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
+@Entity(name = "candidate")
 public class CandidateEntity {
     
+    @Id
     private UUID id;
 
     @Length(min = 3, max = 50, message = "nome deve ter entre 3 e 50 caracteres")
@@ -30,5 +37,9 @@ public class CandidateEntity {
     private String description;
 
     private String curriculum;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private LocalDate createdAt;
 
 }
