@@ -1,11 +1,9 @@
-package com.henry.gestao_de_vagas.modules.company.controllers;
+package com.henry.gestao_de_vagas.modules.company.entities;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
-
-import com.henry.gestao_de_vagas.modules.company.entities.CompanyEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
