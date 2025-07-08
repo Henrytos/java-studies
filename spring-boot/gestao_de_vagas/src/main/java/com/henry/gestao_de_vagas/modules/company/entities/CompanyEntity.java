@@ -1,4 +1,4 @@
-package com.henry.gestao_de_vagas.modules.candidate;
+package com.henry.gestao_de_vagas.modules.company.entities;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -12,35 +12,38 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
+@Entity(name = "company")
 @Data
-@Entity(name = "candidate")
-public class CandidateEntity {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID) // estrategia de geração de UUID unico
+public class CompanyEntity {
+ 
+    @Id@GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
+    
+    @NotBlank
     @Length(min = 3, max = 50, message = "nome deve ter entre 3 e 50 caracteres")
     private String name;
 
+    @NotBlank
     @Pattern(regexp = "\\S+", message = "nome de usuário não pode ter espaços em branco")
     private String username;
-
-    @Column(unique = true) // garante que o email seja unico
+    
     @Email(message = "Email inválido")
+    @Column(unique = true) // garante que o email seja unico
     private String email;
 
     @Length(min = 6, max = 20, message = "senha deve ter entre 6 e 20 caracteres")
-    @Pattern(regexp = "\\S+", message = "senha não pode ter espaços em branco")
+    @Pattern(regexp = "\\S+", message = "senhapassword não pode ter espaços em branco")
     private String password;
 
     @Length(max = 500, message = "descrição não pode ter mais de 500 caracteres")
     private String description;
 
-    private String curriculum;
+
+    private String website;
 
     @CreationTimestamp
     @Column(name = "created_at")
