@@ -1,38 +1,61 @@
 package com.henry.gestao_de_vagas.modules.company.useCases;
 
+import java.util.Date;
+
+import javax.naming.AuthenticationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.henry.gestao_de_vagas.modules.company.dto.AuthCompanyDTO;
 import com.henry.gestao_de_vagas.modules.company.repositories.CompanyRepository;
 
 @Service
 public class AuthCompanyUseCase {
-    
+
+    @Value("${security.token.secret}")
+    private String secretKey;
+
+    @Value("${security.token.expiration}")
+    private Long expirationTime;
+
     @Autowired
-    private CompanyRepository  companyRepository;
+    private CompanyRepository companyRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void execute(AuthCompanyDTO authCompanyDTO){
+    public String execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
 
         // 1 verificar se o usuário existe
-        var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(()->{
+        var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(() -> {
             throw new UsernameNotFoundException("Usuário não encontrado");
         });
 
         // 2 verificar se a senha está correta
-        var passwordMatch = this.passwordEncoder.matches(authCompanyDTO.getPassword(), company.getPassword());
+        var passwordMatches = this.passwordEncoder.matches(authCompanyDTO.getPassword(), company.getPassword());
 
-        if(!passwordMatch){
-            throw new UsernameNotFoundException("Usuário ou senha inválidos");
+        if (!passwordMatches) {
+            throw new AuthenticationException("Senha incorreta");
         }
 
         // 3 retornar token JWT ou algo do tipo
+        Algorithm algorithm = Algorithm.HMAC256(this.secretKey);
 
+        Date currentAt = new Date();
+        Date expiresAt = new Date(currentAt.getTime() + this.expirationTime);
 
+        var token = JWT.create()
+                .withIssuer("gestao_de_vagas")
+                .withSubject(company.getId().toString())
+                .withExpiresAt(expiresAt)
+                .sign(algorithm);
+
+        return token;
     }
 }
