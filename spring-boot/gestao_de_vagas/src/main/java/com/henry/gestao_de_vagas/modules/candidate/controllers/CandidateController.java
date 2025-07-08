@@ -3,13 +3,13 @@ package com.henry.gestao_de_vagas.modules.candidate.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.henry.gestao_de_vagas.exceptions.UserAlreadyExists;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateEntity;
-import com.henry.gestao_de_vagas.modules.candidate.CandidateRepository;
+import com.henry.gestao_de_vagas.modules.candidate.useCases.CreateCandidateUseCase;
 
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,16 +19,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class CandidateController {
 
     @Autowired
-    private CandidateRepository candidateRepository;
-
+    private CreateCandidateUseCase createCandidateUseCase;
+  
     @PostMapping("/")
-    public CandidateEntity create(@Valid @RequestBody CandidateEntity entity) {
+    public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity entity) {
+        try {
+            var result = this.createCandidateUseCase.execute(entity); 
 
-        this.candidateRepository.findByUsernameOrEmail(entity.getUsername(), entity.getEmail()).ifPresent((user) -> {
-            throw new UserAlreadyExists();
-        });
-
-        return this.candidateRepository.save(entity);
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
     
 }
