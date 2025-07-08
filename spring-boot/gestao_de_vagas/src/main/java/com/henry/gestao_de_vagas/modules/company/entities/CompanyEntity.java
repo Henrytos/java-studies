@@ -35,7 +35,6 @@ public class CompanyEntity {
     @Column(unique = true) // garante que o email seja unico
     private String email;
 
-    @Length(min = 6, max = 20, message = "senha deve ter entre 6 e 20 caracteres")
     @Pattern(regexp = "\\S+", message = "senhapassword não pode ter espaços em branco")
     private String password;
 

@@ -1,6 +1,7 @@
 package com.henry.gestao_de_vagas.modules.company.useCases;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.henry.gestao_de_vagas.exceptions.UserAlreadyExists;
@@ -13,15 +14,21 @@ public class CreateCompanyUseCase {
     @Autowired
     private CompanyRepository companyRepository;
 
-    public CompanyEntity execute(CompanyEntity entity)throws UserAlreadyExists{
-        
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public CompanyEntity execute(CompanyEntity companyEntity)throws UserAlreadyExists{
         this.companyRepository
-            .findByUsernameOrEmail(entity.getUsername(), entity.getEmail())
+            .findByUsernameOrEmail(companyEntity.getUsername(), companyEntity.getEmail())
             .ifPresent((user)->{
+                System.out.println("campos duplicados");
                  throw new UserAlreadyExists();
             });
+
+        var password = this.passwordEncoder.encode(companyEntity.getPassword());
+        companyEntity.setPassword(password);
         
-        return this.companyRepository.save(entity);
+        return this.companyRepository.save(companyEntity);
     }
 
 }
