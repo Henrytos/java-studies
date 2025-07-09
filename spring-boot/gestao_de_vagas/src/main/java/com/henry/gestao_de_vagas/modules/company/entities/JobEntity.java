@@ -12,16 +12,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name = "job")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class JobEntity {
- 
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    
+
     @ManyToOne()
     @JoinColumn(name = "company_id", insertable = false, updatable = false)
     private CompanyEntity companyEntity;
