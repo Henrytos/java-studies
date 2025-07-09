@@ -24,15 +24,17 @@ public class SecurityConfigure {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> {
             csrf.disable();
-        }).authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/candidate/").permitAll()
-                    .requestMatchers("/company/").permitAll()
-                    .requestMatchers("/auth/company").permitAll()
-                    .requestMatchers("/auth/candidate").permitAll()
-                    .requestMatchers("/candidate/profile").permitAll();
-            auth.anyRequest().authenticated();
-        }).addFilterBefore(this.securityFilter, BasicAuthenticationFilter.class)
-                .addFilterBefore(this.securityCandidateFilter, BasicAuthenticationFilter.class);
+        })
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/candidate/").permitAll()
+                            .requestMatchers("/company/").permitAll()
+                            .requestMatchers("/auth/company").permitAll()
+                            .requestMatchers("/auth/candidate").permitAll()
+                            .requestMatchers("/candidate/profile").permitAll();
+                    auth.anyRequest().authenticated();
+                })
+                .addFilterBefore(this.securityCandidateFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(this.securityFilter, BasicAuthenticationFilter.class);
         return http.build();
     }
 
