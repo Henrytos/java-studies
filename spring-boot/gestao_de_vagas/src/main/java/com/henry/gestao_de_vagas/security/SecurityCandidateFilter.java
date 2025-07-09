@@ -36,8 +36,10 @@ public class SecurityCandidateFilter extends OncePerRequestFilter {
             }
 
             var subjectToken = token.getSubject();
-            request.setAttribute("candidate_id", subjectToken);
+            System.out.println("===========TOKEN CANDIDATE===========");
+            System.out.println(subjectToken);
 
+            request.setAttribute("candidate_id", subjectToken);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     subjectToken, null, Collections.emptyList());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);

@@ -39,6 +39,8 @@ public class SecurityFilter extends OncePerRequestFilter {
                 return;
             }
 
+            System.out.println("========TOKEN COMPANY========");
+            System.out.println(subjectToken);
             request.setAttribute("company_id", subjectToken);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

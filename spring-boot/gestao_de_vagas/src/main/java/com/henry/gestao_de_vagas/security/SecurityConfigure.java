@@ -32,7 +32,7 @@ public class SecurityConfigure {
                     .requestMatchers("/candidate/profile").permitAll();
             auth.anyRequest().authenticated();
         }).addFilterBefore(this.securityFilter, BasicAuthenticationFilter.class)
-                .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class);
+                .addFilterBefore(this.securityCandidateFilter, BasicAuthenticationFilter.class);
         return http.build();
     }
 
