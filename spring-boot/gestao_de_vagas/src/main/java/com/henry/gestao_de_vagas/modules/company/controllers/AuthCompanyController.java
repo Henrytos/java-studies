@@ -22,9 +22,6 @@ public class AuthCompanyController {
     @PostMapping("/company")
     public ResponseEntity<Object> login(@RequestBody AuthCompanyDTO authCompanyDTO) {
         try {
-            System.out.println(authCompanyDTO.getPassword());
-            System.out.println(authCompanyDTO.getUsername());
-
             var token = this.authCompanyUseCase.execute(authCompanyDTO);
 
             return ResponseEntity.ok(token);
