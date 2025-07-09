@@ -1,5 +1,7 @@
 package com.henry.gestao_de_vagas.modules.company.useCases;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Date;
 
 import javax.naming.AuthenticationException;
@@ -20,9 +22,6 @@ public class AuthCompanyUseCase {
 
     @Value("${security.token.secret}")
     private String secretKey;
-
-    @Value("${security.token.expiration}")
-    private Long expirationTime;
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -47,13 +46,10 @@ public class AuthCompanyUseCase {
         // 3 retornar token JWT ou algo do tipo
         Algorithm algorithm = Algorithm.HMAC256(this.secretKey);
 
-        Date currentAt = new Date();
-        Date expiresAt = new Date(currentAt.getTime() + this.expirationTime);
-
         var token = JWT.create()
                 .withIssuer("gestao_de_vagas")
                 .withSubject(company.getId().toString())
-                .withExpiresAt(expiresAt)
+                .withExpiresAt(Instant.now().plus(Duration.ofMinutes(10)))
                 .sign(algorithm);
 
         return token;
