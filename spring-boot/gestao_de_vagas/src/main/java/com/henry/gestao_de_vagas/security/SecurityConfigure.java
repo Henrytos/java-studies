@@ -9,11 +9,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+// TODO: saber o que é BasicAuthenticationFilter e sua autilização
+
 @Configuration
 public class SecurityConfigure {
 
     @Autowired
     private SecurityFilter securityFilter;
+
+    @Autowired
+    private SecurityCandidateFilter securityCandidateFilter;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -26,8 +31,8 @@ public class SecurityConfigure {
                     .requestMatchers("/auth/candidate").permitAll()
                     .requestMatchers("/candidate/profile").permitAll();
             auth.anyRequest().authenticated();
-        }).addFilterBefore(this.securityFilter, BasicAuthenticationFilter.class);
-
+        }).addFilterBefore(this.securityFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class);
         return http.build();
     }
 
