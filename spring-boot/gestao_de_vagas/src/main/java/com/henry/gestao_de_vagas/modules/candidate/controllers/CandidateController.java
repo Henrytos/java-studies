@@ -13,23 +13,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
-@RequestMapping ("/candidate")
+@RequestMapping("/candidate")
 public class CandidateController {
 
     @Autowired
     private CreateCandidateUseCase createCandidateUseCase;
-  
+
     @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity entity) {
         try {
-            var result = this.createCandidateUseCase.execute(entity); 
+            var result = this.createCandidateUseCase.execute(entity);
 
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
-    
+
 }

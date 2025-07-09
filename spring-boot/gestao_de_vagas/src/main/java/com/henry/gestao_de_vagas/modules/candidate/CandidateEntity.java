@@ -18,7 +18,7 @@ import lombok.Data;
 @Data
 @Entity(name = "candidate")
 public class CandidateEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID) // estrategia de geração de UUID unico
     private UUID id;
@@ -33,7 +33,6 @@ public class CandidateEntity {
     @Email(message = "Email inválido")
     private String email;
 
-    @Length(min = 6, max = 20, message = "senha deve ter entre 6 e 20 caracteres")
     @Pattern(regexp = "\\S+", message = "senha não pode ter espaços em branco")
     private String password;
 
