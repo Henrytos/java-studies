@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -25,7 +26,7 @@ public class SecurityCandidateFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        SecurityContextHolder.getContext().setAuthentication(null);
+        // SecurityContextHolder.getContext().setAuthentication(null);
         var header = request.getHeader("Authorization");
 
         if (request.getRequestURI().startsWith("/candidate")) {
@@ -37,12 +38,15 @@ public class SecurityCandidateFilter extends OncePerRequestFilter {
                 }
 
                 var subjectToken = token.getSubject();
-                var roles = token.getClaim("roles");
-
                 request.setAttribute("candidate_id", subjectToken);
 
+                var roles = token.getClaim("roles").asList(Object.class);
+                System.out.println(roles);
+                var grants = roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_".concat(
+                        role.toString().toUpperCase()))).toList();
+
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        subjectToken, null, Collections.emptyList());
+                        subjectToken, null, grants);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
