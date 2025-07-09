@@ -22,7 +22,8 @@ public class SecurityConfigure {
         }).authorizeHttpRequests(auth -> {
             auth.requestMatchers("/candidate/").permitAll()
                     .requestMatchers("/company/").permitAll()
-                    .requestMatchers("/auth/company").permitAll();
+                    .requestMatchers("/auth/company").permitAll()
+                    .requestMatchers("/auth/candidate").permitAll();
             auth.anyRequest().authenticated();
         }).addFilterBefore(this.securityFilter, BasicAuthenticationFilter.class);
 
