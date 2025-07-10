@@ -2,7 +2,6 @@ package com.henry.gestao_de_vagas.modules.company.useCases;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.naming.AuthenticationException;
