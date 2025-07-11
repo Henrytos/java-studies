@@ -16,7 +16,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "courses")
 @Data
 @Builder
 @AllArgsConstructor
@@ -31,7 +31,8 @@ public class CourseEntity {
 
     private String category;
 
-    private boolean active;
+    @Column(name = "is_active")
+    private boolean isActive;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -40,4 +41,12 @@ public class CourseEntity {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public boolean getIsActive() {
+        return this.isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 }

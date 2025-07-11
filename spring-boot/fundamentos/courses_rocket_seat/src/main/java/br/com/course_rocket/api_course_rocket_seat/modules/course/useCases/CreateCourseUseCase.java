@@ -18,7 +18,7 @@ public class CreateCourseUseCase {
                 .builder()
                 .name(courseRequestDTO.getName())
                 .category(courseRequestDTO.getCategory())
-                .active(true)
+                .isActive(true)
                 .build();
 
         return this.courseRepository.save(course);

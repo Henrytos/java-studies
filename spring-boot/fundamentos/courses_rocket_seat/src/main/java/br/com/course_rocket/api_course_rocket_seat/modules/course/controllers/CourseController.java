@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.course_rocket.api_course_rocket_seat.modules.course.dto.CreateCourseRequestDTO;
 import br.com.course_rocket.api_course_rocket_seat.modules.course.dto.GetCourseRequestDTO;
 import br.com.course_rocket.api_course_rocket_seat.modules.course.dto.UpdateCourseRequestDTO;
+import br.com.course_rocket.api_course_rocket_seat.modules.course.useCases.ActiveCourseUseCase;
 import br.com.course_rocket.api_course_rocket_seat.modules.course.useCases.CreateCourseUseCase;
 import br.com.course_rocket.api_course_rocket_seat.modules.course.useCases.DeleteCourseUseCase;
 import br.com.course_rocket.api_course_rocket_seat.modules.course.useCases.GetCourseUseCase;
@@ -23,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -41,6 +43,9 @@ public class CourseController {
 
     @Autowired
     private DeleteCourseUseCase deleteCourseUseCase;
+
+    @Autowired
+    private ActiveCourseUseCase activeCourseUseCase;
 
     @GetMapping("/")
     public ResponseEntity<Object> get(
@@ -89,6 +94,20 @@ public class CourseController {
         try {
             var courseId = UUID.fromString(id);
             this.deleteCourseUseCase.execute(courseId);
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PatchMapping("/{id}/active")
+    public ResponseEntity<Object> active(
+            @PathVariable String id) {
+        try {
+            var courseId = UUID.fromString(id);
+            this.activeCourseUseCase.execute(courseId);
 
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } catch (Exception e) {
