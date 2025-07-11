@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres: 
+    image: postgres:latest
+    container_name: courses_rocket_seat_postgres
+    environment:
+      POSTGRES_DB: courses_rocket_seat
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - courses_rocket_seat_network
+ 
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  courses_rocket_seat_network:
+    driver: bridge
