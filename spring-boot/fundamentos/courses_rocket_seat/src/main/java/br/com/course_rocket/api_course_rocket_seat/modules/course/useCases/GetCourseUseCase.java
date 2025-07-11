@@ -23,15 +23,14 @@ public class GetCourseUseCase {
         Optional<String> category = Optional.ofNullable(courseRequestDTO.getCategory()).filter(s -> !s.isEmpty());
 
         if (name.isPresent() && category.isPresent()) {
-            courses = this.courseRepository.findByNameAndCategory(name.get(), category.get());
+            courses = this.courseRepository.findByNameAndCategoryOrderByCreatedAtDesc(name.get(), category.get());
         } else if (category.isPresent()) {
-            courses = this.courseRepository.findByCategory(category.get());
+            courses = this.courseRepository.findByCategoryOrderByCreatedAtDesc(category.get());
         } else if (name.isPresent()) {
-            courses = this.courseRepository.findByName(name.get());
+            courses = this.courseRepository.findByNameOrderByCreatedAtDesc(name.get());
         } else {
-            courses = this.courseRepository.findAll();
+            courses = this.courseRepository.findAllByOrderByCreatedAtDesc();
         }
-
         var courseResponse = GetCourseResponseDTO
                 .builder()
                 .courses(courses)
