@@ -1,4 +1,4 @@
-package br.com.courses_rocket.api_courses_rocket_seat;
+package br.com.course_rocket.api_course_rocket_seat;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
