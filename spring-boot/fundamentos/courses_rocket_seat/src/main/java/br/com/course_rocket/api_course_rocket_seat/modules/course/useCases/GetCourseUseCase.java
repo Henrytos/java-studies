@@ -31,6 +31,7 @@ public class GetCourseUseCase {
         } else {
             courses = this.courseRepository.findAllByOrderByCreatedAtDesc();
         }
+
         var courseResponse = GetCourseResponseDTO
                 .builder()
                 .courses(courses)
