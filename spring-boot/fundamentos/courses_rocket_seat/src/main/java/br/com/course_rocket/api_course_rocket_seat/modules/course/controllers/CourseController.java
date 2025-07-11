@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.course_rocket.api_course_rocket_seat.modules.course.dto.CreateCourseRequestDTO;
 import br.com.course_rocket.api_course_rocket_seat.modules.course.dto.GetCourseRequestDTO;
+import br.com.course_rocket.api_course_rocket_seat.modules.course.dto.MessageResponseDTO;
 import br.com.course_rocket.api_course_rocket_seat.modules.course.dto.UpdateCourseRequestDTO;
 import br.com.course_rocket.api_course_rocket_seat.modules.course.useCases.ActiveCourseUseCase;
 import br.com.course_rocket.api_course_rocket_seat.modules.course.useCases.CreateCourseUseCase;
@@ -58,7 +59,7 @@ public class CourseController {
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponseDTO(e.getMessage()));
         }
     }
 
@@ -71,7 +72,7 @@ public class CourseController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponseDTO(e.getMessage()));
         }
     }
 
@@ -85,7 +86,7 @@ public class CourseController {
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponseDTO(e.getMessage()));
         }
     }
 
@@ -98,7 +99,7 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponseDTO(e.getMessage()));
         }
     }
 
@@ -112,7 +113,7 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponseDTO(e.getMessage()));
         }
     }
 
