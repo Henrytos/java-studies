@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class Livro {
-    private UUID id;
+    private int id;
     private String titulo;
     private Autor autor;
     private boolean disponivel;
@@ -10,12 +10,12 @@ public class Livro {
     private LocalDate dataAtualização;
 
     public Livro(
-            UUID id,
+            int id,
+            String titulo,
             Autor autor,
             boolean disponivel,
             LocalDate dataCadastro,
-            LocalDate dataAtualização,
-            String titulo) {
+            LocalDate dataAtualização) {
         this.id = id;
         this.autor = autor;
         this.disponivel = disponivel;
@@ -24,7 +24,7 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public UUID getId() {
+    public int getId() {
         return this.id;
     }
 
@@ -48,4 +48,7 @@ public class Livro {
         return this.dataAtualização;
     }
 
+    public void setDisponivel(Boolean disponibilidade) {
+        this.disponivel = disponibilidade;
+    }
 }

@@ -7,10 +7,9 @@ public class Pessoa {
     private LocalDate dataNascimento;
 
     public Pessoa(
-            UUID id,
             String nome,
             LocalDate dataNascimento) {
-        this.id = id;
+        this.id = UUID.randomUUID();
         this.nome = nome;
         this.dataNascimento = dataNascimento;
     }

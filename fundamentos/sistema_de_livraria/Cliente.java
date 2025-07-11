@@ -1,11 +1,10 @@
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class Cliente extends Pessoa {
     private String email;
 
-    public Cliente(UUID id, String nome, LocalDate dataNascimento, String email) {
-        super(id, nome, dataNascimento);
+    public Cliente(String nome, String email, LocalDate dataNascimento) {
+        super(nome, dataNascimento);
         this.email = email;
     }
 

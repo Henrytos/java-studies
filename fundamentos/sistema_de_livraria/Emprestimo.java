@@ -9,13 +9,12 @@ public class Emprestimo {
     private Cliente cliente;
 
     public Emprestimo(
-            UUID id,
             LocalDate dataDeEmprestimo,
             LocalDate dataDeDevolucao,
             Cliente cliente
 
     ) {
-        this.id = id;
+        this.id = UUID.randomUUID();
         this.dataDeEmprestimo = dataDeEmprestimo;
         this.dataDeDevolucao = dataDeDevolucao;
         this.cliente = cliente;
