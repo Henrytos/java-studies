@@ -25,7 +25,7 @@ A API deve conter as seguintes funcionalidades:
 
 ### Rotas e regras de negócio
 
-Antes das rotas, vamos entender qual a estrutura (propriedades) que uma task deve ter:
+Antes das rotas, vamos entender qual a estrutura (propriedades) que um curso deve ter:
 
 - `id` - Identificador único de cada curso
 - `name` - Nome do curso
@@ -34,7 +34,31 @@ Antes das rotas, vamos entender qual a estrutura (propriedades) que uma task dev
 - `created_at` - Data de quando o curso foi criado.
 - `updated_at` - Deve ser sempre alterado para a data de quando o curso for atualizada.
 
-Rotas:
+Antes das rotas, vamos entender qual a estrutura (propriedades) que um usuario deve ter:
+
+- `id` - Identificador único do usuário  
+- `name` - Nome completo do usuário  
+- `email` - Email único do usuário  
+- `password` - Senha criptografada  
+- `role` - Papel do usuário (`ADMIN`, `USER`)  
+- `created_at` - Data de criação do usuário  
+- `updated_at` - Data da última atualização  
+    
+# ✅ Requisitos + Rotas com Segurança (JWT e Roles)
+
+
+
+## 👥 Papéis (Roles)
+
+- `ADMIN`: pode **criar**, **editar** e **remover** cursos  
+- `USER`: pode apenas **visualizar** cursos
+---
+## 🔐 Autenticação
+
+| Método | Rota           | Descrição                       |
+|--------|----------------|---------------------------------|
+| POST   | /auth/register | Registrar novo usuário          |
+| POST   | /auth/login    | Autenticação e retorno do JWT   |
 
 - `POST - /cursos`
     
@@ -63,7 +87,7 @@ Rotas:
 - `PATCH - /cursos/:id/active`
     
     Essa rota servirá para marcar se o curso está ativo ou não, ou seja, um toggle entre true or false.
-    
+
 
 💡 Dica: 
 
@@ -76,6 +100,8 @@ Algumas sugestões do que pode ser implementado:
 - Validar se as propriedades `name` e `category` das rotas `POST` e `PUT` estão presentes no `body` da requisição.
 - Para a parte de definição se o curso está ativo ou não, você pode definir um ENUM(enumerador) para fazer esse ‘’check’’.   Sugestão de leitura: [clique aqui](https://www.devmedia.com.br/enums-no-java/38764).
 - Para tratar as exceções, você pode se desafiar e criar as excpetion  😃
+
+
 
 ## Entrega
 
