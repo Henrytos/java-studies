@@ -10,24 +10,23 @@ import com.henry.gestao_de_vagas.modules.company.repositories.CompanyRepository;
 
 @Service
 public class CreateCompanyUseCase {
-    
+
     @Autowired
     private CompanyRepository companyRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public CompanyEntity execute(CompanyEntity companyEntity)throws UserAlreadyExists{
+    public CompanyEntity execute(CompanyEntity companyEntity) throws UserAlreadyExists {
         this.companyRepository
-            .findByUsernameOrEmail(companyEntity.getUsername(), companyEntity.getEmail())
-            .ifPresent((user)->{
-                System.out.println("campos duplicados");
-                 throw new UserAlreadyExists();
-            });
+                .findByUsernameOrEmail(companyEntity.getUsername(), companyEntity.getEmail())
+                .ifPresent((user) -> {
+                    throw new UserAlreadyExists();
+                });
 
         var password = this.passwordEncoder.encode(companyEntity.getPassword());
         companyEntity.setPassword(password);
-        
+
         return this.companyRepository.save(companyEntity);
     }
 

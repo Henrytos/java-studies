@@ -9,6 +9,14 @@ import com.henry.gestao_de_vagas.modules.candidate.useCases.CreateCandidateUseCa
 import com.henry.gestao_de_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.ProfileCandidateUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -63,6 +71,12 @@ public class CandidateController {
 
     @GetMapping("/jobs")
     @PreAuthorize("hasRole('CANDIDATE')")
+    @Tag(name = "Candidato", description = "Rota para manipular candidatos")
+    @Operation(summary = "Listagem de vagas", description = "Lista todas as vagas filtradas por um critério de filtro")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de vagas filtradas com sucesso", content = @Content(array = @ArraySchema(schema = @Schema(implementation = CandidateEntity.class))))
+    })
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<Object> listAllJobsByFilter(
             @RequestParam String filter) {
         try {
