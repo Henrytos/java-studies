@@ -18,28 +18,25 @@ public class UpdateCourseUseCase {
     @Autowired
     private CourseRepository courseRepository;
 
-    public CourseEntity execute(UUID id, UpdateCourseRequestDTO courseRequestDTO) throws CourseDoesNotExistException,
+    public CourseEntity execute(UUID id, UpdateCourseRequestDTO dto) throws CourseDoesNotExistException,
             WrongCredentialsException {
-        Optional<String> name = Optional.ofNullable(courseRequestDTO.getName()).filter(s -> !s.isEmpty());
-        Optional<String> category = Optional.ofNullable(courseRequestDTO.getCategory()).filter(s -> !s.isEmpty());
+        Optional<String> name = Optional.ofNullable(dto.getName()).filter(s -> !s.isEmpty());
+        Optional<String> category = Optional.ofNullable(dto.getCategory()).filter(s -> !s.isEmpty());
 
-        var course = this.courseRepository.findById(id);
-        if (course.isEmpty()) {
-            throw new CourseDoesNotExistException();
-        }
+        var course = this.courseRepository.findById(id).orElseThrow(() -> new CourseDoesNotExistException());
 
-        if (name.isPresent() && category.isPresent()) {
-            course.get().setName(name.get());
-            course.get().setCategory(category.get());
-        } else if (name.isPresent()) {
-            course.get().setName(name.get());
-        } else if (category.isPresent()) {
-            course.get().setCategory(category.get());
-        } else {
+        if (name.isEmpty() && category.isEmpty()) {
             throw new WrongCredentialsException();
         }
 
-        return this.courseRepository.save(course.get());
+        if (name.isPresent()) {
+            course.setName(name.get());
+        }
+        if (category.isPresent()) {
+            course.setCategory(category.get());
+        }
+
+        return this.courseRepository.save(course);
     }
 
 }
