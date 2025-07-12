@@ -1,10 +1,12 @@
 package com.henry.gestao_de_vagas.modules.candidate.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.henry.gestao_de_vagas.modules.candidate.CandidateEntity;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.CreateCandidateUseCase;
+import com.henry.gestao_de_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.ProfileCandidateUseCase;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +32,9 @@ public class CandidateController {
     @Autowired
     private ProfileCandidateUseCase profileCandidateUseCase;
 
+    @Autowired
+    private ListAllJobsByFilterUseCase listAllJobsByFilterUseCase;
+
     @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity entity) {
         try {
@@ -52,6 +57,19 @@ public class CandidateController {
             return ResponseEntity.ok().body(profile);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
+
+    }
+
+    @GetMapping("/jobs")
+    @PreAuthorize("hasRole('CANDIDATE')")
+    public ResponseEntity<Object> listAllJobsByFilter(
+            @RequestParam String filter) {
+        try {
+            var jobs = this.listAllJobsByFilterUseCase.execute(filter);
+            return ResponseEntity.ok().body(jobs);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
 
     }
