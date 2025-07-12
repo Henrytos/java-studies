@@ -35,6 +35,9 @@ public class UserEntity {
     private String email;
 
     @NotNull
+    private String name;
+
+    @NotNull
     @Column(name = "password_hash")
     private String passwordHash;
 
