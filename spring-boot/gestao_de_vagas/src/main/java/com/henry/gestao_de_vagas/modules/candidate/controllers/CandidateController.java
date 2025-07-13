@@ -4,7 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.henry.gestao_de_vagas.exceptions.ErrorMessageDto;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateEntity;
+import com.henry.gestao_de_vagas.modules.candidate.dto.CreateCandidateRequestDTO;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.CreateCandidateUseCase;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.ProfileCandidateUseCase;
@@ -43,10 +45,18 @@ public class CandidateController {
     @Autowired
     private ListAllJobsByFilterUseCase listAllJobsByFilterUseCase;
 
+    @Tag(name = "Candidato")
+    @Operation(summary = "criação de perfil", description = "criação de perfil de candidato")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "criação de um perfil de candidato", content = @Content(schema = @Schema(implementation = CandidateEntity.class), mediaType = "application/json")),
+            @ApiResponse(responseCode = "400", description = "usuario já existente", content = @Content(schema = @Schema(defaultValue = "Usuário já existe"), mediaType = "application/json")),
+            @ApiResponse(responseCode = "400", description = "erro ao criar usuario(não está atendendo as regras)", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ErrorMessageDto.class)), mediaType = "application/json")),
+            @ApiResponse(responseCode = "500", description = "erro interno do servidor", content = @Content(array = @ArraySchema(schema = @Schema(defaultValue = "error example")), mediaType = "application/json"))
+    })
     @PostMapping("/")
-    public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity entity) {
+    public ResponseEntity<Object> create(@Valid @RequestBody CreateCandidateRequestDTO candidateRequestDTO) {
         try {
-            var result = this.createCandidateUseCase.execute(entity);
+            var result = this.createCandidateUseCase.execute(candidateRequestDTO);
 
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
