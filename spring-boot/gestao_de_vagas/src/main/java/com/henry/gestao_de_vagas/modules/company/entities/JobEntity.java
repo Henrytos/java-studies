@@ -36,13 +36,13 @@ public class JobEntity {
     @Column(name = "company_id", nullable = false)
     private UUID companyId;
 
-    @Schema(example = "Vale refeição, Vale transporte, plano de saúde e gym pass")
+    @Schema(example = "Vale refeição, Vale transporte, plano de saúde e gym pass", requiredMode = Schema.RequiredMode.NOT_REQUIRED, description = "Benefícios da vaga")
     private String benefits;
 
-    @Schema(example = "Desenvolvedor back end java spring boot junior")
+    @Schema(example = "Desenvolvedor back end java spring boot junior", requiredMode = Schema.RequiredMode.REQUIRED, description = "Descrição da vaga")
     private String description;
 
-    @Schema(example = "JUNIOR")
+    @Schema(example = "JUNIOR", requiredMode = Schema.RequiredMode.REQUIRED, description = "Nível da vaga")
     private String level;
 
     @CreationTimestamp

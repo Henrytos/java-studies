@@ -31,27 +31,27 @@ public class CandidateEntity {
     private UUID id;
 
     @Length(min = 3, max = 50, message = "nome deve ter entre 3 e 50 caracteres")
-    @Schema(example = "jhondoe")
+    @Schema(example = "jhondoe", description = "Nome do candidato", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @Pattern(regexp = "\\S+", message = "nome de usuário não pode ter espaços em branco")
-    @Schema(example = "jhondoe_dev")
+    @Schema(example = "jhondoe_dev", description = "Nome de usuário do candidato", requiredMode = Schema.RequiredMode.REQUIRED)
     private String username;
 
     @Column(unique = true) // garante que o email seja unico
     @Email(message = "Email inválido")
-    @Schema(example = "jhondoe_dev@gmail.com")
+    @Schema(example = "jhondoe_dev@gmail.com", description = "Email do candidato", requiredMode = Schema.RequiredMode.REQUIRED)
     private String email;
 
     @Pattern(regexp = "\\S+", message = "senha não pode ter espaços em branco")
-    @Schema(example = "jhondoe_dev123456")
+    @Schema(example = "jhondoe_dev123456", description = "Senha do candidato", requiredMode = Schema.RequiredMode.REQUIRED)
     private String password;
 
     @Length(max = 500, message = "descrição não pode ter mais de 500 caracteres")
-    @Schema(example = "Desenvolvedor back end java spring boot junior")
+    @Schema(example = "Desenvolvedor back end java spring boot junior", description = "Descrição do candidato", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String description;
 
-    @Schema(example = "Desenvolvedor back end java spring boot junior")
+    @Schema(example = "Desenvolvedor back end java spring boot junior", description = "Currículo do candidato", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String curriculum;
 
     @CreationTimestamp

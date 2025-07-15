@@ -14,19 +14,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProfileCandidateResponseDTO {
 
-    @Schema(example = "47c84d39-4b3d-4d93-b357-0206cecd199b", type = "uuid")
     private UUID id;
 
-    @Schema(example = "jhondoe")
+    @Schema(example = "jhondoe", description = "Nome do candidato", requiredMode = Schema.RequiredMode.REQUIRED)
     private String username;
 
-    @Schema(example = "jhondoe_dev")
+    @Schema(example = "jhondoe_dev", description = "Nome do candidato", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
-    @Schema(example = "jhondoe_dev@gmail.com")
+    @Schema(example = "jhondoe_dev@gmail.com", description = "Email do candidato", requiredMode = Schema.RequiredMode.REQUIRED)
     private String email;
 
-    @Schema(example = "Desenvolvedor spring boot")
+    @Schema(example = "Desenvolvedor spring boot", description = "Descrição do candidato", requiredMode = Schema.RequiredMode.REQUIRED)
     private String description;
 
 }
