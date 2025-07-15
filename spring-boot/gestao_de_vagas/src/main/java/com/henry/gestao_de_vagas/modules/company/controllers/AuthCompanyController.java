@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.henry.gestao_de_vagas.modules.company.dto.AuthCompanyRequestDTO;
+import com.henry.gestao_de_vagas.modules.company.dto.AuthCompanyResponseDTO;
 import com.henry.gestao_de_vagas.modules.company.useCases.AuthCompanyUseCase;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +31,7 @@ public class AuthCompanyController {
     @PostMapping("/company")
     @Operation(summary = "Autenticação de companias", description = "Autenticação de companias por meio dos campos username e password")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)), description = "Autenticação realizada com sucesso"),
+            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = AuthCompanyResponseDTO.class)), description = "Autenticação realizada com sucesso"),
             @ApiResponse(responseCode = "401", content = @Content(mediaType = "application/json", schema = @Schema(defaultValue = "Usuário não encontrado")), description = "Não autorizado"),
             @ApiResponse(responseCode = "401", content = @Content(mediaType = "application/json", schema = @Schema(defaultValue = "Usuário não encontrado")), description = "Não autorizado"),
             @ApiResponse(responseCode = "400", content = @Content(mediaType = "application/json", schema = @Schema(defaultValue = "Senha incorreta")), description = "Senha incorreta"),
