@@ -24,13 +24,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Autenticação", description = "Autenticação de candidato na aplicação")
 public class AuthCandidateController {
 
     @Autowired
     private AuthCandidateUseCase authCandidateUseCase;
 
     @PostMapping("/candidate")
-    @Tag(name = "Candidato", description = "funcionalidades de manipulção de candidato")
     @Operation(summary = "Autenticação de candidatos", description = "Autenticação de candidatos por meio dos campos username e password")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = AuthCandidateResponseDTO.class), mediaType = "application/json")),

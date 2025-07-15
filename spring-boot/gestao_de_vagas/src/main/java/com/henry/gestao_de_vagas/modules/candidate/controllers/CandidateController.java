@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.henry.gestao_de_vagas.exceptions.ErrorMessageDto;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateEntity;
 import com.henry.gestao_de_vagas.modules.candidate.dto.CreateCandidateRequestDTO;
+import com.henry.gestao_de_vagas.modules.candidate.dto.ProfileCandidateResponseDTO;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.CreateCandidateUseCase;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.ProfileCandidateUseCase;
+import com.henry.gestao_de_vagas.modules.company.entities.JobEntity;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/candidate")
+@Tag(name = "Candidato", description = "Rotas de manipualção de candidato")
 public class CandidateController {
 
     @Autowired
@@ -45,15 +48,14 @@ public class CandidateController {
     @Autowired
     private ListAllJobsByFilterUseCase listAllJobsByFilterUseCase;
 
-    @Tag(name = "Candidato")
-    @Operation(summary = "criação de perfil", description = "criação de perfil de candidato")
+    @PostMapping("/")
+    @Operation(summary = "Criação de perfil", description = "Funcionalide De Criação De Candidato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "criação de um perfil de candidato", content = @Content(schema = @Schema(implementation = CandidateEntity.class), mediaType = "application/json")),
             @ApiResponse(responseCode = "400", description = "usuario já existente", content = @Content(schema = @Schema(defaultValue = "Usuário já existe"), mediaType = "application/json")),
             @ApiResponse(responseCode = "400", description = "erro ao criar usuario(não está atendendo as regras)", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ErrorMessageDto.class)), mediaType = "application/json")),
-            @ApiResponse(responseCode = "500", description = "erro interno do servidor", content = @Content(array = @ArraySchema(schema = @Schema(defaultValue = "error example")), mediaType = "application/json"))
+            @ApiResponse(responseCode = "500", description = "erro interno do servidor")
     })
-    @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody CreateCandidateRequestDTO candidateRequestDTO) {
         try {
             var result = this.createCandidateUseCase.execute(candidateRequestDTO);
@@ -65,6 +67,13 @@ public class CandidateController {
     }
 
     @GetMapping("/profile")
+    @Operation(summary = "Obter perfil", description = "obter perfil do candidato autenticado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = ProfileCandidateResponseDTO.class), mediaType = "application/json"), description = "perfil do usuario autenticado"),
+            @ApiResponse(responseCode = "403", description = "rota não permitida"),
+            @ApiResponse(responseCode = "401", content = @Content(schema = @Schema(defaultValue = "user not found")), description = "usuario não autorizado")
+    })
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('CANDIDATE')")
     public ResponseEntity<Object> get(HttpServletRequest request) {
 
@@ -80,13 +89,15 @@ public class CandidateController {
     }
 
     @GetMapping("/jobs")
-    @PreAuthorize("hasRole('CANDIDATE')")
-    @Tag(name = "Candidato", description = "Rota para manipular candidatos")
     @Operation(summary = "Listagem de vagas", description = "Lista todas as vagas filtradas por um critério de filtro")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista de vagas filtradas com sucesso", content = @Content(array = @ArraySchema(schema = @Schema(implementation = CandidateEntity.class))))
+            @ApiResponse(responseCode = "200", description = "Lista de vagas filtradas com sucesso", content = @Content(array = @ArraySchema(schema = @Schema(implementation = JobEntity.class)), mediaType = "application/json")),
+            @ApiResponse(responseCode = "401", description = "rota não autorizado"),
+            @ApiResponse(responseCode = "403", description = "rota não permitida"),
+            @ApiResponse(responseCode = "500", description = "erro interno do servidor"),
     })
-    @SecurityRequirement(name = "bearerAuth")
+    @SecurityRequirement(name = "jwt_auth")
+    @PreAuthorize("hasRole('CANDIDATE')")
     public ResponseEntity<Object> listAllJobsByFilter(
             @RequestParam String filter) {
         try {

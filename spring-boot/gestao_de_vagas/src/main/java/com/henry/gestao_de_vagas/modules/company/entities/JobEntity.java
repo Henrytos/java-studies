@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,8 +36,13 @@ public class JobEntity {
     @Column(name = "company_id", nullable = false)
     private UUID companyId;
 
+    @Schema(example = "Vale refeição, Vale transporte, plano de saúde e gym pass")
     private String benefits;
+
+    @Schema(example = "Desenvolvedor back end java spring boot junior")
     private String description;
+
+    @Schema(example = "JUNIOR")
     private String level;
 
     @CreationTimestamp
