@@ -8,6 +8,8 @@ import com.henry.gestao_de_vagas.exceptions.ErrorMessageDto;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateEntity;
 import com.henry.gestao_de_vagas.modules.candidate.dto.CreateCandidateRequestDTO;
 import com.henry.gestao_de_vagas.modules.candidate.dto.ProfileCandidateResponseDTO;
+import com.henry.gestao_de_vagas.modules.candidate.entities.ApplyJobEntity;
+import com.henry.gestao_de_vagas.modules.candidate.useCases.ApplyJobUseCase;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.CreateCandidateUseCase;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.ProfileCandidateUseCase;
@@ -47,6 +49,9 @@ public class CandidateController {
 
     @Autowired
     private ListAllJobsByFilterUseCase listAllJobsByFilterUseCase;
+
+    @Autowired
+    private ApplyJobUseCase applyJobUseCase;
 
     @PostMapping("/")
     @Operation(summary = "Criação de perfil", description = "Funcionalide De Criação De Candidato")
@@ -107,6 +112,27 @@ public class CandidateController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
 
+    }
+
+    @PostMapping("/apply/job")
+    @PreAuthorize("hasRole('CANDIDATE')")
+    @Operation(summary = "Criação de candidatura", description = "Rota de criação de candidatura de um candidato com uma vaga")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = ApplyJobEntity.class))),
+            @ApiResponse(responseCode = "403"),
+            @ApiResponse(responseCode = "401")
+    })
+    @SecurityRequirement(name = "jwt_auth")
+    public ResponseEntity<Object> applyJob(@RequestBody String jobId, HttpServletRequest request) {
+        var candidateId = request.getAttribute("candidate_id");
+
+        try {
+            var result = this.applyJobUseCase.execute(UUID.fromString(candidateId.toString()), UUID.fromString(jobId));
+
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

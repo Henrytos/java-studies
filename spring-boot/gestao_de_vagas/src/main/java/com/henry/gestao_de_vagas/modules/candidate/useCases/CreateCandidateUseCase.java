@@ -30,6 +30,7 @@ public class CreateCandidateUseCase {
         var candidateEntity = CandidateEntity
                 .builder()
                 .name(dto.getName())
+                .username(dto.getUsername())
                 .email(dto.getEmail())
                 .password(password)
                 .description(dto.getDescription())

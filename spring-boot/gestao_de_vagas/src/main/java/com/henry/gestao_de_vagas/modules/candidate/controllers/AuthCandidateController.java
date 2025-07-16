@@ -38,6 +38,8 @@ public class AuthCandidateController {
             @ApiResponse(responseCode = "400", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ErrorMessageDto.class)), mediaType = "application/json"))
     })
     public ResponseEntity<Object> auth(@Valid @RequestBody AuthCandidateRequestDTO authCandidateRequestDTO) {
+        System.out.println(authCandidateRequestDTO.getUsername());
+        System.out.println(authCandidateRequestDTO.getPassword());
         try {
             var token = this.authCandidateUseCase.execute(authCandidateRequestDTO);
 

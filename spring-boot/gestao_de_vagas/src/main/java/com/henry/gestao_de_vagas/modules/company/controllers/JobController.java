@@ -10,6 +10,7 @@ import com.henry.gestao_de_vagas.modules.company.useCases.CreateJobUseCase;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -40,6 +41,7 @@ public class JobController {
                         @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(defaultValue = "Erro ao criar vaga"), mediaType = "application/json"), description = "Erro ao criar vaga"),
                         @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(defaultValue = "Erro interno do servidor"), mediaType = "application/json"), description = "Erro interno do servidor")
         })
+        @SecurityRequirement(name = "jwt_auth")
         @PreAuthorize("hasRole('COMPANY')")
         public ResponseEntity<Object> create(@Valid @RequestBody CreateJobRequestDTO createJobDTO,
                         HttpServletRequest request) {
