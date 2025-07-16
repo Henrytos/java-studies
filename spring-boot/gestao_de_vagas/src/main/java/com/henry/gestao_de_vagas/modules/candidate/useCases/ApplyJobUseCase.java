@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.henry.gestao_de_vagas.exceptions.JobNotFoundException;
 import com.henry.gestao_de_vagas.exceptions.UseNotFoundException;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateRepository;
+import com.henry.gestao_de_vagas.modules.candidate.entities.ApplyJobEntity;
+import com.henry.gestao_de_vagas.modules.candidate.repositories.ApplyJobRepository;
 import com.henry.gestao_de_vagas.modules.company.repositories.JobRepository;
 
 @Service
@@ -19,7 +21,10 @@ public class ApplyJobUseCase {
     @Autowired
     private JobRepository jobRepository;
 
-    public void execute(UUID candidateId, UUID jobId) throws UseNotFoundException, JobNotFoundException {
+    @Autowired
+    private ApplyJobRepository applyJobRepository;
+
+    public ApplyJobEntity execute(UUID candidateId, UUID jobId) throws UseNotFoundException, JobNotFoundException {
         // verificar se existe candidato
         this.candidateRepository.findById(candidateId).orElseThrow(() -> {
             throw new UseNotFoundException();
@@ -31,5 +36,9 @@ public class ApplyJobUseCase {
         });
 
         // criar aplicação da vaga
+        var applyJob = ApplyJobEntity.builder().candidateId(candidateId).jobId(jobId).build();
+        applyJob = this.applyJobRepository.save(applyJob);
+
+        return applyJob;
     }
 }
