@@ -34,8 +34,14 @@ Desenvolver pequenos projetos práticos.
 
 ## 🚀 Desafios
 
-- [Desafio dos Fundamentos (1)](https://github.com/Henrytos/java-studies/tree/main/fundamentos/desafio.md)😨
-- [Resolução do Desafio dos Fundamentos (1)](https://github.com/Henrytos/java-studies/tree/main/fundamentos/desafio.md)😲
+#### 📚 Fundamentos
+
+- [Desafio de Sistema de Livraria](https://github.com/Henrytos/java-studies/blob/main/fundamentos/sistema_de_livraria/readme.md)😨
+- [Resolução do Desafio](https://github.com/Henrytos/java-studies/tree/main/fundamentos/sistema_de_livraria)😲
+
+#### 🎬 Spring Boot
+- [Api de cursos](https://github.com/Henrytos/java-studies/blob/main/spring-boot/courses_rocket_seat/readme.md)😨
+- [Resolução do Desafio](https://github.com/Henrytos/java-studies/tree/main/spring-boot/courses_rocket_seat)😲
 
 
 ## 🧰 Comando de Auxílio para Commit
