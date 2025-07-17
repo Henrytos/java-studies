@@ -54,7 +54,7 @@ public class CreateCandidateControllerTest {
                                                 .content(UtilTest.objectToJSON(candidateRequestDTO))// request
                 )
                                 .andExpect(MockMvcResultMatchers.status().isOk());
-                System.out.println(result);
+                System.out.println(result.getClass());
         }
 
 }
