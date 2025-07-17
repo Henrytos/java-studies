@@ -8,6 +8,7 @@ import java.util.UUID;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
 
 public class UtilTest {
     public static String objectToJSON(Object obj) throws Exception {
@@ -31,4 +32,11 @@ public class UtilTest {
 
         return token;
     }
+
+    public static Faker faker() {
+        Faker faker = new Faker();
+
+        return faker;
+    }
+
 }

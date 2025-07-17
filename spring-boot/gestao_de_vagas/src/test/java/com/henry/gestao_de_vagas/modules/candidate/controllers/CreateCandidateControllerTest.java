@@ -41,11 +41,11 @@ public class CreateCandidateControllerTest {
         @DisplayName("should be able a create new job")
         public void should_be_able_a_create_new_job() throws Exception {
                 var candidateRequestDTO = CreateCandidateRequestDTO.builder()
-                                .name("henry")
-                                .username("henry_dev_java")
-                                .email("henry_dev_java@gmail.com")
-                                .password("henry_dev_java123")
-                                .description("sou desenvolvedor java spring boot")
+                                .name(UtilTest.faker().name().firstName())
+                                .username(UtilTest.faker().name().username())
+                                .email(UtilTest.faker().internet().emailAddress())
+                                .password(UtilTest.faker().internet().password())
+                                .description(UtilTest.faker().lorem().characters(25))
                                 .build();
 
                 var result = mvc.perform(
