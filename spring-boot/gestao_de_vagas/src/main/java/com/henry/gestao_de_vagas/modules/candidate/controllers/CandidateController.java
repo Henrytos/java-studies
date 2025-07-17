@@ -63,6 +63,12 @@ public class CandidateController {
     })
     public ResponseEntity<Object> create(@Valid @RequestBody CreateCandidateRequestDTO candidateRequestDTO) {
         try {
+            System.out.println(candidateRequestDTO.getEmail());
+            System.out.println(candidateRequestDTO.getPassword());
+            System.out.println(candidateRequestDTO.getName());
+            System.out.println(candidateRequestDTO.getUsername());
+            System.out.println(candidateRequestDTO.getDescription());
+
             var result = this.createCandidateUseCase.execute(candidateRequestDTO);
 
             return ResponseEntity.ok().body(result);
