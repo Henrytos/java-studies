@@ -23,38 +23,36 @@ import com.henry.gestao_de_vagas.utils.UtilTest;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class CreateCandidateControllerTest {
 
-    private MockMvc mvc;
+        private MockMvc mvc;
 
-    @Autowired
-    private WebApplicationContext applicationContext;
+        @Autowired
+        private WebApplicationContext applicationContext;
 
-    @Before
-    public void setup() {
-        mvc = MockMvcBuilders.webAppContextSetup(applicationContext)
-                .apply(SecurityMockMvcConfigurers.springSecurity())
-                .build();
-    }
+        @Before
+        public void setup() {
+                mvc = MockMvcBuilders.webAppContextSetup(applicationContext)
+                                .apply(SecurityMockMvcConfigurers.springSecurity())
+                                .build();
+        }
 
-    @Test
-    @DisplayName("should be able a create new job")
-    public void should_be_able_a_create_new_job() throws Exception {
-        var candidateRequestDTO = CreateCandidateRequestDTO.builder()
-                .name("henry")
-                .username("henry_dev_java")
-                .email("henry_dev_java@gmail.com")
-                .password("henry_dev_java123")
-                .description("sou desenvolvedor java spring boot")
-                .build();
+        @Test
+        @DisplayName("should be able a create new job")
+        public void should_be_able_a_create_new_job() throws Exception {
+                var candidateRequestDTO = CreateCandidateRequestDTO.builder()
+                                .name("henry")
+                                .username("henry_dev_java")
+                                .email("henry_dev_java@gmail.com")
+                                .password("henry_dev_java123")
+                                .description("sou desenvolvedor java spring boot")
+                                .build();
 
-        var result = mvc.perform(
-                MockMvcRequestBuilders.post("/candidate/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(UtilTest.objectToJSON(candidateRequestDTO)
-
-                        )// request
-        )
-                .andExpect(MockMvcResultMatchers.status().isOk());
-        System.out.println(result);
-    }
+                var result = mvc.perform(
+                                MockMvcRequestBuilders.post("/candidate/")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(UtilTest.objectToJSON(candidateRequestDTO))// request
+                )
+                                .andExpect(MockMvcResultMatchers.status().isOk());
+                System.out.println(result);
+        }
 
 }

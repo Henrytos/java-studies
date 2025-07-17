@@ -13,7 +13,8 @@ public class UtilTest {
     public static String objectToJSON(Object obj) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        return objectMapper.writeValueAsString(objectMapper);
+        var json = objectMapper.writeValueAsString(obj);
+        return json;
     }
 
     public static String generateToken(UUID subjectId, String role, String secretKey) {
