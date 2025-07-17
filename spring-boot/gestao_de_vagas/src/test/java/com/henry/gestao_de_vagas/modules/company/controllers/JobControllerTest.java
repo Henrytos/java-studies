@@ -2,7 +2,6 @@ package com.henry.gestao_de_vagas.modules.company.controllers;
 
 import java.util.UUID;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -21,9 +20,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.henry.gestao_de_vagas.exceptions.CompanyNotFoundException;
+import com.henry.gestao_de_vagas.factories.entities.MakeCompanyEntity;
 import com.henry.gestao_de_vagas.modules.company.dto.CreateJobRequestDTO;
-import com.henry.gestao_de_vagas.modules.company.entities.CompanyEntity;
 import com.henry.gestao_de_vagas.modules.company.repositories.CompanyRepository;
 import com.henry.gestao_de_vagas.utils.UtilTest;
 
@@ -39,6 +37,9 @@ public class JobControllerTest {
 
         @Autowired
         private CompanyRepository companyRepository;
+
+        @Autowired
+        private MakeCompanyEntity makeCompanyEntity;
 
         @Before
         public void setup() {
@@ -56,15 +57,7 @@ public class JobControllerTest {
                 var createJobDTO = CreateJobRequestDTO.builder().description("desenvolvedor java spring boot")
                                 .level("junior")
                                 .benefits("vr,vt,va...").build();
-                var faker = UtilTest.faker();
-                var company = CompanyEntity.builder()
-                                .name(faker.name().name())
-                                .username(faker.name().username())
-                                .email(faker.internet().emailAddress())
-                                .password(faker.internet().password())
-                                .description(faker.lorem().characters())
-                                .website(faker.internet().url())
-                                .build();
+                var company = makeCompanyEntity.makeFactorEntity();
                 company = this.companyRepository.saveAndFlush(company);
 
                 var subjectId = company.getId();
