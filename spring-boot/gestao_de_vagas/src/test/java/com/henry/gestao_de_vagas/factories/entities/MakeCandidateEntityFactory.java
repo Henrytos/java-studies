@@ -20,4 +20,16 @@ public class MakeCandidateEntityFactory {
 
     }
 
+    public static CandidateEntity staticMakeFactorEntity() {
+
+        var faker = UtilTest.faker();
+
+        var candidate = CandidateEntity.builder().name(
+                faker.name().name()).username(faker.name().username()).email(faker.internet().emailAddress())
+                .password(faker.internet().password()).description(faker.lorem().characters()).build();
+
+        return candidate;
+
+    }
+
 }
