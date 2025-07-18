@@ -40,7 +40,7 @@ public class AuthCandidateUseCase {
 
         var passwordMatches = this.passwordEncoder.matches(auth.getPassword(), candidate.getPassword());
         if (!passwordMatches) {
-            throw new AuthenticationException();
+            throw new UsernameNotFoundException("username/password incorrect");
         }
 
         Algorithm algorithm = Algorithm.HMAC256(this.secretKey);

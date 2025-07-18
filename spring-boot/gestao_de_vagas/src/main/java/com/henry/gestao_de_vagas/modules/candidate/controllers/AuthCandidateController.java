@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.henry.gestao_de_vagas.exceptions.ErrorMessageDto;
 import com.henry.gestao_de_vagas.modules.candidate.dto.AuthCandidateRequestDTO;
 import com.henry.gestao_de_vagas.modules.candidate.dto.AuthCandidateResponseDTO;
+import com.henry.gestao_de_vagas.modules.candidate.dto.ResponseMessageDTO;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.AuthCandidateUseCase;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,14 +40,14 @@ public class AuthCandidateController {
             @ApiResponse(responseCode = "400", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ErrorMessageDto.class)), mediaType = "application/json"))
     })
     public ResponseEntity<Object> auth(@Valid @RequestBody AuthCandidateRequestDTO authCandidateRequestDTO) {
-        System.out.println(authCandidateRequestDTO.getUsername());
-        System.out.println(authCandidateRequestDTO.getPassword());
         try {
             var token = this.authCandidateUseCase.execute(authCandidateRequestDTO);
 
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok().body(token);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            var response = new ResponseMessageDTO(e.getMessage());
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 

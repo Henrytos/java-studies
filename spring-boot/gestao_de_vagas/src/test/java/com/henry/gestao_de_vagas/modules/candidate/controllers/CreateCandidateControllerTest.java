@@ -48,13 +48,12 @@ public class CreateCandidateControllerTest {
                                 .description(UtilTest.faker().lorem().characters(25))
                                 .build();
 
-                var result = mvc.perform(
+                mvc.perform(
                                 MockMvcRequestBuilders.post("/candidate/")
                                                 .contentType(MediaType.APPLICATION_JSON)
                                                 .content(UtilTest.objectToJSON(candidateRequestDTO))// request
                 )
                                 .andExpect(MockMvcResultMatchers.status().isOk());
-                System.out.println(result.getClass());
         }
 
 }
