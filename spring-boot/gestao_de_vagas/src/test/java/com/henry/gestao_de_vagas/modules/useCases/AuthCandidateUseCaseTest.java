@@ -25,7 +25,7 @@ import com.henry.gestao_de_vagas.modules.candidate.dto.AuthCandidateRequestDTO;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.AuthCandidateUseCase;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @ActiveProfiles("test")
 public class AuthCandidateUseCaseTest {
 
