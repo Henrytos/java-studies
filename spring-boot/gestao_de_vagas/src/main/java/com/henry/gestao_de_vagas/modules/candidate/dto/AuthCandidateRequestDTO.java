@@ -5,9 +5,15 @@ import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthCandidateRequestDTO {
 
     @Schema(example = "jhondoe_dev", requiredMode = RequiredMode.REQUIRED, description = "Nome do Candidato na plataforma")

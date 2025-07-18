@@ -12,9 +12,12 @@ public class MakeCandidateEntityFactory {
 
         var faker = UtilTest.faker();
 
-        var candidate = CandidateEntity.builder().name(
-                faker.name().name()).username(faker.name().username()).email(faker.internet().emailAddress())
-                .password(faker.internet().password()).description(faker.lorem().characters()).build();
+        // var candidate = CandidateEntity.builder().name(
+        // faker.name().name()).username(faker.name().username()).email(faker.internet().emailAddress())
+        // .password(faker.internet().password()).description(faker.lorem().characters()).build();
+
+        var candidate = CandidateEntity.builder().name("NAME").username("USERNAME").email("jhon@example.com")
+                .password("PASSWORD").description("DESCRIPTION").build();
 
         return candidate;
 

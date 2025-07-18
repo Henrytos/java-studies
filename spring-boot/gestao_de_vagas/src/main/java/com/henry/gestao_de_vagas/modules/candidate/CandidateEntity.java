@@ -36,6 +36,7 @@ public class CandidateEntity {
 
     @Pattern(regexp = "\\S+", message = "nome de usuário não pode ter espaços em branco")
     @Schema(example = "jhondoe_dev", description = "Nome de usuário do candidato", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Column(unique = true)
     private String username;
 
     @Column(unique = true) // garante que o email seja unico
