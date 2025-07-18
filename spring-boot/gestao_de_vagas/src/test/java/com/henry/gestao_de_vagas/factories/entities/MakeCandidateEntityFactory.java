@@ -9,22 +9,6 @@ import com.henry.gestao_de_vagas.utils.UtilTest;
 public class MakeCandidateEntityFactory {
 
     public CandidateEntity makeFactorEntity() {
-
-        var faker = UtilTest.faker();
-
-        // var candidate = CandidateEntity.builder().name(
-        // faker.name().name()).username(faker.name().username()).email(faker.internet().emailAddress())
-        // .password(faker.internet().password()).description(faker.lorem().characters()).build();
-
-        var candidate = CandidateEntity.builder().name("NAME").username("USERNAME").email("jhon@example.com")
-                .password("PASSWORD").description("DESCRIPTION").build();
-
-        return candidate;
-
-    }
-
-    public static CandidateEntity staticMakeFactorEntity() {
-
         var faker = UtilTest.faker();
 
         var candidate = CandidateEntity.builder().name(
@@ -32,7 +16,16 @@ public class MakeCandidateEntityFactory {
                 .password(faker.internet().password()).description(faker.lorem().characters()).build();
 
         return candidate;
+    }
 
+    public static CandidateEntity staticMakeFactorEntity() {
+        var faker = UtilTest.faker();
+
+        var candidate = CandidateEntity.builder().name(
+                faker.name().name()).username(faker.name().username()).email(faker.internet().emailAddress())
+                .password(faker.internet().password()).description(faker.lorem().characters()).build();
+
+        return candidate;
     }
 
 }
