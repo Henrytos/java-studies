@@ -14,6 +14,15 @@ services:
       - postgres-network
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  sonar:
+    container_name: gestao_de_vagas_sonarqube
+    image: sonarqube:9.9.0-community
+    ports:
+      - "9000:9000"
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
+
+
 
 volumes:
   postgres_data:
