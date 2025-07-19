@@ -1,4 +1,4 @@
-package com.henry.gestao_de_vagas.modules.useCases;
+package com.henry.gestao_de_vagas.modules.candidate.useCases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.henry.gestao_de_vagas.exceptions.UserNotFoundException;
 import com.henry.gestao_de_vagas.factories.entities.MakeCandidateEntityFactory;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateRepository;
-import com.henry.gestao_de_vagas.modules.candidate.useCases.ProfileCandidateUseCase;
 
 @ExtendWith(MockitoExtension.class)
 public class ProfileCandidateUseCaseTest {

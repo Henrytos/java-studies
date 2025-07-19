@@ -41,7 +41,7 @@ public class AuthCompanyUseCase {
         var passwordMatches = this.passwordEncoder.matches(authCompanyRequestDTO.getPassword(), company.getPassword());
 
         if (!passwordMatches) {
-            throw new AuthenticationException("Senha incorreta");
+            throw new UsernameNotFoundException("Senha incorreta");
         }
 
         // 3 retornar token JWT ou algo do tipo
@@ -56,7 +56,7 @@ public class AuthCompanyUseCase {
                 .sign(algorithm);
 
         var authCompanyResponse = AuthCompanyResponseDTO.builder()
-                .accesses_token(token)
+                .access_token(token)
                 .expire_at(expireAt.toEpochMilli())
                 .build();
 

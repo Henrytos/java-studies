@@ -1,4 +1,4 @@
-package com.henry.gestao_de_vagas.modules.useCases;
+package com.henry.gestao_de_vagas.modules.candidate.useCases;
 
 import static org.mockito.Mockito.when;
 
@@ -19,7 +19,6 @@ import com.henry.gestao_de_vagas.modules.candidate.CandidateEntity;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateRepository;
 import com.henry.gestao_de_vagas.modules.candidate.entities.ApplyJobEntity;
 import com.henry.gestao_de_vagas.modules.candidate.repositories.ApplyJobRepository;
-import com.henry.gestao_de_vagas.modules.candidate.useCases.ApplyJobUseCase;
 import com.henry.gestao_de_vagas.modules.company.entities.JobEntity;
 import com.henry.gestao_de_vagas.modules.company.repositories.JobRepository;
 

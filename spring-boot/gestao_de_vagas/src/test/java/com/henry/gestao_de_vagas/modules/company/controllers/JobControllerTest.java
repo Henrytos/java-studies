@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.henry.gestao_de_vagas.factories.entities.MakeCompanyEntity;
+import com.henry.gestao_de_vagas.factories.entities.MakeCompanyEntityFactory;
 import com.henry.gestao_de_vagas.modules.company.dto.CreateJobRequestDTO;
 import com.henry.gestao_de_vagas.modules.company.repositories.CompanyRepository;
 import com.henry.gestao_de_vagas.utils.UtilTest;
@@ -36,7 +36,7 @@ public class JobControllerTest {
         private CompanyRepository companyRepository;
 
         @Autowired
-        private MakeCompanyEntity makeCompanyEntity;
+        private MakeCompanyEntityFactory makeCompanyEntity;
 
         @BeforeEach
         public void setup() {

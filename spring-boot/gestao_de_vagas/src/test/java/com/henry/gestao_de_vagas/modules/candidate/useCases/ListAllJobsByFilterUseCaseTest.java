@@ -1,4 +1,4 @@
-package com.henry.gestao_de_vagas.modules.useCases;
+package com.henry.gestao_de_vagas.modules.candidate.useCases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,9 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.henry.gestao_de_vagas.factories.entities.MakeCompanyEntity;
+import com.henry.gestao_de_vagas.factories.entities.MakeCompanyEntityFactory;
 import com.henry.gestao_de_vagas.factories.entities.MakeJobEntityFactory;
-import com.henry.gestao_de_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
 import com.henry.gestao_de_vagas.modules.company.entities.JobEntity;
 import com.henry.gestao_de_vagas.modules.company.repositories.CompanyRepository;
 import com.henry.gestao_de_vagas.modules.company.repositories.JobRepository;
@@ -36,7 +35,7 @@ public class ListAllJobsByFilterUseCaseTest {
     private MakeJobEntityFactory makeJobEntityFactory;
 
     @Autowired
-    private MakeCompanyEntity makeCompanyEntity;
+    private MakeCompanyEntityFactory makeCompanyEntity;
 
     @Test
     @DisplayName("should be able a list all jobs by filter return one")

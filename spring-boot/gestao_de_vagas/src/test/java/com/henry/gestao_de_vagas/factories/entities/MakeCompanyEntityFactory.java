@@ -6,7 +6,7 @@ import com.henry.gestao_de_vagas.modules.company.entities.CompanyEntity;
 import com.henry.gestao_de_vagas.utils.UtilTest;
 
 @Service
-public class MakeCompanyEntity {
+public class MakeCompanyEntityFactory {
 
     public CompanyEntity makeFactorEntity() {
         var faker = UtilTest.faker();

@@ -1,4 +1,4 @@
-package com.henry.gestao_de_vagas.modules.useCases;
+package com.henry.gestao_de_vagas.modules.candidate.useCases;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,7 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import com.henry.gestao_de_vagas.factories.entities.MakeCandidateEntityFactory;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateRepository;
 import com.henry.gestao_de_vagas.modules.candidate.dto.AuthCandidateRequestDTO;
-import com.henry.gestao_de_vagas.modules.candidate.useCases.AuthCandidateUseCase;
 
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @ActiveProfiles("test")
