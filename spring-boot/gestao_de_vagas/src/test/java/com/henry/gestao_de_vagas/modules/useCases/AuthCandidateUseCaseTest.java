@@ -1,30 +1,25 @@
 package com.henry.gestao_de_vagas.modules.useCases;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 import java.time.Instant;
 
-import javax.naming.AuthenticationException;
-
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.henry.gestao_de_vagas.factories.entities.MakeCandidateEntityFactory;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateRepository;
 import com.henry.gestao_de_vagas.modules.candidate.dto.AuthCandidateRequestDTO;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.AuthCandidateUseCase;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @ActiveProfiles("test")
 public class AuthCandidateUseCaseTest {
@@ -99,7 +94,7 @@ public class AuthCandidateUseCaseTest {
         try {
             this.authCandidateUseCase.execute(auth);
         } catch (Exception e) {
-            Assertions.assertThat(e).isInstanceOf(AuthenticationException.class);
+            Assertions.assertThat(e).isInstanceOf(UsernameNotFoundException.class);
         }
 
     }

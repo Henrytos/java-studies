@@ -1,18 +1,16 @@
 package com.henry.gestao_de_vagas.modules.useCases;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.henry.gestao_de_vagas.factories.entities.MakeCompanyEntity;
 import com.henry.gestao_de_vagas.factories.entities.MakeJobEntityFactory;
@@ -21,7 +19,6 @@ import com.henry.gestao_de_vagas.modules.company.entities.JobEntity;
 import com.henry.gestao_de_vagas.modules.company.repositories.CompanyRepository;
 import com.henry.gestao_de_vagas.modules.company.repositories.JobRepository;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @ActiveProfiles("test")
 public class ListAllJobsByFilterUseCaseTest {
