@@ -21,12 +21,24 @@ services:
       - "9000:9000"
     environment:
       SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
-
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
 
 
 volumes:
   postgres_data:
     name: postgres_data
+    driver: local
+  sonarqube_data:
+    name: sonarqube_data
+    driver: local
+  sonarqube_logs:
+    name: sonarqube_logs
+    driver: local
+  sonarqube_extensions:
+    name: sonarqube_extensions
     driver: local
 
 networks:
