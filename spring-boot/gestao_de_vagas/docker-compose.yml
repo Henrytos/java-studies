@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
   postgres:
     container_name: gestao_de_vagas_postgres
     image: postgres:latest
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
@@ -25,23 +23,27 @@ services:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_logs:/opt/sonarqube/logs
       - sonarqube_extensions:/opt/sonarqube/extensions
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
 
+    networks:
+      - application-network
+    ports:
+      - 9090:9090
 
 volumes:
   postgres_data:
-    name: postgres_data
-    driver: local
   sonarqube_data:
-    name: sonarqube_data
-    driver: local
   sonarqube_logs:
-    name: sonarqube_logs
-    driver: local
   sonarqube_extensions:
-    name: sonarqube_extensions
-    driver: local
+  prometheus_data:
 
 networks:
   postgres-network:
-    name: postgres-network
-    driver: bridge 
+    driver: bridge
+  application-network:
+    driver: bridge
