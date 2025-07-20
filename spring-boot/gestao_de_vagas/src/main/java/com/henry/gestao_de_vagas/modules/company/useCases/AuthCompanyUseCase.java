@@ -34,14 +34,14 @@ public class AuthCompanyUseCase {
 
         // 1 verificar se o usuário existe
         var company = this.companyRepository.findByUsername(authCompanyRequestDTO.getUsername()).orElseThrow(() -> {
-            throw new UsernameNotFoundException("Usuário não encontrado");
+            throw new UsernameNotFoundException("username/password incorrect");
         });
 
         // 2 verificar se a senha está correta
         var passwordMatches = this.passwordEncoder.matches(authCompanyRequestDTO.getPassword(), company.getPassword());
 
         if (!passwordMatches) {
-            throw new UsernameNotFoundException("Senha incorreta");
+            throw new UsernameNotFoundException("username/password incorrect");
         }
 
         // 3 retornar token JWT ou algo do tipo
