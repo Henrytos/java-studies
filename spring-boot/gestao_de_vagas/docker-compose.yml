@@ -1,6 +1,7 @@
+
 services:
   postgres:
-    container_name: gestao_de_vagas_postgres
+    container_name: postgres
     image: postgres:latest
     ports:
       - 5432:5432
@@ -9,14 +10,14 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: gestao_de_vagas
     networks:
-      - postgres-network
+      - postgres_network
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  sonar:
-    container_name: gestao_de_vagas_sonarqube
+  sonarqube:
+    container_name: sonarqube
     image: sonarqube:9.9.0-community
     ports:
-      - "9000:9000"
+      - 9000:9000
     environment:
       SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
     volumes:
@@ -31,9 +32,20 @@ services:
       - prometheus_data:/prometheus
 
     networks:
-      - application-network
+      - application_network
     ports:
       - 9090:9090
+  grafana:
+    container_name: grafana 
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    networks:
+      - application_network
 
 volumes:
   postgres_data:
@@ -41,9 +53,10 @@ volumes:
   sonarqube_logs:
   sonarqube_extensions:
   prometheus_data:
+  grafana_data:
 
 networks:
-  postgres-network:
+  postgres_network:
     driver: bridge
-  application-network:
+  application_network:
     driver: bridge
