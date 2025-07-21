@@ -30,22 +30,17 @@ services:
     volumes:
       - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
-
     networks:
-      - application_network
+      - gv-network
     ports:
       - 9090:9090
   grafana:
-    container_name: grafana 
-    image: grafana/grafana
+    container_name: grafana
+    image: grafana/grafana:latest  
     ports:
-      - 3000:3000
-    volumes:
-      - grafana_data:/var/lib/grafana
-    environment:
-      GF_SECURITY_ADMIN_PASSWORD: admin
+    - 3000:3000
     networks:
-      - application_network
+      - gv-network
 
 volumes:
   postgres_data:
@@ -58,5 +53,5 @@ volumes:
 networks:
   postgres_network:
     driver: bridge
-  application_network:
+  gv-network:
     driver: bridge
