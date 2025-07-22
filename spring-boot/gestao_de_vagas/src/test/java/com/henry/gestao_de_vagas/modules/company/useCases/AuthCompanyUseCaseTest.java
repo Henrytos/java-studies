@@ -58,12 +58,6 @@ public class AuthCompanyUseCaseTest {
         this.passwordPlan = password;
     }
 
-    @AfterEach
-    public void cleanSetup() {
-        this.companyRepository.deleteAll();
-    }
-
-    @Test
     @DisplayName("should be able to authenticate company")
     public void should_be_able_a_authentication_company() throws Exception {
         var auth = AuthCompanyRequestDTO.builder().username(this.company.getUsername())

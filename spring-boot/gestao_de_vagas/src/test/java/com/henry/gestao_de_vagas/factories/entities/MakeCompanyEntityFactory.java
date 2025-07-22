@@ -15,7 +15,7 @@ public class MakeCompanyEntityFactory {
                 .username(faker.name().username())
                 .email(faker.internet().emailAddress())
                 .password(faker.internet().password())
-                .description(faker.lorem().characters())
+                .description(faker.lorem().sentence(1))
                 .website(faker.internet().url())
                 .build();
 
