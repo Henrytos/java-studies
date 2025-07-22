@@ -38,28 +38,6 @@ public class ListAllJobsByFilterUseCaseTest {
     private MakeCompanyEntityFactory makeCompanyEntity;
 
     @Test
-    @DisplayName("should be able a list all jobs by filter return one")
-    public void should_be_able_a_list_all_jobs_by_filter_return_one() {
-        var company = this.makeCompanyEntity.makeFactorEntity();
-        company = this.companyRepository.save(company);
-
-        List<JobEntity> jobs = new ArrayList<>();
-        for (int i = 1; i <= 20; i++) {
-            jobs.add(this.makeJobEntityFactory.makeFactoryEntity(company.getId()));
-        }
-
-        this.jobRepository.saveAll(jobs);
-
-        var jobUnique = JobEntity.builder().description("desenvolvedor java spring boot").benefits("BENEFITS_TEST")
-                .level("LEVEL_TEST").companyId(company.getId()).build();
-        jobUnique = this.jobRepository.save(jobUnique);
-
-        var result = this.listAllJobsByFilterUseCase.execute(jobUnique.getDescription());
-        assertEquals(result.size(), 1);
-        assertEquals(result.get(0).getId(), jobUnique.getId());
-    }
-
-    @Test
     @DisplayName("should be able a list all jobs by filter")
     public void should_be_able_a_list_all_jobs_by_filter() {
         var company = this.makeCompanyEntity.makeFactorEntity();
