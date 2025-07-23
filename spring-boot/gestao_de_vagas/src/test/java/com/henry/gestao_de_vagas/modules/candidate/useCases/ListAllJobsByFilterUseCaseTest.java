@@ -40,7 +40,7 @@ public class ListAllJobsByFilterUseCaseTest {
     @Test
     @DisplayName("should be able a list all jobs by filter")
     public void should_be_able_a_list_all_jobs_by_filter() {
-        var company = this.makeCompanyEntity.makeFactorEntity();
+        var company = this.makeCompanyEntity.makeFactoryEntity();
         company = this.companyRepository.save(company);
 
         List<JobEntity> jobs = new ArrayList<>();

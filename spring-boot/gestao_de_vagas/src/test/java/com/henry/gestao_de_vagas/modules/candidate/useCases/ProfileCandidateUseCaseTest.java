@@ -32,7 +32,7 @@ public class ProfileCandidateUseCaseTest {
     public void should_be_able_get_profile_candidate() {
 
         var candidateId = UUID.randomUUID();
-        var candidate = MakeCandidateEntityFactory.staticMakeFactorEntity();
+        var candidate = MakeCandidateEntityFactory.staticmakeFactoryEntity();
         candidate.setId(candidateId);
 
         when(this.candidateRepository.findById(candidateId)).thenReturn(Optional.of(candidate));

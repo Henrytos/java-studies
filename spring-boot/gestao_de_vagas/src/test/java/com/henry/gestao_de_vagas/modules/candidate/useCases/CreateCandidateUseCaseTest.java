@@ -60,7 +60,7 @@ public class CreateCandidateUseCaseTest {
     @DisplayName("should not be a ble create a new candidate if candidate exists by username")
     public void should_be_a_ble_create_a_new_candidate_if_candidate_exists_by_username() {
         var dto = makeCreateCandidateRequest();
-        var candidateExists = MakeCandidateEntityFactory.staticMakeFactorEntity();
+        var candidateExists = MakeCandidateEntityFactory.staticmakeFactoryEntity();
         candidateExists.setUsername(dto.getUsername());
 
         when(this.candidateRepository.findByUsernameOrEmail(dto.getUsername(), dto.getEmail()))
@@ -77,7 +77,7 @@ public class CreateCandidateUseCaseTest {
     @DisplayName("should not be a ble create a new candidate if candidate exists by email")
     public void should_be_a_ble_create_a_new_candidate_if_candidate_exists_by_email() {
         var dto = makeCreateCandidateRequest();
-        var candidateExists = MakeCandidateEntityFactory.staticMakeFactorEntity();
+        var candidateExists = MakeCandidateEntityFactory.staticmakeFactoryEntity();
         candidateExists.setEmail(dto.getEmail());
 
         when(this.candidateRepository.findByUsernameOrEmail(dto.getUsername(), dto.getEmail()))

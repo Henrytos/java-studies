@@ -37,7 +37,7 @@ public class CreateCompanyUseCaseTest {
     @Test
     @DisplayName("should be able a create new company")
     public void should_be_able_a_create_new_company() {
-        CompanyEntity company = this.makeCompanyEntityFactory.makeFactorEntity();
+        CompanyEntity company = this.makeCompanyEntityFactory.makeFactoryEntity();
         String passwordPlan = company.getPassword();
 
         CompanyEntity companyCreated = this.createCompanyUseCase.execute(company);
@@ -58,7 +58,7 @@ public class CreateCompanyUseCaseTest {
     @Test
     @DisplayName("should not be able a create new company if email exists")
     public void should_not_be_able_a_create_new_company_if_email_exists() {
-        CompanyEntity company = this.makeCompanyEntityFactory.makeFactorEntity();
+        CompanyEntity company = this.makeCompanyEntityFactory.makeFactoryEntity();
         this.companyRepository.save(company);
 
         Exception exception = assertThrows(CompanyAlreadyExists.class, () -> {

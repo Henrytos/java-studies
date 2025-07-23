@@ -10,50 +10,50 @@ import com.henry.gestao_de_vagas.utils.UtilTest;
 @Service
 public class MakeJobEntityFactory {
 
-    public JobEntity makeFactoryEntity() {
-        var faker = UtilTest.faker();
+        public JobEntity makeFactoryEntity() {
+                var faker = UtilTest.faker();
 
-        String[] levels = {
-                "TRAINER",
-                "ESTAGIARIO",
-                "JUNIOR",
-                "PLENO",
-                "SENIOR",
-                "TECH LEAD"
-        };
-        var random = Math.floor(Math.random() * levels.length);
-        var level = levels[(int) random];
+                String[] levels = {
+                                "TRAINER",
+                                "ESTAGIARIO",
+                                "JUNIOR",
+                                "PLENO",
+                                "SENIOR",
+                                "TECH LEAD"
+                };
+                var random = Math.floor(Math.random() * levels.length);
+                var level = levels[(int) random];
 
-        var jobEntity = JobEntity
-                .builder()
-                .benefits(faker.lorem().sentence(10))
-                .description(faker.lorem().paragraph())
-                .level(level)
-                .build();
-        return jobEntity;
-    }
+                var jobEntity = JobEntity
+                                .builder()
+                                .benefits(faker.lorem().sentence(1))
+                                .description(faker.lorem().paragraph())
+                                .level(level)
+                                .build();
+                return jobEntity;
+        }
 
-    public JobEntity makeFactoryEntity(UUID companyId) {
-        var faker = UtilTest.faker();
+        public JobEntity makeFactoryEntity(UUID companyId) {
+                var faker = UtilTest.faker();
 
-        String[] levels = {
-                "TRAINER",
-                "ESTAGIARIO",
-                "JUNIOR",
-                "PLENO",
-                "SENIOR",
-                "TECH LEAD"
-        };
-        var random = Math.floor(Math.random() * levels.length);
-        var level = levels[(int) random];
+                String[] levels = {
+                                "TRAINER",
+                                "ESTAGIARIO",
+                                "JUNIOR",
+                                "PLENO",
+                                "SENIOR",
+                                "TECH LEAD"
+                };
+                var random = Math.floor(Math.random() * levels.length);
+                var level = levels[(int) random];
 
-        var jobEntity = JobEntity
-                .builder()
-                .companyId(companyId)
-                .benefits(faker.lorem().sentence(10))
-                .description(faker.lorem().paragraph())
-                .level(level)
-                .build();
-        return jobEntity;
-    }
+                var jobEntity = JobEntity
+                                .builder()
+                                .companyId(companyId)
+                                .benefits(faker.lorem().sentence(10))
+                                .description(faker.lorem().paragraph())
+                                .level(level)
+                                .build();
+                return jobEntity;
+        }
 }

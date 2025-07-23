@@ -8,7 +8,7 @@ import com.henry.gestao_de_vagas.utils.UtilTest;
 @Service
 public class MakeCompanyEntityFactory {
 
-    public CompanyEntity makeFactorEntity() {
+    public CompanyEntity makeFactoryEntity() {
         var faker = UtilTest.faker();
         var company = CompanyEntity.builder()
                 .name(faker.name().name())

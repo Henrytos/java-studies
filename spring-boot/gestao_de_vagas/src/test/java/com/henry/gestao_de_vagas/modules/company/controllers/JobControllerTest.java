@@ -54,7 +54,7 @@ public class JobControllerTest {
                 var createJobDTO = CreateJobRequestDTO.builder().description("desenvolvedor java spring boot")
                                 .level("junior")
                                 .benefits("vr,vt,va...").build();
-                var company = makeCompanyEntity.makeFactorEntity();
+                var company = makeCompanyEntity.makeFactoryEntity();
                 company = this.companyRepository.saveAndFlush(company);
 
                 var subjectId = company.getId();

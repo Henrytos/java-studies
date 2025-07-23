@@ -46,7 +46,7 @@ public class AuthCompanyUseCaseTest {
 
     @BeforeEach
     public void initSetup() {
-        var company = this.makeCompanyEntityFactory.makeFactorEntity();
+        var company = this.makeCompanyEntityFactory.makeFactoryEntity();
         var password = company.getPassword();
 
         company.setPassword(this.passwordEncoder.encode(company.getPassword()));

@@ -18,7 +18,7 @@ public class MakeCandidateEntityFactory {
         return candidate;
     }
 
-    public static CandidateEntity staticMakeFactorEntity() {
+    public static CandidateEntity staticmakeFactoryEntity() {
         var faker = UtilTest.faker();
 
         var candidate = CandidateEntity.builder().name(

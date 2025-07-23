@@ -35,7 +35,7 @@ public class AuthCandidateUseCaseTest {
     @Test
     @DisplayName("should be able a authentication candidate")
     public void should_be_able_a_authentication_candidate() throws Exception {
-        var candidate = MakeCandidateEntityFactory.staticMakeFactorEntity();
+        var candidate = MakeCandidateEntityFactory.staticmakeFactoryEntity();
         var password = candidate.getPassword();
 
         candidate.setPassword(this.passwordEncoder.encode(candidate.getPassword()));
@@ -81,7 +81,7 @@ public class AuthCandidateUseCaseTest {
     @Test
     @DisplayName("should be not able a authentication candidate if password incorrect")
     public void should_be_not_able_a_authentication_candidate_if_password_incorrect() {
-        var candidate = MakeCandidateEntityFactory.staticMakeFactorEntity();
+        var candidate = MakeCandidateEntityFactory.staticmakeFactoryEntity();
 
         candidate.setPassword(this.passwordEncoder.encode(candidate.getPassword()));
 
