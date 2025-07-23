@@ -72,4 +72,58 @@ public class AuthCompanyControllerTest {
 
         }
 
+        @Test
+        @DisplayName("should not authenticate company with invalid credentials")
+        public void should_not_authenticate_company_with_invalid_credentials() throws Exception {
+
+                AuthCompanyRequestDTO request = AuthCompanyRequestDTO.builder()
+                                .username("invalid")
+                                .password("invalid")
+                                .build();
+
+                this.mvc.perform(
+                                MockMvcRequestBuilders.post("/auth/company")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(UtilTest.objectToJSON(request)))
+                                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+        }
+
+        @Test
+        @DisplayName("should not authenticate company with incorrect password")
+        public void should_not_authenticate_company_with_incorrect_password() throws Exception {
+                CompanyEntity company = this.makeCompanyEntity.makeFactoryEntity();
+                String password = company.getPassword();
+                company.setPassword(this.passwordEncoder.encode(password));
+                company = this.companyRepository.saveAndFlush(company);
+
+                AuthCompanyRequestDTO request = AuthCompanyRequestDTO.builder()
+                                .username(company.getUsername())
+                                .password("wrong_password")
+                                .build();
+                this.mvc.perform(
+                                MockMvcRequestBuilders.post("/auth/company")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(UtilTest.objectToJSON(request)))
+                                .andExpect(MockMvcResultMatchers.status().isUnauthorized())
+                                .andExpect(MockMvcResultMatchers.content().string("username/password incorrect"));
+        }
+
+        @Test
+        @DisplayName("should not authenticate company with non-existing username")
+        public void should_not_authenticate_company_with_non_existing_username() throws Exception {
+                AuthCompanyRequestDTO request = AuthCompanyRequestDTO.builder()
+                                .username("non_existing")
+                                .password("any_password")
+                                .build();
+
+                this.mvc.perform(
+                                MockMvcRequestBuilders.post("/auth/company")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(UtilTest.objectToJSON(request)))
+                                .andExpect(MockMvcResultMatchers.status().isUnauthorized())
+                                .andExpect(MockMvcResultMatchers.content().string("username/password incorrect"))
+                                .andExpect(MockMvcResultMatchers.content().string("username/password incorrect"));
+
+        }
+
 }
