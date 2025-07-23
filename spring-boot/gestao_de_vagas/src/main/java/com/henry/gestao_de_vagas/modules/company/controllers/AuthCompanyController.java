@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class AuthCompanyController {
             @ApiResponse(responseCode = "400", content = @Content(mediaType = "application/json", schema = @Schema(defaultValue = "Senha incorreta")), description = "Senha incorreta"),
             @ApiResponse(responseCode = "500", content = @Content(mediaType = "application/json", schema = @Schema(defaultValue = "Erro interno do servidor")), description = "Erro interno do servidor")
     })
-    public ResponseEntity<Object> auth(@RequestBody AuthCompanyRequestDTO authCompanyDTO) {
+    public ResponseEntity<Object> auth(@Valid @RequestBody AuthCompanyRequestDTO authCompanyDTO) {
         try {
             var token = this.authCompanyUseCase.execute(authCompanyDTO);
 
