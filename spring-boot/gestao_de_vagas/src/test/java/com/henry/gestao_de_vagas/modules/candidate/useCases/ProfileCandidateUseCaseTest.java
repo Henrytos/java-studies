@@ -1,6 +1,7 @@
 package com.henry.gestao_de_vagas.modules.candidate.useCases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -51,12 +52,9 @@ public class ProfileCandidateUseCaseTest {
     @Test
     @DisplayName("should not be able get profile candidate if candidate not found")
     public void should_not_be_able_get_profile_candidate_if_candidate_not_found() {
-
-        try {
+        assertThrows(UserNotFoundException.class, () -> {
             this.profileCandidateUseCase.execute(null);
-        } catch (Exception e) {
-            Assertions.assertThat(e).isInstanceOf(UserNotFoundException.class);
-        }
+        });
     }
 
 }
