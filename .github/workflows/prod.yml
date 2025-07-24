@@ -1,0 +1,19 @@
+name: "Deploy to Production"
+
+on:
+    push:
+        branches: [main, master]
+        paths:
+          - 'spring-boot/gestao_de_vagas'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+          - name: setup
+            uses: actions/setup-java@v4
+            with:
+              distribution: 'temurin'
+              java-version: 17
