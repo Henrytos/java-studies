@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+gestao-vagas-ec2.pem
+secret.txt
