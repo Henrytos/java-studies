@@ -2,9 +2,7 @@ name: "Deploy to Production"
 
 on:
     push:
-        branches: [main, master]
-        paths:
-          - 'spring-boot/**'
+        branches: [main]
 
 jobs:
     build:
