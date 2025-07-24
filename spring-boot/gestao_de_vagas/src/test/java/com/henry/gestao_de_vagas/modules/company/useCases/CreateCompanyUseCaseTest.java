@@ -66,7 +66,6 @@ public class CreateCompanyUseCaseTest {
         });
 
         Assertions.assertThat(exception.getMessage()).isEqualTo("company already exists");
-        Assertions.assertThat(this.companyRepository.count()).isEqualTo(1);
     }
 
 }

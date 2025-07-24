@@ -8,10 +8,16 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-          - name: Checkout code
+          - name: checkout code
             uses: actions/checkout@v4
           - name: setup
             uses: actions/setup-java@v4
             with:
               distribution: 'temurin'
               java-version: 17
+          - name: login docker
+            run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+          - name: build image
+            run: cd spring-boot/gestao_de_vagas && docker build -t henryfranz/gestao_vagas .
+          - name: push image
+            run: docker push henryfranz/gestao_vagas
