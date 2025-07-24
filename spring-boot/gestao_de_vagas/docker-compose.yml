@@ -10,7 +10,6 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: gestao_de_vagas
     networks:
-      - postgres_network
       - gv-network
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -63,7 +62,5 @@ volumes:
   grafana_data:
 
 networks:
-  postgres_network:
-    driver: bridge
   gv-network:
     driver: bridge
