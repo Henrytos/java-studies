@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.henry.gestao_de_vagas.exceptions.ErrorMessageDto;
+import com.henry.gestao_de_vagas.modules.company.dto.CreateCompanyRequestDTO;
 import com.henry.gestao_de_vagas.modules.company.entities.CompanyEntity;
 import com.henry.gestao_de_vagas.modules.company.useCases.CreateCompanyUseCase;
 
@@ -36,9 +37,19 @@ public class CompanyController {
             @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(defaultValue = "Usuário já existe"), mediaType = "application/json"), description = "já existentes"),
             @ApiResponse(responseCode = "400", description = "erro ao criar usuario(não está atendendo as regras)", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ErrorMessageDto.class)), mediaType = "application/json")),
     })
-    public ResponseEntity<Object> createCompany(@Valid @RequestBody CompanyEntity entity) {
+    public ResponseEntity<Object> createCompany(@Valid @RequestBody CreateCompanyRequestDTO dto) {
         try {
-            var result = this.createCompanyUseCase.execute(entity);
+
+            CompanyEntity companyEntity = CompanyEntity.builder()
+                    .name(dto.getName())
+                    .username(dto.getUsername())
+                    .email(dto.getEmail())
+                    .password(dto.getPassword())
+                    .description(dto.getDescription())
+                    .website(dto.getWebsite())
+                    .build();
+
+            var result = this.createCompanyUseCase.execute(companyEntity);
 
             return ResponseEntity.ok(result);
 
