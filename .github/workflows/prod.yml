@@ -21,3 +21,13 @@ jobs:
             run: cd spring-boot/gestao_de_vagas && docker build -t henryfranz/gestao_vagas .
           - name: push image
             run: docker push henryfranz/gestao_vagas
+    deploy:
+        runs-on: self-hosted
+        needs: build 
+        steps:
+          - name: pull image
+            run: docker pull henryfranz/gestao_vagas
+          - name: remove container
+            run: docker rm -f henryfranz/gestao_vagas
+          - name: runner container
+            run: docker run -d -p 8080:8080 -e DATABASE_URL=${{secrets.DATABASE_URL}} -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}} henryfranz/gestao_vagas
