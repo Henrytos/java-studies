@@ -28,6 +28,6 @@ jobs:
           - name: pull image
             run: docker pull henryfranz/gestao_vagas
           - name: remove container
-            run: docker rm -f henryfranz/gestao_vagas
+            run: docker rm -f api
           - name: runner container
-            run: docker run -d -p 8080:8080 -e DATABASE_URL=${{secrets.DATABASE_URL}} -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}} henryfranz/gestao_vagas
+            run: docker run -d -p 8080:8080 -e DATABASE_URL=${{secrets.DATABASE_URL}} -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}} --name api henryfranz/gestao_vagas
