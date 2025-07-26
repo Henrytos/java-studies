@@ -52,6 +52,10 @@ services:
       - gv-network
     depends_on:
       - postgres
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres:5432/gestao_de_vagas
 
 volumes:
   postgres_data:

@@ -34,3 +34,5 @@ build/
 
 gestao-vagas-ec2.pem
 secret.txt
+
+.env
