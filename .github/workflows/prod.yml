@@ -22,6 +22,7 @@ jobs:
           - name: push image
             run: docker push henryfranz/gestao_vagas
     deploy:
+        if: false # Set to true to enable deployment
         runs-on: self-hosted
         needs: build 
         steps:
