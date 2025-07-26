@@ -6,6 +6,7 @@ on:
 
 jobs:
     build:
+        if: false # Disable build application
         runs-on: ubuntu-latest
         steps:
           - name: checkout code
