@@ -8,6 +8,7 @@ import com.henry.gestao_de_vagas.exceptions.ErrorMessageDto;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateEntity;
 import com.henry.gestao_de_vagas.modules.candidate.dto.CreateCandidateRequestDTO;
 import com.henry.gestao_de_vagas.modules.candidate.dto.ProfileCandidateResponseDTO;
+import com.henry.gestao_de_vagas.modules.candidate.dto.ResponseMessageDTO;
 import com.henry.gestao_de_vagas.modules.candidate.entities.ApplyJobEntity;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.ApplyJobUseCase;
 import com.henry.gestao_de_vagas.modules.candidate.useCases.CreateCandidateUseCase;
@@ -63,11 +64,12 @@ public class CandidateController {
     })
     public ResponseEntity<Object> create(@Valid @RequestBody CreateCandidateRequestDTO candidateRequestDTO) {
         try {
-            var result = this.createCandidateUseCase.execute(candidateRequestDTO);
+            CandidateEntity result = this.createCandidateUseCase.execute(candidateRequestDTO);
 
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            ResponseMessageDTO message = new ResponseMessageDTO(e.getMessage());
+            return ResponseEntity.internalServerError().body(message);
         }
     }
 

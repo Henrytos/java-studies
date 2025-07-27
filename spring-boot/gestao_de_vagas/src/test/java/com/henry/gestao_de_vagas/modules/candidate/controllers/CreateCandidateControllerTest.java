@@ -81,7 +81,8 @@ class CreateCandidateControllerTest {
                                                 .contentType(MediaType.APPLICATION_JSON)
                                                 .content(UtilTest.objectToJSON(candidateRequestDTO))// request
                 )
-                                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
+                                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("user already exists"));
         }
 
         @Test
@@ -103,6 +104,8 @@ class CreateCandidateControllerTest {
                                                 .contentType(MediaType.APPLICATION_JSON)
                                                 .content(UtilTest.objectToJSON(candidateRequestDTO))// request
                 )
-                                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
+                                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.message")
+                                                .value("user already exists"));
         }
 }

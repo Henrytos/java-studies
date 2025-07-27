@@ -25,9 +25,9 @@ public class CreateCandidateUseCase {
                     throw new UserAlreadyExists();
                 });
 
-        var password = this.passwordEncoder.encode(dto.getPassword());
+        String password = this.passwordEncoder.encode(dto.getPassword());
 
-        var candidateEntity = CandidateEntity
+        CandidateEntity candidateEntity = CandidateEntity
                 .builder()
                 .name(dto.getName())
                 .username(dto.getUsername())
