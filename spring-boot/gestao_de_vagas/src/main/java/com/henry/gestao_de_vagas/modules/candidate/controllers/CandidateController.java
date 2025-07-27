@@ -86,7 +86,8 @@ public class CandidateController {
 
         try {
             var candidateId = request.getAttribute("candidate_id");
-            var profile = this.profileCandidateUseCase.execute(UUID.fromString(candidateId.toString()));
+            ProfileCandidateResponseDTO profile = this.profileCandidateUseCase
+                    .execute(UUID.fromString(candidateId.toString()));
 
             return ResponseEntity.ok().body(profile);
         } catch (Exception e) {
