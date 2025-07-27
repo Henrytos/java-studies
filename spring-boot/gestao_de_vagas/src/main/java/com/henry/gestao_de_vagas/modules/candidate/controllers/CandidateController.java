@@ -114,7 +114,6 @@ public class CandidateController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
-
     }
 
     @PostMapping("/apply/job")
