@@ -117,7 +117,6 @@ public class CandidateController {
     }
 
     @PostMapping("/apply/job")
-    @PreAuthorize("hasRole('CANDIDATE')")
     @Operation(summary = "Criação de candidatura", description = "Rota de criação de candidatura de um candidato com uma vaga")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = ApplyJobEntity.class))),
@@ -125,6 +124,7 @@ public class CandidateController {
             @ApiResponse(responseCode = "401")
     })
     @SecurityRequirement(name = "jwt_auth")
+    @PreAuthorize("hasRole('CANDIDATE')")
     public ResponseEntity<Object> applyJob(@RequestBody String jobId, HttpServletRequest request) {
         var candidateId = request.getAttribute("candidate_id");
 
