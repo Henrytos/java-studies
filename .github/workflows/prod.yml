@@ -22,6 +22,19 @@ jobs:
             run: cd spring-boot/gestao_de_vagas && docker build -t henryfranz/gestao_vagas .
           - name: push image
             run: docker push henryfranz/gestao_vagas
+    test:
+        #needs: build
+        runs-on: ubuntu-latest
+        steps:
+          - name: checkout code
+            uses: actions/checkout@v4
+          - name: setup
+            uses: actions/setup-java@v4
+            with:
+              distribution: 'temurin'
+              java-version: 17
+          - name: run tests
+            run: cd spring-boot/gestao_de_vagas && ./mvnw test
     deploy:
         if: false # Set to true to enable deployment
         runs-on: self-hosted
