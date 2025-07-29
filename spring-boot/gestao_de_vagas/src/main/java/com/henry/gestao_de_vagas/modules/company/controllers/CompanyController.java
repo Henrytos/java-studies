@@ -49,7 +49,7 @@ public class CompanyController {
                     .website(dto.getWebsite())
                     .build();
 
-            var result = this.createCompanyUseCase.execute(companyEntity);
+            CompanyEntity result = this.createCompanyUseCase.execute(companyEntity);
 
             return ResponseEntity.ok(result);
 

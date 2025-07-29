@@ -25,7 +25,7 @@ import com.henry.gestao_de_vagas.utils.UtilTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class JobControllerTest {
+public class CreateJobControllerTest {
 
         private MockMvc mvc;
 
