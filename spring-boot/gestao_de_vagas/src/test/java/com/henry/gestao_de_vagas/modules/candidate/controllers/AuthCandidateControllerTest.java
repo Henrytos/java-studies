@@ -55,11 +55,6 @@ public class AuthCandidateControllerTest {
                                 .build();
         }
 
-        @AfterEach
-        public void cleanDatabase() {
-                this.candidateRepository.deleteAll();
-        }
-
         @Test
         @DisplayName("should authenticate candidate with valid credentials")
         public void should_authenticate_candidate_with_valid_credentials() throws Exception {
