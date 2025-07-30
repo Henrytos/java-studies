@@ -105,7 +105,8 @@ public class AuthCompanyControllerTest {
                                                 .contentType(MediaType.APPLICATION_JSON)
                                                 .content(UtilTest.objectToJSON(request)))
                                 .andExpect(MockMvcResultMatchers.status().isUnauthorized())
-                                .andExpect(MockMvcResultMatchers.content().string("username/password incorrect"));
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.message")
+                                                .value("username/password incorrect"));
         }
 
         @Test
@@ -121,8 +122,8 @@ public class AuthCompanyControllerTest {
                                                 .contentType(MediaType.APPLICATION_JSON)
                                                 .content(UtilTest.objectToJSON(request)))
                                 .andExpect(MockMvcResultMatchers.status().isUnauthorized())
-                                .andExpect(MockMvcResultMatchers.content().string("username/password incorrect"))
-                                .andExpect(MockMvcResultMatchers.content().string("username/password incorrect"));
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.message")
+                                                .value("username/password incorrect"));
 
         }
 

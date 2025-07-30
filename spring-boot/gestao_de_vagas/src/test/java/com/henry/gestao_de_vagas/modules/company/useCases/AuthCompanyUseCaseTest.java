@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.henry.gestao_de_vagas.exceptions.WrongCredentialsException;
 import com.henry.gestao_de_vagas.factories.entities.MakeCompanyEntityFactory;
 import com.henry.gestao_de_vagas.modules.company.dto.AuthCompanyRequestDTO;
 import com.henry.gestao_de_vagas.modules.company.entities.CompanyEntity;
@@ -90,7 +91,7 @@ public class AuthCompanyUseCaseTest {
         var auth = AuthCompanyRequestDTO.builder().username("USERNAME_TEST")
                 .password(this.passwordPlan).build();
 
-        var exception = assertThrows(UsernameNotFoundException.class, () -> {
+        var exception = assertThrows(WrongCredentialsException.class, () -> {
             this.authCompanyUseCase.execute(auth);
         });
 
@@ -103,7 +104,7 @@ public class AuthCompanyUseCaseTest {
         var auth = AuthCompanyRequestDTO.builder().username(this.company.getUsername())
                 .password("PASSWORD_TEST").build();
 
-        var exception = assertThrows(UsernameNotFoundException.class, () -> {
+        var exception = assertThrows(WrongCredentialsException.class, () -> {
             this.authCompanyUseCase.execute(auth);
         });
 

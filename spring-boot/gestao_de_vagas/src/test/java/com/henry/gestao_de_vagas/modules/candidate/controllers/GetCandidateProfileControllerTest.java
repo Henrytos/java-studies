@@ -88,12 +88,12 @@ public class GetCandidateProfileControllerTest {
     }
 
     @Test
-    @DisplayName("should return 401 when candidate not found")
-    public void should_return_401_when_candidate_not_found() throws Exception {
+    @DisplayName("should return 404 when candidate not found")
+    public void should_return_404_when_candidate_not_found() throws Exception {
         String token = UtilTest.generateToken(UUID.randomUUID(), "CANDIDATE", secretKey);
 
         mvc.perform(MockMvcRequestBuilders.get("/candidate/profile")
                 .header("Authorization", "Bearer ".concat(token)))
-                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 }

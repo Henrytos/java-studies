@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.henry.gestao_de_vagas.exceptions.CompanyAlreadyExists;
+import com.henry.gestao_de_vagas.exceptions.CompanyAlreadyExistsException;
 import com.henry.gestao_de_vagas.factories.entities.MakeCompanyEntityFactory;
 import com.henry.gestao_de_vagas.modules.company.entities.CompanyEntity;
 import com.henry.gestao_de_vagas.modules.company.repositories.CompanyRepository;
@@ -61,7 +61,7 @@ public class CreateCompanyUseCaseTest {
         CompanyEntity company = this.makeCompanyEntityFactory.makeFactoryEntity();
         this.companyRepository.save(company);
 
-        Exception exception = assertThrows(CompanyAlreadyExists.class, () -> {
+        Exception exception = assertThrows(CompanyAlreadyExistsException.class, () -> {
             this.createCompanyUseCase.execute(company);
         });
 

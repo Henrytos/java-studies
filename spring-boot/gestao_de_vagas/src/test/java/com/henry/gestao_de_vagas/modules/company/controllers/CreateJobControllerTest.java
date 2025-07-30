@@ -86,7 +86,7 @@ public class CreateJobControllerTest {
                                                 .header("Authorization", "Bearer ".concat(token))
                                                 .content(UtilTest.objectToJSON(createJobDTO))
 
-                ).andExpect(MockMvcResultMatchers.status().isBadRequest());
+                ).andExpect(MockMvcResultMatchers.status().isNotFound());
 
         }
 

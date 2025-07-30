@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.henry.gestao_de_vagas.exceptions.CompanyAlreadyExists;
+import com.henry.gestao_de_vagas.exceptions.CompanyAlreadyExistsException;
 import com.henry.gestao_de_vagas.exceptions.UserAlreadyExists;
 import com.henry.gestao_de_vagas.modules.company.entities.CompanyEntity;
 import com.henry.gestao_de_vagas.modules.company.repositories.CompanyRepository;
@@ -22,7 +22,7 @@ public class CreateCompanyUseCase {
         this.companyRepository
                 .findByUsernameOrEmail(companyEntity.getUsername(), companyEntity.getEmail())
                 .ifPresent((user) -> {
-                    throw new CompanyAlreadyExists();
+                    throw new CompanyAlreadyExistsException();
                 });
 
         var password = this.passwordEncoder.encode(companyEntity.getPassword());

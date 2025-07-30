@@ -38,24 +38,18 @@ public class CompanyController {
             @ApiResponse(responseCode = "400", description = "erro ao criar usuario(não está atendendo as regras)", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ErrorMessageDto.class)), mediaType = "application/json")),
     })
     public ResponseEntity<Object> createCompany(@Valid @RequestBody CreateCompanyRequestDTO dto) {
-        try {
+        CompanyEntity companyEntity = CompanyEntity.builder()
+                .name(dto.getName())
+                .username(dto.getUsername())
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .description(dto.getDescription())
+                .website(dto.getWebsite())
+                .build();
 
-            CompanyEntity companyEntity = CompanyEntity.builder()
-                    .name(dto.getName())
-                    .username(dto.getUsername())
-                    .email(dto.getEmail())
-                    .password(dto.getPassword())
-                    .description(dto.getDescription())
-                    .website(dto.getWebsite())
-                    .build();
+        CompanyEntity result = this.createCompanyUseCase.execute(companyEntity);
 
-            CompanyEntity result = this.createCompanyUseCase.execute(companyEntity);
-
-            return ResponseEntity.ok(result);
-
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        return ResponseEntity.ok(result);
     }
 
 }

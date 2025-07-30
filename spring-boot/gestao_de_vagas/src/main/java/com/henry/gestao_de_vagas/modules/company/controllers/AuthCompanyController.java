@@ -16,7 +16,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,13 +38,9 @@ public class AuthCompanyController {
             @ApiResponse(responseCode = "500", content = @Content(mediaType = "application/json", schema = @Schema(defaultValue = "Erro interno do servidor")), description = "Erro interno do servidor")
     })
     public ResponseEntity<Object> auth(@Valid @RequestBody AuthCompanyRequestDTO authCompanyDTO) {
-        try {
-            var token = this.authCompanyUseCase.execute(authCompanyDTO);
+        var token = this.authCompanyUseCase.execute(authCompanyDTO);
 
-            return ResponseEntity.ok(token);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-        }
+        return ResponseEntity.ok(token);
     }
 
 }

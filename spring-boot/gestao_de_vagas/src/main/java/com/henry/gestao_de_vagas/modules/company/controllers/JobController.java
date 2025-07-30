@@ -46,34 +46,30 @@ public class JobController {
         public ResponseEntity<Object> create(@Valid @RequestBody CreateJobRequestDTO createJobDTO,
                         HttpServletRequest request) {
 
-                try {
+                var companyId = UUID.fromString(request.getAttribute("company_id").toString());
 
-                        var companyId = UUID.fromString(request.getAttribute("company_id").toString());
+                var entity = JobEntity
+                                .builder()
+                                .description(createJobDTO.getDescription())
+                                .level(createJobDTO.getLevel())
+                                .benefits(createJobDTO.getBenefits())
+                                .companyId(companyId)
+                                .build();
 
-                        var entity = JobEntity
-                                        .builder()
-                                        .description(createJobDTO.getDescription())
-                                        .level(createJobDTO.getLevel())
-                                        .benefits(createJobDTO.getBenefits())
-                                        .companyId(companyId)
-                                        .build();
+                var result = this.createJobUseCase.execute(entity);
 
-                        var result = this.createJobUseCase.execute(entity);
+                var createJobResponseDTO = CreateJobResponseDTO
+                                .builder()
+                                .id(result.getId())
+                                .companyId(companyId)
+                                .description(result.getDescription())
+                                .level(result.getLevel())
+                                .benefits(result.getBenefits())
+                                .createdAt(result.getCreatedAt())
+                                .build();
 
-                        var createJobResponseDTO = CreateJobResponseDTO
-                                        .builder()
-                                        .id(result.getId())
-                                        .companyId(companyId)
-                                        .description(result.getDescription())
-                                        .level(result.getLevel())
-                                        .benefits(result.getBenefits())
-                                        .createdAt(result.getCreatedAt())
-                                        .build();
+                return ResponseEntity.ok().body(createJobResponseDTO);
 
-                        return ResponseEntity.ok().body(createJobResponseDTO);
-                } catch (Exception e) {
-                        return ResponseEntity.badRequest().body(e.getMessage());
-                }
         }
 
 }

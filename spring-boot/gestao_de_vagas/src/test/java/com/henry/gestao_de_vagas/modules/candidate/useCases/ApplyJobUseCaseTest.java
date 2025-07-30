@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.henry.gestao_de_vagas.exceptions.JobNotFoundException;
-import com.henry.gestao_de_vagas.exceptions.UseNotFoundException;
+import com.henry.gestao_de_vagas.exceptions.UserNotFoundException;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateEntity;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateRepository;
 import com.henry.gestao_de_vagas.modules.candidate.entities.ApplyJobEntity;
@@ -43,7 +43,7 @@ public class ApplyJobUseCaseTest {
         try {
             applyJobUseCase.execute(null, null);
         } catch (Exception e) {
-            Assertions.assertThat(e).isInstanceOf(UseNotFoundException.class);
+            Assertions.assertThat(e).isInstanceOf(UserNotFoundException.class);
         }
     }
 

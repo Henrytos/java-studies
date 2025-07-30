@@ -1,5 +1,6 @@
 package com.henry.gestao_de_vagas.modules.candidate.useCases;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.henry.gestao_de_vagas.exceptions.WrongCredentialsException;
 import com.henry.gestao_de_vagas.factories.entities.MakeCandidateEntityFactory;
 import com.henry.gestao_de_vagas.modules.candidate.CandidateRepository;
 import com.henry.gestao_de_vagas.modules.candidate.dto.AuthCandidateRequestDTO;
@@ -70,11 +72,11 @@ public class AuthCandidateUseCaseTest {
         var auth = AuthCandidateRequestDTO.builder().username("USERNAME_TEST")
                 .password("PASSWORD_TEST").build();
 
-        try {
+        Exception exception = assertThrows(WrongCredentialsException.class, () -> {
             this.authCandidateUseCase.execute(auth);
-        } catch (Exception e) {
-            Assertions.assertThat(e).isInstanceOf(UsernameNotFoundException.class);
-        }
+        });
+
+        Assertions.assertThat(exception.getMessage()).isEqualTo("username/password incorrect");
 
     }
 
@@ -90,11 +92,11 @@ public class AuthCandidateUseCaseTest {
         var auth = AuthCandidateRequestDTO.builder().username(candidate.getUsername())
                 .password("PASSWORD_TEST").build();
 
-        try {
+        Exception exception = assertThrows(WrongCredentialsException.class, () -> {
             this.authCandidateUseCase.execute(auth);
-        } catch (Exception e) {
-            Assertions.assertThat(e).isInstanceOf(UsernameNotFoundException.class);
-        }
+        });
+
+        Assertions.assertThat(exception.getMessage()).isEqualTo("username/password incorrect");
 
     }
 }
