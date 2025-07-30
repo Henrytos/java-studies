@@ -1,5 +1,7 @@
 package com.henry.gestao_de_vagas.modules.candidate.controllers;
 
+import java.util.UUID;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -90,6 +92,50 @@ public class ApplyJobControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.candidateId").value(candidateEntity.getId().toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.jobId").value(jobEntity.getId().toString()));
+    }
+
+    @Test
+    @DisplayName("should not apply for a job if candidate does not exist")
+    public void should_not_apply_for_a_job_if_candidate_does_not_exist() throws Exception {
+        CompanyEntity companyEntity = this.makeCompanyEntityFactory.makeFactoryEntity();
+        companyEntity = this.companyRepository.save(companyEntity);
+
+        JobEntity jobEntity = this.makeJobEntityFactory.makeFactoryEntity(companyEntity.getId());
+        jobEntity = this.jobRepository.save(jobEntity);
+
+        String invalidCandidateId = "00000000-0000-0000-0000-000000000000"; // Invalid UUID
+        String token = UtilTest.generateToken(UUID.fromString(invalidCandidateId), "CANDIDATE", secretKey);
+
+        mvc.perform(
+                MockMvcRequestBuilders.post(API_ROUTE_APPLY_JOB)
+                        .header("Authorization", "Bearer ".concat(token))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jobEntity.getId().toString()))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("user not found"));
+    }
+
+    @Test
+    @DisplayName("should not apply for a job if job does not exist")
+    public void should_not_apply_for_a_job_if_job_does_not_exist() throws Exception {
+        CompanyEntity companyEntity = this.makeCompanyEntityFactory.makeFactoryEntity();
+        companyEntity = this.companyRepository.save(companyEntity);
+
+        CandidateEntity candidateEntity = this.makeCandidateEntityFactory.makeFactoryEntity();
+        candidateEntity = this.candidateRepository.save(candidateEntity);
+
+        String token = UtilTest.generateToken(candidateEntity.getId(), "CANDIDATE", secretKey);
+        String invalidJobId = "00000000-0000-0000-0000-000000000000"; // Invalid UUID
+
+        mvc.perform(
+                MockMvcRequestBuilders.post(API_ROUTE_APPLY_JOB)
+                        .header("Authorization", "Bearer ".concat(token))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(invalidJobId))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("job not found"));
 
     }
 
