@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -58,8 +57,8 @@ public class AuthCandidateUseCaseTest {
         var EXPIRE_TOKEN_MAX_TIME = Long.valueOf(10);// 10 minutes
 
         Assertions.assertThat(expireTokenInMinutes)
-                .isGreaterThanOrEqualTo(EXPIRE_TOKEN_MIN_TIME) // limite minimo
-                .isLessThanOrEqualTo(EXPIRE_TOKEN_MAX_TIME); // limite maximo
+                .isGreaterThanOrEqualTo(EXPIRE_TOKEN_MIN_TIME) // minimum limit
+                .isLessThanOrEqualTo(EXPIRE_TOKEN_MAX_TIME); // maximum limit
         assertTrue(expireTokenInMinutes >= EXPIRE_TOKEN_MIN_TIME);
         assertTrue(EXPIRE_TOKEN_MAX_TIME >= expireTokenInMinutes);
 

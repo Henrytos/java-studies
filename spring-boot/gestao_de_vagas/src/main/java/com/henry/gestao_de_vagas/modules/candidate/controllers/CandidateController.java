@@ -113,7 +113,7 @@ public class CandidateController {
         public ResponseEntity<Object> applyJob(@RequestBody String jobId, HttpServletRequest request) {
                 var candidateId = request.getAttribute("candidate_id");
 
-                var result = this.applyJobUseCase.execute(UUID.fromString(candidateId.toString()),
+                ApplyJobEntity result = this.applyJobUseCase.execute(UUID.fromString(candidateId.toString()),
                                 UUID.fromString(jobId));
 
                 return ResponseEntity.ok().body(result);
