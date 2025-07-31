@@ -1,5 +1,8 @@
 package com.log.dev.api.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +18,12 @@ public class SecurityConfig {
     @Autowired
     private SecurityFilterUser securityFilterUser;
 
+    private final String[] PERMIT_ALL_LIST = {
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/swagger/resources/**"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf((client) -> {
@@ -22,6 +31,9 @@ public class SecurityConfig {
         }).authorizeHttpRequests((auth) -> {
             auth.requestMatchers("/user/auth").permitAll()
                     .requestMatchers("/user").permitAll()
+                    .requestMatchers(
+                            PERMIT_ALL_LIST)
+                    .permitAll()
                     .anyRequest().authenticated();
         }).addFilterBefore(this.securityFilterUser, BasicAuthenticationFilter.class);
 
