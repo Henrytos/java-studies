@@ -7,6 +7,10 @@ import com.log.dev.api.dtos.CreateUserRequestDTO;
 import com.log.dev.api.modules.user.UserEntity;
 import com.log.dev.api.modules.user.useCases.CreateUserUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,9 @@ public class UserController {
     private CreateUserUseCase createUserUseCase;
 
     @PostMapping()
+    @Tag(name = "User")
+    @Operation(description = "This route is reponantly for creating user", summary = "Create User")
+    @ApiResponses()
     public ResponseEntity<UserEntity> create(@Valid @RequestBody CreateUserRequestDTO dto) {
         UserEntity user = this.createUserUseCase.execute(dto);
 
