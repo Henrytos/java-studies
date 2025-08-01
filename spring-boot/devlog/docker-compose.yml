@@ -8,8 +8,29 @@ services:
       POSTGRES_DB: dev_log_db
     ports:
       - "5432:5432"
+    networks:
+      - dev_log_network
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
+  api:
+    container_name: dev_log_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - dev_log_network
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=jdbc:postgresql://database:5432/dev_log_db
+    depends_on:
+      - database
 volumes:
   postgres_data:
+
+networks:
+  dev_log_network:
+    name: dev_log_network
+    driver: bridge
