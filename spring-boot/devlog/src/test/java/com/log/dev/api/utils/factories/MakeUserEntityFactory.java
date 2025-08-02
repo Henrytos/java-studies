@@ -1,11 +1,11 @@
 package com.log.dev.api.utils.factories;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.github.javafaker.Faker;
 import com.log.dev.api.modules.user.UserEntity;
 
-@Component
+@Service
 public class MakeUserEntityFactory {
     private final Faker faker = new Faker();
 

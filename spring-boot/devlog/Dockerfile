@@ -1,8 +1,6 @@
 FROM maven:3.8.5-openjdk-17-slim AS build
 
-COPY pom.xml .
-
-COPY src ./src
+COPY . .
 
 RUN mvn clean install 
 

@@ -42,10 +42,10 @@ public class AuthUserControllerTest {
         @Autowired
         private PasswordEncoder passwordEncoder;
 
-        @BeforeEach()
+        @BeforeEach
         public void setup() {
-                mvc = MockMvcBuilders
-                                .webAppContextSetup(webApplicationContext)
+                mvc = MockMvcBuilders.webAppContextSetup(
+                                webApplicationContext)
                                 .apply(SecurityMockMvcConfigurers.springSecurity())
                                 .build();
         }
