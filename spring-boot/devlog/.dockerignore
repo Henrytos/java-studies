@@ -1,0 +1,17 @@
+.gitattributes
+
+.gitignore
+
+docker-compose.yml
+
+Dockerfile
+
+HELP.md
+
+.mvn 
+
+.vscode
+
+.env.example
+
+target
