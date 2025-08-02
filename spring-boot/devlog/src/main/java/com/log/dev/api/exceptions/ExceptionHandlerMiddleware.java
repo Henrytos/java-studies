@@ -16,7 +16,11 @@ import com.log.dev.api.dtos.ErrorMessageDTO;
 @ControllerAdvice
 public class ExceptionHandlerMiddleware {
 
-    private MessageSource messageSource;
+    MessageSource messageSource;
+
+    public ExceptionHandlerMiddleware(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<List<ErrorMessageDTO>> handlerMethodArgumentNotValidException(

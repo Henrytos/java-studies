@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/user/auth")
+@RequestMapping("/auth/user")
 public class AuthUserController {
 
     @Autowired
