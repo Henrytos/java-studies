@@ -91,6 +91,19 @@ public class JWTProvider {
         }
     }
 
+    public static DecodedJWT getDecodedTokenStatic(String token, String secretKey) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secretKey);
+            DecodedJWT decodedJWT = JWT.require(algorithm).build().verify(token);
+
+            return decodedJWT;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+        }
+    }
+
     public String getSubject(String token) {
         try {
             DecodedJWT decodedJWT = JWT.require(algorithm).build().verify(token);
