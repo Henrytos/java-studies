@@ -41,7 +41,23 @@ public class AuthUserController {
             @ApiResponse(responseCode = "401", description = "Wrong credentials", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
 
     })
-    public ResponseEntity<AuthUserResponseDTO> auth(@Valid @RequestBody AuthUserRequestDTO dto) {
+    public ResponseEntity<AuthUserResponseDTO> login(@Valid @RequestBody AuthUserRequestDTO dto) {
+        AuthUserResponseDTO authUserResponse = this.authUserUseCase.execute(dto);
+
+        return ResponseEntity.ok().body(authUserResponse);
+    }
+
+    @PostMapping()
+    @Tag(name = "User")
+    @Operation(summary = "User Authentication Route", description = "User User Authentication with Username/Password")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful authentication", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = AuthUserResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "poorly made request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = ErrorMessageDTO.class)))),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Wrong credentials", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
+
+    })
+    public ResponseEntity<AuthUserResponseDTO> register(@Valid @RequestBody AuthUserRequestDTO dto) {
         AuthUserResponseDTO authUserResponse = this.authUserUseCase.execute(dto);
 
         return ResponseEntity.ok().body(authUserResponse);
