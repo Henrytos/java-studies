@@ -1,6 +1,5 @@
 package com.log.dev.api.modules.user.useCases;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +11,8 @@ import com.log.dev.api.modules.user.repositories.UserRepository;
 @Service
 public class RegisterUserUseCase {
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     public RegisterUserUseCase(UserRepository userRepository, PasswordEncoder passwordEncoder) {

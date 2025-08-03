@@ -35,7 +35,7 @@ import com.log.dev.api.exceptions.WrongCredentialsException;
 import com.log.dev.api.modules.user.UserEntity;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 import com.log.dev.api.providers.JWTProviderService;
-import com.log.dev.api.utils.factories.MakeUserEntityFactory;
+import com.log.dev.api.utils.factories.entities.MakeUserEntityFactory;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthUserUseCaseTest {
