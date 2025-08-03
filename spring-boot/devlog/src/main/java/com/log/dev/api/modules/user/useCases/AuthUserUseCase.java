@@ -4,7 +4,6 @@ import java.time.Duration;
 import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +26,6 @@ public class AuthUserUseCase {
 
     @Autowired
     private JWTProviderService jwtProviderService;
-
-    @Value("${spring.secrets.jwt.secret_key}")
-    private String secretKey;
 
     public AuthUserResponseDTO execute(AuthUserRequestDTO dto) throws WrongCredentialsException, UserNotFoundException {
         UserEntity user = this.userRepository.findByUsername(dto.getUsername())

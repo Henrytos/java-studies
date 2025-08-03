@@ -53,14 +53,12 @@ public class AuthUserUseCaseTest {
     @Mock
     private JWTProviderService jwtProviderService;
 
-    private String secretKey = "SECRET_KEY";
-
     private MakeUserEntityFactory makeUserEntityFactory;
 
     @BeforeEach
     public void setup() {
         makeUserEntityFactory = new MakeUserEntityFactory();
-        ReflectionTestUtils.setField(authUserUseCase, "secretKey", secretKey);
+        // ReflectionTestUtils.setField(authUserUseCase, "secretKey", secretKey);
     }
 
     @Nested

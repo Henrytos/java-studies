@@ -2,6 +2,7 @@ package com.log.dev.api.modules.user;
 
 import java.util.UUID;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,12 +25,15 @@ public class UserEntity {
     private UUID id;
 
     @Column(nullable = false, unique = true)
+    @Schema(example = "jhondoe")
     private String username;
 
     @Column(nullable = false, unique = true)
+    @Schema(example = "jhondoe@example.com")
     private String email;
 
     @Column(name = "password_hash", nullable = false)
+    @Schema(example = "jhondoe123hash")
     private String password;
 
 }

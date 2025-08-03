@@ -14,20 +14,20 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.log.dev.api.dtos.CreateUserRequestDTO;
+import com.log.dev.api.dtos.RegisterUserRequestDTO;
 import com.log.dev.api.utils.UtilTest;
 
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class CreateUserControllerTest {
+public class RegisterUserControllerTest {
         private MockMvc mvc;
 
         @Autowired
         private WebApplicationContext webApplicationContext;
 
-        private final static String API_ROUTE_CREATE_USER = "/user";
+        private final static String API_ROUTE_CREATE_USER = "/auth/register";
 
         @BeforeEach
         public void setup() {
@@ -40,7 +40,7 @@ public class CreateUserControllerTest {
         @Test
         @DisplayName("should be able create a new user")
         public void should_be_able_create_a_new_user() throws Exception {
-                CreateUserRequestDTO dto = CreateUserRequestDTO
+                RegisterUserRequestDTO dto = RegisterUserRequestDTO
                                 .builder()
                                 .email("jhon_doe@example.com")
                                 .username("jhondoe")

@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CreateUserRequestDTO {
+public class RegisterUserRequestDTO {
 
     @NotNull(message = "Username cannot be null")
     @NotBlank(message = "Username cannot be null or blank")

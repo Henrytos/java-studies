@@ -5,9 +5,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.log.dev.api.dtos.AuthUserRequestDTO;
 import com.log.dev.api.dtos.AuthUserResponseDTO;
+import com.log.dev.api.dtos.RegisterUserRequestDTO;
 import com.log.dev.api.dtos.ErrorMessageDTO;
 import com.log.dev.api.dtos.MessageResponseDTO;
+import com.log.dev.api.modules.user.UserEntity;
 import com.log.dev.api.modules.user.useCases.AuthUserUseCase;
+import com.log.dev.api.modules.user.useCases.RegisterUserUseCase;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -19,20 +22,24 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/auth/user")
+@RequestMapping("/auth")
 public class AuthUserController {
 
     @Autowired
     private AuthUserUseCase authUserUseCase;
 
-    @PostMapping()
-    @Tag(name = "User")
+    @Autowired
+    private RegisterUserUseCase registerUserUseCase;
+
+    @PostMapping("/user")
+    @Tag(name = "Auth")
     @Operation(summary = "User Authentication Route", description = "User User Authentication with Username/Password")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful authentication", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = AuthUserResponseDTO.class))),
@@ -47,20 +54,19 @@ public class AuthUserController {
         return ResponseEntity.ok().body(authUserResponse);
     }
 
-    @PostMapping()
-    @Tag(name = "User")
-    @Operation(summary = "User Authentication Route", description = "User User Authentication with Username/Password")
+    @PostMapping("/register")
+    @Tag(name = "Auth")
+    @Operation(summary = "Register User", description = "Register User in application")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful authentication", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = AuthUserResponseDTO.class))),
+            @ApiResponse(responseCode = "200", description = "successful authentication", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserEntity.class))),
             @ApiResponse(responseCode = "400", description = "poorly made request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = ErrorMessageDTO.class)))),
-            @ApiResponse(responseCode = "404", description = "User not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
             @ApiResponse(responseCode = "401", description = "Wrong credentials", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
 
     })
-    public ResponseEntity<AuthUserResponseDTO> register(@Valid @RequestBody AuthUserRequestDTO dto) {
-        AuthUserResponseDTO authUserResponse = this.authUserUseCase.execute(dto);
+    public ResponseEntity<UserEntity> register(@Valid @RequestBody RegisterUserRequestDTO dto) {
+        UserEntity user = this.registerUserUseCase.execute(dto);
 
-        return ResponseEntity.ok().body(authUserResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
 }

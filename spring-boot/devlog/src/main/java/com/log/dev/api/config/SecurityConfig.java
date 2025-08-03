@@ -26,8 +26,9 @@ public class SecurityConfig {
         http.csrf((client) -> {
             client.disable();
         }).authorizeHttpRequests((auth) -> {
-            auth.requestMatchers("/auth/user").permitAll()
-                    .requestMatchers("/user").permitAll()
+            auth
+                    .requestMatchers("/auth/user").permitAll()
+                    .requestMatchers("/auth/register").permitAll()
                     .requestMatchers(
                             PERMIT_ALL_LIST)
                     .permitAll()
