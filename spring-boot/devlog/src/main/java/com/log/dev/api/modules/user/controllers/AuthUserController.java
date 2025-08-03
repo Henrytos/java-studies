@@ -32,11 +32,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/auth")
 public class AuthUserController {
 
-    @Autowired
     private AuthUserUseCase authUserUseCase;
 
-    @Autowired
     private RegisterUserUseCase registerUserUseCase;
+
+    public AuthUserController(AuthUserUseCase authUserUseCase, RegisterUserUseCase registerUserUseCase) {
+        this.authUserUseCase = authUserUseCase;
+        this.registerUserUseCase = registerUserUseCase;
+    }
 
     @PostMapping("/user")
     @Tag(name = "Auth")

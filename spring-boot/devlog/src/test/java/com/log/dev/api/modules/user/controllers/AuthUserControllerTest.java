@@ -20,7 +20,7 @@ import com.log.dev.api.dtos.AuthUserRequestDTO;
 import com.log.dev.api.modules.user.UserEntity;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 import com.log.dev.api.utils.UtilTest;
-import com.log.dev.api.utils.factories.MakeUserEntityFactory;
+import com.log.dev.api.utils.factories.entities.MakeUserEntityFactory;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")

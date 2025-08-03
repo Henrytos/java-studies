@@ -18,14 +18,20 @@ import com.log.dev.api.providers.JWTProviderService;
 @Service
 public class AuthUserUseCase {
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
     private JWTProviderService jwtProviderService;
+
+    public AuthUserUseCase(UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            JWTProviderService jwtProviderService) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtProviderService = jwtProviderService;
+
+    }
 
     public AuthUserResponseDTO execute(AuthUserRequestDTO dto) throws WrongCredentialsException, UserNotFoundException {
         UserEntity user = this.userRepository.findByUsername(dto.getUsername())

@@ -18,6 +18,11 @@ public class RegisterUserUseCase {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public RegisterUserUseCase(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public UserEntity execute(RegisterUserRequestDTO dto) throws WrongCredentialsException {
         this.userRepository.findByUsernameOrEmail(dto.getUsername(), dto.getEmail()).ifPresent((user) -> {
             throw new WrongCredentialsException();
