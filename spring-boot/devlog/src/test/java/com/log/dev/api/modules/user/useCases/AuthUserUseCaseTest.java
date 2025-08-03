@@ -47,7 +47,7 @@ public class AuthUserUseCaseTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
-    private String secretKey = "312312";
+    private String secretKey = "SECRET_KEY";
 
     private MakeUserEntityFactory makeUserEntityFactory;
 
@@ -107,14 +107,16 @@ public class AuthUserUseCaseTest {
 
             // Validations duration token
 
-            Duration differenceInMinutes = Duration.between(Instant.now(), Instant.ofEpochMilli(response.expireAt()));
+            Instant expireInstant = Instant.ofEpochMilli(response.expireAt());
+            Duration differenceInMinutes = Duration.between(Instant.now(), expireInstant);
 
             Duration MIN_DURATION_TOKEN_IN_MINUTES = Duration.ofMinutes(9);
             Duration MAX_DURATION_TOKEN_IN_MINUTES = Duration.ofMinutes(10);
 
             assertEquals(differenceInMinutes.compareTo(MIN_DURATION_TOKEN_IN_MINUTES), 1);
             assertEquals(differenceInMinutes.compareTo(MAX_DURATION_TOKEN_IN_MINUTES), -1);
-
+            assertTrue(expireInstant.isAfter(Instant.now().plus(MIN_DURATION_TOKEN_IN_MINUTES)));
+            assertTrue(expireInstant.isBefore(Instant.now().plus(MAX_DURATION_TOKEN_IN_MINUTES)));
         }
 
     }
@@ -135,7 +137,7 @@ public class AuthUserUseCaseTest {
         @DisplayName("should_not_authenticate_user_if_username_not_found")
         public void should_not_authenticate_user_if_username_not_found() {
             when(userRepository.findByUsername(user.getUsername()))
-                    .thenReturn(Optional.ofNullable(null));
+                    .thenReturn(Optional.empty());
 
             AuthUserRequestDTO dto = AuthUserRequestDTO.builder().username(user.getUsername())
                     .password(user.getPassword())
