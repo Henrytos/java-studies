@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import java.util.UUID;
 
-import org.h2.engine.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -89,23 +89,24 @@ public class RegisterUserUseCaseTest {
 
         private UserEntity user;
 
+        private RegisterUserRequestDTO dto;
+
         @BeforeEach
         public void setup() {
             this.user = makeUserEntityFactory.make();
+
+            dto = RegisterUserRequestDTO
+                    .builder()
+                    .username(user.getUsername())
+                    .email(user.getEmail())
+                    .password(user.getPassword())
+                    .build();
         }
 
         @Test
         @DisplayName("should not be able a create new user if username exists")
         public void should_not_be_able_a_create_new_user_if_username_exists() {
-
-            RegisterUserRequestDTO dto = RegisterUserRequestDTO
-                    .builder()
-                    .username(user.getUsername())
-                    .email("jhondoe@example.com")
-                    .password(user.getPassword())
-                    .build();
-
-            when(userRepository.findByUsernameOrEmail(dto.getUsername(), "jhondoe@example.com"))
+            when(userRepository.findByUsernameOrEmail(eq(dto.getUsername()), anyString()))
                     .thenReturn(Optional.of(user));
 
             WrongCredentialsException exception = assertThrows(WrongCredentialsException.class, () -> {
@@ -119,15 +120,7 @@ public class RegisterUserUseCaseTest {
         @Test
         @DisplayName("should not be able a create new user if email exists")
         public void should_not_be_able_a_create_new_user_if_email_exists() {
-
-            RegisterUserRequestDTO dto = RegisterUserRequestDTO
-                    .builder()
-                    .username("jhondoe")
-                    .email(user.getEmail())
-                    .password(user.getPassword())
-                    .build();
-
-            when(userRepository.findByUsernameOrEmail("jhondoe", dto.getEmail())).thenReturn(Optional.of(user));
+            when(userRepository.findByUsernameOrEmail(anyString(), eq(dto.getEmail()))).thenReturn(Optional.of(user));
 
             WrongCredentialsException exception = assertThrows(WrongCredentialsException.class, () -> {
                 registerUserUseCase.execute(dto);
