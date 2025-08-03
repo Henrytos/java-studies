@@ -1,5 +1,6 @@
 package com.log.dev.api.modules.user;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,6 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +26,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "user_id")
     private UUID id;
 
     @Column(nullable = false, unique = true)
@@ -36,4 +41,13 @@ public class UserEntity {
     @Schema(example = "jhondoe123hash")
     private String password;
 
+    @OneToMany(mappedBy = "author")
+    private List<ArticleEntity> articles;
+
+    @OneToMany(mappedBy = "user")
+    private List<LikeUserEntity> likes;
+
+    @OneToOne
+    @JoinColumn(name = "avatar_id")
+    private AvatarEntity avatar;
 }
