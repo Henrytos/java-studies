@@ -5,7 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.Duration;
@@ -32,7 +35,7 @@ import com.log.dev.api.exceptions.UserNotFoundException;
 import com.log.dev.api.exceptions.WrongCredentialsException;
 import com.log.dev.api.modules.user.UserEntity;
 import com.log.dev.api.modules.user.repositories.UserRepository;
-import com.log.dev.api.providers.JWTProvider;
+import com.log.dev.api.providers.JWTProviderService;
 import com.log.dev.api.utils.factories.MakeUserEntityFactory;
 
 @ExtendWith(MockitoExtension.class)
@@ -46,6 +49,9 @@ public class AuthUserUseCaseTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private JWTProviderService jwtProviderService;
 
     private String secretKey = "SECRET_KEY";
 
@@ -75,6 +81,26 @@ public class AuthUserUseCaseTest {
             when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
             when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
 
+            // Mocka a geração do token pelo serviço
+            String mockToken = "fake.jwt.token";
+            Instant mockExpiry = Instant.now().plus(Duration.ofMinutes(10));
+            when(jwtProviderService.generateToken(anyString(), anyLong(), anyString()))
+                    .thenReturn(mockToken);
+
+            // Mocka o DecodedJWT que seria retornado pelo serviço
+            DecodedJWT mockDecodedJWT = mock(DecodedJWT.class);
+            when(mockDecodedJWT.getExpiresAtAsInstant()).thenReturn(mockExpiry);
+            when(mockDecodedJWT.getSubject()).thenReturn(user.getId().toString());
+
+            Claim mockRolesClaim = mock(Claim.class);
+            when(mockRolesClaim.isNull()).thenReturn(false);
+            when(mockRolesClaim.asArray(any())).thenReturn(new String[] { "USER" });
+            when(mockDecodedJWT.getClaim("roles")).thenReturn(mockRolesClaim);
+
+            // Mocka a obtenção do token decodificado pelo serviço
+            when(jwtProviderService.getDecodedToken(anyString())).thenReturn(mockDecodedJWT);
+            when(jwtProviderService.validateToken(anyString())).thenReturn(true);
+
             AuthUserRequestDTO dto = AuthUserRequestDTO.builder().username(user.getUsername())
                     .password(user.getPassword())
                     .build();
@@ -84,14 +110,14 @@ public class AuthUserUseCaseTest {
             // Validations response use case
             assertNotNull(response.token());
             assertNotNull(response.expireAt());
-            assertTrue(JWTProvider.validateTokenStatic(response.token(), secretKey));
+            assertTrue(jwtProviderService.validateToken(response.token()));
 
             // Validations Token
-            DecodedJWT decodedJWT = JWTProvider.getDecodedTokenStatic(response.token(), secretKey);
+            DecodedJWT decodedJWT = jwtProviderService.getDecodedToken(response.token());
 
             assertEquals(decodedJWT.getSubject(), user.getId().toString());
 
-            Long expect = decodedJWT.getExpiresAt().toInstant().toEpochMilli();
+            Long expect = decodedJWT.getExpiresAtAsInstant().toEpochMilli();
             Long actual = response.expireAt();
             Long differenceInMilliseconds = Duration.between(Instant.ofEpochMilli(expect), Instant.ofEpochMilli(actual))
                     .toMillis();
@@ -115,8 +141,9 @@ public class AuthUserUseCaseTest {
 
             assertEquals(differenceInMinutes.compareTo(MIN_DURATION_TOKEN_IN_MINUTES), 1);
             assertEquals(differenceInMinutes.compareTo(MAX_DURATION_TOKEN_IN_MINUTES), -1);
-            assertTrue(expireInstant.isAfter(Instant.now().plus(MIN_DURATION_TOKEN_IN_MINUTES)));
-            assertTrue(expireInstant.isBefore(Instant.now().plus(MAX_DURATION_TOKEN_IN_MINUTES)));
+            assertTrue(Instant.now().plus(MIN_DURATION_TOKEN_IN_MINUTES).isBefore(expireInstant));
+            assertTrue(Instant.now().plus(MAX_DURATION_TOKEN_IN_MINUTES).isAfter(expireInstant));
+
         }
 
     }

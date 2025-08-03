@@ -12,7 +12,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 @Service
-public class JWTProvider {
+public class JWTProviderService {
 
     @Value("${spring.secrets.jwt.secret_key}")
     private String secretKey;
@@ -46,12 +46,12 @@ public class JWTProvider {
         return token;
     }
 
-    public String generateToken(String subject, Instant expireAt, String... roles) {
+    public String generateToken(String subject, Long expireAt, String... roles) {
         String token = JWT
                 .create()
                 .withSubject(subject)
                 .withClaim("roles", Arrays.asList(roles))
-                .withExpiresAt(expireAt)
+                .withExpiresAt(Instant.ofEpochMilli(expireAt))
                 .sign(algorithm);
 
         return token;
