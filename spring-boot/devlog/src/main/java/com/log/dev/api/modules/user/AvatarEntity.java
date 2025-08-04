@@ -2,6 +2,8 @@ package com.log.dev.api.modules.user;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity(name = "avatars")
+@JsonIgnoreProperties(value = { "user" })
 public class AvatarEntity {
 
     @Id
