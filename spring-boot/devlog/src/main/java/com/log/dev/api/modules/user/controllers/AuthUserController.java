@@ -21,7 +21,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +42,7 @@ public class AuthUserController {
 
     @PostMapping("/user")
     @Tag(name = "Auth")
-    @Operation(summary = "User Authentication Route", description = "User User Authentication with Username/Password")
+    @Operation(summary = "User Authentication Route", description = "User Authentication with Username/Password")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful authentication", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = AuthUserResponseDTO.class))),
             @ApiResponse(responseCode = "400", description = "poorly made request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = ErrorMessageDTO.class)))),
