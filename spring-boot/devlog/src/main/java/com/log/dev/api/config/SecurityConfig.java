@@ -29,6 +29,7 @@ public class SecurityConfig {
             auth
                     .requestMatchers("/auth/user").permitAll()
                     .requestMatchers("/auth/register").permitAll()
+                    .requestMatchers("/articles").permitAll()
                     .requestMatchers(
                             PERMIT_ALL_LIST)
                     .permitAll()
