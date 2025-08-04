@@ -4,10 +4,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.log.dev.api.dtos.CreateArticleRequestDTO;
+import com.log.dev.api.dtos.ErrorMessageDTO;
+import com.log.dev.api.dtos.MessageResponseDTO;
 import com.log.dev.api.modules.user.ArticleEntity;
 import com.log.dev.api.modules.user.useCases.CreateArticleUseCase;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -35,7 +38,10 @@ public class ArticleController {
     @Tag(name = "Article")
     @Operation(summary = "Create article", description = "Create article by user authenticate")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "article created success", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ArticleEntity.class)))
+            @ApiResponse(responseCode = "201", description = "article created success", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ArticleEntity.class))),
+            @ApiResponse(responseCode = "400", description = "bad request", content = @Content(array = @ArraySchema(arraySchema = @Schema(implementation = ErrorMessageDTO.class)), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "404", description = "user not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
+
     })
     public ResponseEntity<ArticleEntity> create(@Valid @RequestBody CreateArticleRequestDTO dto) {
 

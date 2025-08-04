@@ -1,5 +1,11 @@
 package com.log.dev.api.modules.user.controllers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+import java.util.UUID;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -101,7 +107,70 @@ public class CreateArticleControllerTest {
                     .andExpect(MockMvcResultMatchers.jsonPath("$.readingDurationInMinutes")
                             .value(articleEntity.getReadingDurationInMinutes()));
 
-            ;
+            List<ArticleEntity> articles = articleRepository.findAll();
+            ArticleEntity article = articles.get(0);
+            assertEquals(articles.size(), 1);
+
+            assertEquals(article.getAuthor().getId(), userEntity.getId());
+            assertNotNull(article.getCreatedAt());
+            assertNotNull(article.getUpdatedAt());
+        }
+    }
+
+    @Nested
+    @DisplayName("Failure Tests")
+    class FailureTests {
+
+        private UserEntity userEntity;
+
+        private ArticleEntity articleEntity;
+
+        private CreateArticleRequestDTO dto;
+
+        @BeforeEach
+        public void setup() {
+            userEntity = makeUserEntityFactory.make(UUID.randomUUID()); // user not exist in database
+
+            articleEntity = makeArticleEntityFactory.make();
+
+            dto = CreateArticleRequestDTO
+                    .builder()
+                    .authorId(userEntity.getId().toString())
+                    .content(articleEntity.getContent())
+                    .title(articleEntity.getTitle())
+                    .subTitle(articleEntity.getSubTitle())
+                    .readingDurationInMinutes(articleEntity.getReadingDurationInMinutes())
+                    .build();
+        }
+
+        @Test
+        @DisplayName("should return 404 if user not found")
+        public void should_return_404_if_user_not_found() throws Exception {
+            mvc.perform(
+                    MockMvcRequestBuilders
+                            .post(CREATE_ARTICLE_ROUTE_API)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(UtilTest.objectToJson(dto)))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+
+            List<ArticleEntity> articles = articleRepository.findAll();
+            assertEquals(articles.size(), 0);
+        }
+
+        @Test
+        @DisplayName("should return 400 bad request")
+        public void should_return_400_bad_request() throws Exception {
+            dto = null;
+
+            mvc.perform(
+                    MockMvcRequestBuilders
+                            .post(CREATE_ARTICLE_ROUTE_API)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(UtilTest.objectToJson(dto)))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest());
+            List<ArticleEntity> articles = articleRepository.findAll();
+            assertEquals(articles.size(), 0);
         }
     }
 

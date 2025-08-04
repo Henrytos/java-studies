@@ -33,7 +33,7 @@ public class ExceptionHandlerMiddleware {
             dto.add(new ErrorMessageDTO(message, error.getField()));
         });
 
-        return new ResponseEntity<List<ErrorMessageDTO>>(dto, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(dto);
     }
 
     @ExceptionHandler(WrongCredentialsException.class)
