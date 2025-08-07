@@ -11,9 +11,9 @@ import com.log.dev.api.modules.user.repositories.UserRepository;
 @Service
 public class RegisterUserUseCase {
 
-    private UserRepository userRepository;
+    final private UserRepository userRepository;
 
-    private PasswordEncoder passwordEncoder;
+    final private PasswordEncoder passwordEncoder;
 
     public RegisterUserUseCase(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;

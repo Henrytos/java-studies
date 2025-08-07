@@ -4,19 +4,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "articles")
-@JsonIgnoreProperties(value = { "author", "likes" })
+@JsonIgnoreProperties(value = { "author", "publishArticle" })
 public class ArticleEntity {
 
     @Id
@@ -45,6 +38,12 @@ public class ArticleEntity {
     @JoinColumn(name = "user_id")
     private UserEntity author;
 
+    @OneToOne(mappedBy = "article")
+    private PublishArticleEntity publishArticle; // mapeamento
+
+    @Column(name = "reading_duration_in_minutes")
+    private int readingDurationInMinutes;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -52,13 +51,4 @@ public class ArticleEntity {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "article")
-    private List<LikeUserEntity> likes;
-
-    @OneToMany(mappedBy = "article")
-    private List<CommentEntity> comments;
-
-    @Column(name = "reading_duration_in_minutes")
-    private int readingDurationInMinutes;
 }

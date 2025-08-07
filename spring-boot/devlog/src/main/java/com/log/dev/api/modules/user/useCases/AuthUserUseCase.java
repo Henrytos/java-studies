@@ -17,26 +17,27 @@ import com.log.dev.api.providers.JWTProviderService;
 @Service
 public class AuthUserUseCase {
 
-    private UserRepository userRepository;
+    final private UserRepository userRepository;
 
-    private PasswordEncoder passwordEncoder;
+    final private PasswordEncoder passwordEncoder;
 
-    private JWTProviderService jwtProviderService;
+    final private JWTProviderService jwtProviderService;
 
-    public AuthUserUseCase(UserRepository userRepository,
+    public AuthUserUseCase(
+            UserRepository userRepository,
             PasswordEncoder passwordEncoder,
-            JWTProviderService jwtProviderService) {
+            JWTProviderService jwtProviderService
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtProviderService = jwtProviderService;
-
     }
 
     public AuthUserResponseDTO execute(AuthUserRequestDTO dto) throws WrongCredentialsException, UserNotFoundException {
         UserEntity user = this.userRepository.findByUsername(dto.getUsername())
-                .orElseThrow(() -> new UserNotFoundException());
+                .orElseThrow(UserNotFoundException::new);
 
-        Boolean passwordMatches = this.passwordEncoder.matches(dto.getPassword(), user.getPassword());
+        boolean passwordMatches = this.passwordEncoder.matches(dto.getPassword(), user.getPassword());
 
         if (!passwordMatches) {
             throw new WrongCredentialsException();
@@ -45,7 +46,6 @@ public class AuthUserUseCase {
         Long expireAt = Instant.now().plus(Duration.ofMinutes(10)).toEpochMilli();
         String token = jwtProviderService.generateToken(user.getId().toString(), expireAt, "USER");
 
-        AuthUserResponseDTO response = new AuthUserResponseDTO(token, expireAt);
-        return response;
+        return  new AuthUserResponseDTO(token, expireAt);
     }
 }

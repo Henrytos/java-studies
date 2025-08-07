@@ -14,9 +14,9 @@ import com.log.dev.api.modules.user.repositories.UserRepository;
 @Service
 public class WriteArticleUseCase {
 
-    private UserRepository userRepository;
+    final private UserRepository userRepository;
 
-    private ArticleRepository articleRepository;
+    final private ArticleRepository articleRepository;
 
     public WriteArticleUseCase(UserRepository userRepository, ArticleRepository articleRepository) {
         this.userRepository = userRepository;
@@ -25,7 +25,7 @@ public class WriteArticleUseCase {
 
     public ArticleEntity execute(UUID authorId, CreateArticleRequestDTO dto) throws UserNotFoundException {
         UserEntity user = this.userRepository.findById(authorId)
-                .orElseThrow(() -> new UserNotFoundException());
+                .orElseThrow(UserNotFoundException::new);
 
         ArticleEntity articleEntity = ArticleEntity.builder()
                 .author(user)
@@ -37,5 +37,4 @@ public class WriteArticleUseCase {
 
         return this.articleRepository.save(articleEntity);
     }
-
 }

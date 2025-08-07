@@ -13,9 +13,9 @@ import com.log.dev.api.modules.user.repositories.UserRepository;
 @Service
 public class DeleteArticleUseCase {
 
-    private UserRepository userRepository;
+    final private UserRepository userRepository;
 
-    private ArticleRepository articleRepository;
+    final private ArticleRepository articleRepository;
 
     public DeleteArticleUseCase(UserRepository userRepository, ArticleRepository articleRepository) {
         this.userRepository = userRepository;
@@ -23,9 +23,9 @@ public class DeleteArticleUseCase {
     }
 
     public void execute(UUID userId, UUID articleId) {
-        var user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
+        var user = this.userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
-        var article = this.articleRepository.findById(articleId).orElseThrow(() -> new ArticleNotFoundException());
+        var article = this.articleRepository.findById(articleId).orElseThrow(ArticleNotFoundException::new);
 
         if (article.getAuthor().getId() != user.getId()) {
             throw new WrongCredentialsException();

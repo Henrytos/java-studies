@@ -13,22 +13,21 @@ import com.log.dev.api.modules.user.repositories.UserRepository;
 
 @Service
 public class GetArticleWithDetailsUseCase {
-    private UserRepository userRepository;
+    final private UserRepository userRepository;
 
-    private ArticleRepository articleRepository;
+    final private ArticleRepository articleRepository;
 
     public GetArticleWithDetailsUseCase(UserRepository userRepository, ArticleRepository articleRepository) {
         this.userRepository = userRepository;
         this.articleRepository = articleRepository;
     }
 
-    public ArticleWithDetailsDTO execute(UUID userId, UUID articleId) throws UserNotFoundException,
-            ArticleNotFoundException {
+    public ArticleWithDetailsDTO execute(UUID userId, UUID articleId) throws UserNotFoundException, ArticleNotFoundException {
         this.userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException());
+                .orElseThrow(UserNotFoundException::new);
 
         ArticleEntity articleEntity = this.articleRepository.findById(articleId)
-                .orElseThrow(() -> new ArticleNotFoundException());
+                .orElseThrow(ArticleNotFoundException::new);
 
         return ArticleWithDetailsDTO.fromEntity(articleEntity);
     }

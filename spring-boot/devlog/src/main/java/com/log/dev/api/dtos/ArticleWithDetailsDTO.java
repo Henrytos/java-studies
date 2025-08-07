@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.log.dev.api.modules.user.entities.ArticleEntity;
 import com.log.dev.api.modules.user.entities.CommentEntity;
+import com.log.dev.api.modules.user.entities.PublishArticleEntity;
 import com.log.dev.api.modules.user.entities.UserEntity;
 
 import lombok.AllArgsConstructor;
@@ -37,18 +38,18 @@ public class ArticleWithDetailsDTO {
 
     private LocalDateTime updatedAt;
 
-    public static ArticleWithDetailsDTO fromEntity(ArticleEntity articleEntity) {
+    public static ArticleWithDetailsDTO fromEntity(PublishArticleEntity publishArticle) {
         return ArticleWithDetailsDTO.builder()
-                .articleId(articleEntity.getId().toString())
-                .title(articleEntity.getTitle())
-                .subTitle(articleEntity.getSubTitle())
-                .content(articleEntity.getContent())
-                .author(articleEntity.getAuthor())
-                .quantityLikes(articleEntity.getLikes().size())
-                .readingDurationInMinutes(articleEntity.getReadingDurationInMinutes())
-                .comments(articleEntity.getComments())
-                .createdAt(articleEntity.getCreatedAt())
-                .updatedAt(articleEntity.getUpdatedAt())
+                .articleId(publishArticle.getArticle().getId().toString())
+                .title(publishArticle.getArticle().getTitle())
+                .subTitle(publishArticle.getArticle().getSubTitle())
+                .content(publishArticle.getArticle().getContent())
+                .author(publishArticle.getArticle().getAuthor())
+                .quantityLikes(publishArticle.getLikes().size())
+                .readingDurationInMinutes(publishArticle.getArticle().getReadingDurationInMinutes())
+                .comments(publishArticle.getComments())
+                .createdAt(publishArticle.getArticle().getCreatedAt())
+                .updatedAt(publishArticle.getArticle().getUpdatedAt())
                 .build();
     }
 }

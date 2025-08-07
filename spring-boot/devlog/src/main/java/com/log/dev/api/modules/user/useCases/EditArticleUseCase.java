@@ -15,8 +15,9 @@ import com.log.dev.api.modules.user.repositories.UserRepository;
 @Service
 public class EditArticleUseCase {
 
-    private UserRepository userRepository;
-    private ArticleRepository articleRepository;
+    final private UserRepository userRepository;
+
+    final private ArticleRepository articleRepository;
 
     public EditArticleUseCase(
             UserRepository userRepository,
@@ -27,9 +28,9 @@ public class EditArticleUseCase {
 
     public void execute(UUID authorId, UUID articleId, UpdateArticleRequestDTO dto)
             throws UserNotFoundException, UserUnauthorizedException {
-        var user = this.userRepository.findById(authorId).orElseThrow(() -> new UserNotFoundException());
+        var user = this.userRepository.findById(authorId).orElseThrow(UserNotFoundException::new);
 
-        var article = this.articleRepository.findById(articleId).orElseThrow(() -> new ArticleNotFoundException());
+        var article = this.articleRepository.findById(articleId).orElseThrow(ArticleNotFoundException::new);
 
         if (article.getAuthor().getId() != user.getId()) {
             throw new UserUnauthorizedException();

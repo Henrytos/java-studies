@@ -11,9 +11,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
 
 @Entity(name = "likes")
 @JsonIgnoreProperties(value = { "user", "article" })
+@Data
 public class LikeUserEntity {
 
     @Id
@@ -26,8 +28,8 @@ public class LikeUserEntity {
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name = "article_id")
-    private ArticleEntity article;
+    @JoinColumn(name = "publish_article_id")
+    private PublishArticleEntity publishArticle;
 
     @Column(name = "is_like", nullable = false)
     private Boolean isLike = false;
