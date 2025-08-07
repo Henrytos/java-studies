@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
-@JsonIgnoreProperties(value = { "password", "likes", "articles", "avatar" })
+@JsonIgnoreProperties(value = { "password", "likes", "articles", "avatar", "comments" })
 public class UserEntity {
 
     @Id

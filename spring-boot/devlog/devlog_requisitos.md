@@ -5,7 +5,7 @@
 - [ x ] O sistema deve permitir o cadastro de usuários com nome, username e senha  
 - [ x ] O sistema deve permitir login de usuários com username e senha  
 - [ x ] O sistema deve gerar um token JWT após o login  
-- [ ] O sistema deve permitir que usuários criem, editem, visualizem e excluam artigos  
+- [ x ] O sistema deve permitir que usuários criem, editem, visualizem e excluam artigos  
 - [ ] O sistema deve suportar rascunhos e publicações de artigos  
 - [ ] O sistema deve permitir que artigos tenham tags e imagens de capa  
 - [ ] O sistema deve permitir a busca de artigos por título, conteúdo ou tags  

@@ -16,9 +16,7 @@ public class MakeUserEntityFactory implements FactoryInterface<UserEntity> {
                 .builder()
                 .username(faker.name().username())
                 .email(faker.internet().emailAddress())
-                .password(faker.i
-                
-                nternet().password())
+                .password(faker.internet().password())
                 .build();
 
         return user;

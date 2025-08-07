@@ -12,8 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity(name = "avatars")
-@JsonIgnoreProperties(value = { "user
-" })
+@JsonIgnoreProperties(value = { "user" })
 public class AvatarEntity {
 
     @Id
