@@ -63,7 +63,6 @@ public class CreateArticleUseCaseTest {
                 .title(articleEntity.getTitle())
                 .subTitle(articleEntity.getSubTitle())
                 .content(articleEntity.getContent())
-                .authorId(user.getId().toString())
                 .readingDurationInMinutes(articleEntity.getReadingDurationInMinutes())
                 .build();
     }
@@ -75,7 +74,7 @@ public class CreateArticleUseCaseTest {
         @Test
         @DisplayName("should be able create a new article")
         public void should_be_able_create_a_new_article() {
-            when(userRepository.findById(eq(UUID.fromString(dto.getAuthorId())))).thenReturn(Optional.of(user));
+            when(userRepository.findById(eq(user.getId()))).thenReturn(Optional.of(user));
 
             ArticleEntity articleEntityWithUser = makeArticleEntityFactory.make(user, articleEntity);
             ArticleEntity articleEntityWithUserSaved = makeArticleEntityFactory.make(UUID.randomUUID(), user,
@@ -83,7 +82,7 @@ public class CreateArticleUseCaseTest {
 
             when(articleRepository.save(articleEntityWithUser)).thenReturn(articleEntityWithUserSaved);
 
-            ArticleEntity response = createArticleUseCase.execute(dto);
+            ArticleEntity response = createArticleUseCase.execute(user.getId(), dto);
 
             assertNotNull(response);
             assertNotNull(response.getId());
@@ -104,10 +103,10 @@ public class CreateArticleUseCaseTest {
         @Test
         @DisplayName("should not be able create a new article if author not found")
         public void should_not_be_able_create_a_new_article_if_author_not_found() {
-            when(userRepository.findById(eq(UUID.fromString(dto.getAuthorId())))).thenReturn(Optional.empty());
+            when(userRepository.findById(eq(user.getId()))).thenReturn(Optional.empty());
 
             UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
-                createArticleUseCase.execute(dto);
+                createArticleUseCase.execute(user.getId(), dto);
             });
 
             assertEquals(exception.getMessage(), "User not found");

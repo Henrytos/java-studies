@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.assertj.MockMvcTester.MockMvcRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -28,6 +27,7 @@ import com.log.dev.api.modules.user.ArticleEntity;
 import com.log.dev.api.modules.user.UserEntity;
 import com.log.dev.api.modules.user.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.repositories.UserRepository;
+import com.log.dev.api.providers.JWTProviderService;
 import com.log.dev.api.utils.UtilTest;
 import com.log.dev.api.utils.factories.entities.MakeArticleEntityFactory;
 import com.log.dev.api.utils.factories.entities.MakeUserEntityFactory;
@@ -52,6 +52,9 @@ public class CreateArticleControllerTest {
 
     @Autowired
     private MakeArticleEntityFactory makeArticleEntityFactory;
+
+    @Autowired
+    private JWTProviderService jwtProviderService;
 
     private final String CREATE_ARTICLE_ROUTE_API = "/articles";
 
@@ -82,7 +85,6 @@ public class CreateArticleControllerTest {
 
             dto = CreateArticleRequestDTO
                     .builder()
-                    .authorId(userEntity.getId().toString())
                     .content(articleEntity.getContent())
                     .title(articleEntity.getTitle())
                     .subTitle(articleEntity.getSubTitle())
@@ -94,9 +96,12 @@ public class CreateArticleControllerTest {
         @DisplayName("should return 201 to request valid")
         public void should_return_201_to_request_valid() throws Exception {
 
+            String token = jwtProviderService.generateToken(userEntity.getId().toString());
+
             mvc.perform(
                     MockMvcRequestBuilders
                             .post(CREATE_ARTICLE_ROUTE_API)
+                            .header("Authorization", "Bearer ".concat(token))
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(UtilTest.objectToJson(dto)))
                     .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -135,7 +140,6 @@ public class CreateArticleControllerTest {
 
             dto = CreateArticleRequestDTO
                     .builder()
-                    .authorId(userEntity.getId().toString())
                     .content(articleEntity.getContent())
                     .title(articleEntity.getTitle())
                     .subTitle(articleEntity.getSubTitle())
@@ -146,9 +150,13 @@ public class CreateArticleControllerTest {
         @Test
         @DisplayName("should return 404 if user not found")
         public void should_return_404_if_user_not_found() throws Exception {
+
+            String token = jwtProviderService.generateToken(UUID.randomUUID().toString());
+
             mvc.perform(
                     MockMvcRequestBuilders
                             .post(CREATE_ARTICLE_ROUTE_API)
+                            .header("Authorization", "Bearer ".concat(token))
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(UtilTest.objectToJson(dto)))
                     .andExpect(MockMvcResultMatchers.status().isNotFound())

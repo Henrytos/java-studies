@@ -1,4 +1,4 @@
-package com.log.dev.api.config;
+package com.log.dev.api.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

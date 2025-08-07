@@ -75,6 +75,8 @@ public class JWTProviderService {
     }
 
     public DecodedJWT getDecodedToken(String token) {
+        token = token.replace("Bearer ", "");
+
         algorithm = Algorithm.HMAC256(this.secretKey);
 
         try {

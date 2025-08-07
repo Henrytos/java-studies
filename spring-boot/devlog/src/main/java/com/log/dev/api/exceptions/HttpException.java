@@ -1,6 +1,6 @@
 package com.log.dev.api.exceptions;
 
-public class HttpException extends RuntimeException {
+public abstract class HttpException extends RuntimeException {
     private int statusCode;
 
     public HttpException(int statusCode, String message) {

@@ -27,6 +27,8 @@ services:
       - DATABASE_URL=jdbc:postgresql://database:5432/dev_log_db
     depends_on:
       - database
+    volumes:
+      - .:/app
 volumes:
   postgres_data:
 
