@@ -8,6 +8,7 @@ import com.log.dev.api.dtos.ArticleWithDetailsDTO;
 import com.log.dev.api.dtos.CreateArticleRequestDTO;
 import com.log.dev.api.dtos.ErrorMessageDTO;
 import com.log.dev.api.dtos.MessageResponseDTO;
+import com.log.dev.api.dtos.PublishArticleRequestDTO;
 import com.log.dev.api.dtos.UpdateArticleRequestDTO;
 import com.log.dev.api.modules.user.entities.ArticleEntity;
 
@@ -85,9 +86,33 @@ public class ArticleController {
                 return ResponseEntity.ok().body(article);
         }
 
+        @PostMapping("/{articleId}")
+        @Tag(name = "Article")
+        @Operation(summary = "write article", description = "write article by user authenticate")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "201", description = "article created success", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ArticleEntity.class))),
+                        @ApiResponse(responseCode = "400", description = "bad request", content = @Content(array = @ArraySchema(arraySchema = @Schema(implementation = ErrorMessageDTO.class)), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                        @ApiResponse(responseCode = "401", description = "wrong credentials", content = @Content(array = @ArraySchema(arraySchema = @Schema(implementation = ErrorMessageDTO.class)), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                        @ApiResponse(responseCode = "404", description = "user not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
+                        @ApiResponse(responseCode = "404", description = "article not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
+        })
+        @PreAuthorize("hasRole('USER')")
+        public ResponseEntity<MessageResponseDTO> publish(
+                        @PathVariable String articleId,
+                        HttpServletRequest request) {
+                var userId = request.getAttribute("userId");
+                PublishArticleRequestDTO dto = new PublishArticleRequestDTO(UUID.fromString(userId.toString()),
+                                UUID.fromString(articleId));
+
+                this.publishArticleByAuthorUseCase.execute(dto);
+
+                return ResponseEntity.status(HttpStatus.CREATED)
+                                .body(new MessageResponseDTO("article published success"));
+        }
+
         @PostMapping()
         @Tag(name = "Article")
-        @Operation(summary = "Create article", description = "Create article by user authenticate")
+        @Operation(summary = "write article", description = "write article by user authenticate")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "201", description = "article created success", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ArticleEntity.class))),
                         @ApiResponse(responseCode = "400", description = "bad request", content = @Content(array = @ArraySchema(arraySchema = @Schema(implementation = ErrorMessageDTO.class)), mediaType = MediaType.APPLICATION_JSON_VALUE)),
@@ -95,7 +120,7 @@ public class ArticleController {
 
         })
         @PreAuthorize("hasRole('USER')")
-        public ResponseEntity<ArticleEntity> create(
+        public ResponseEntity<ArticleEntity> write(
                         @Valid @RequestBody CreateArticleRequestDTO dto,
                         HttpServletRequest request) {
                 var userId = request.getAttribute("userId");
@@ -115,7 +140,7 @@ public class ArticleController {
 
         })
         @PreAuthorize("hasRole('USER')")
-        public ResponseEntity<ArticleEntity> update(
+        public ResponseEntity<ArticleEntity> edit(
                         @Valid @RequestBody UpdateArticleRequestDTO dto,
                         @PathVariable String articleId,
                         HttpServletRequest request) {

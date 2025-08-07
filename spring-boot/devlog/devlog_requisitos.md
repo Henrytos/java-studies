@@ -6,10 +6,10 @@
 - [ x ] O sistema deve permitir login de usuários com username e senha  
 - [ x ] O sistema deve gerar um token JWT após o login  
 - [ x ] O sistema deve permitir que usuários criem, editem, visualizem e excluam artigos  
-- [ ] O sistema deve suportar rascunhos e publicações de artigos  
-- [ ] O sistema deve permitir que artigos tenham tags e imagens de capa  
-- [ ] O sistema deve permitir a busca de artigos por título, conteúdo ou tags  
-- [ ] O sistema deve listar artigos públicos com paginação  
+- [ x ] O sistema deve suportar rascunhos e publicações de artigos  
+- [ ] O sistema deve permitir que artigos tenham tags e imagens de capa  (aws s3)
+- [ ] O sistema deve permitir a busca de artigos por título, conteúdo ou tags  (entidade tags)
+- [ ] O sistema deve listar artigos públicos com paginação  (paginação)
 - [ ] O sistema deve permitir que usuários curtam e salvem artigos  
 - [ ] O sistema deve permitir comentários em artigos  
 - [ ] O sistema deve permitir comentários aninhados (respostas)  
@@ -49,8 +49,8 @@
 ### Autenticação
 
 ```http
-POST   /auth/register     # Cadastro de novo usuário  
-POST   /auth/login        # Login e geração de token  
+[ x ] POST   /auth/register     # Cadastro de novo usuário  
+[ x ] POST   /auth/login        # Login e geração de token  
 POST   /auth/refresh      # Renovação de token (opcional)  
 POST   /auth/forgot       # Enviar username de recuperação  
 POST   /auth/reset        # Redefinir senha  
@@ -69,12 +69,14 @@ DELETE /users/:id         # Banir usuário (admin)
 ### Artigos
 
 ```http
-POST   /articles          # Criar novo artigo  
+[ x ] POST   /articles          # Criar novo artigo  
+[ x ] POST   /articles/:articleId # Publicar novo artigo  
+
 GET    /articles          # Listar artigos públicos  
 GET    /articles/me       # Listar artigos do usuário logado  
 GET    /articles/:slug    # Buscar artigo por slug  
-PATCH  /articles/:id      # Editar artigo  
-DELETE /articles/:id      # Excluir artigo  
+[ x ] PATCH  /articles/:id      # Editar artigo  
+[ x ] DELETE /articles/:id      # Excluir artigo  
 ```
 
 ### Comentários

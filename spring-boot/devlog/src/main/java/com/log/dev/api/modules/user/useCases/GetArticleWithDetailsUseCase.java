@@ -17,16 +17,18 @@ public class GetArticleWithDetailsUseCase {
 
     final private PublishArticleRepository publishArticleRepository;
 
-    public GetArticleWithDetailsUseCase(UserRepository userRepository,  PublishArticleRepository publishArticleRepository) {
+    public GetArticleWithDetailsUseCase(UserRepository userRepository,
+            PublishArticleRepository publishArticleRepository) {
         this.userRepository = userRepository;
         this.publishArticleRepository = publishArticleRepository;
     }
 
-    public ArticleWithDetailsDTO execute(UUID userId, UUID articleId) throws UserNotFoundException, ArticleNotFoundException {
+    public ArticleWithDetailsDTO execute(UUID userId, UUID articleId)
+            throws UserNotFoundException, ArticleNotFoundException {
         this.userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
 
-        PublishArticleEntity publishArticle = this.publishArticleRepository.findById(articleId)
+        PublishArticleEntity publishArticle = this.publishArticleRepository.findByArticleId(articleId)
                 .orElseThrow(ArticleNotFoundException::new);
 
         return ArticleWithDetailsDTO.fromEntity(publishArticle);
