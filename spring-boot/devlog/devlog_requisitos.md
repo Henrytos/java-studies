@@ -34,10 +34,10 @@
 ## Regras de Negócio
 
 - [ x ] Apenas usuários autenticados podem criar, editar ou excluir artigos  
-- [ ] Apenas o autor de um artigo pode editá-lo ou excluí-lo  
+- [ x ] Apenas o autor de um artigo pode editá-lo ou excluí-lo  
 - [ ] Apenas usuários autenticados podem comentar  
 - [ ] Apenas o autor de um comentário pode editá-lo ou excluí-lo  
-- [ ] Um artigo só pode ser curtido ou salvo uma vez por usuário  
+- [ ] Um artigo só pode ser **curtido** ou **salvo** uma vez por usuário  
 - [ ] Artigos com status "rascunho" só podem ser visualizados pelo autor  
 - [ ] Um artigo pode conter múltiplas tags  
 - [ ] Um comentário pode conter respostas (máximo de 1 nível de profundidade)  

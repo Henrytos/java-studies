@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.log.dev.api.dtos.UpdateArticleRequestDTO;
 import com.log.dev.api.exceptions.ArticleNotFoundException;
 import com.log.dev.api.exceptions.UserNotFoundException;
+import com.log.dev.api.exceptions.UserUnauthorizedException;
 import com.log.dev.api.modules.user.entities.ArticleEntity;
 import com.log.dev.api.modules.user.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.repositories.UserRepository;
@@ -24,10 +25,15 @@ public class EditArticleUseCase {
         this.articleRepository = articleRepository;
     }
 
-    public void execute(UUID authorId, UUID articleId, UpdateArticleRequestDTO dto) throws UserNotFoundException {
-        this.userRepository.findById(authorId).orElseThrow(() -> new UserNotFoundException());
+    public void execute(UUID authorId, UUID articleId, UpdateArticleRequestDTO dto)
+            throws UserNotFoundException, UserUnauthorizedException {
+        var user = this.userRepository.findById(authorId).orElseThrow(() -> new UserNotFoundException());
 
-        this.articleRepository.findById(articleId).orElseThrow(() -> new ArticleNotFoundException());
+        var article = this.articleRepository.findById(articleId).orElseThrow(() -> new ArticleNotFoundException());
+
+        if (article.getAuthor().getId() != user.getId()) {
+            throw new UserUnauthorizedException();
+        }
 
         ArticleEntity articleEntity = ArticleEntity
                 .builder()
