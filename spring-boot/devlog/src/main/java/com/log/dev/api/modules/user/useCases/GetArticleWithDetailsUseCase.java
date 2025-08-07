@@ -2,34 +2,34 @@ package com.log.dev.api.modules.user.useCases;
 
 import java.util.UUID;
 
+import com.log.dev.api.modules.user.entities.PublishArticleEntity;
+import com.log.dev.api.modules.user.repositories.PublishArticleRepository;
 import org.springframework.stereotype.Service;
 
 import com.log.dev.api.dtos.ArticleWithDetailsDTO;
 import com.log.dev.api.exceptions.ArticleNotFoundException;
 import com.log.dev.api.exceptions.UserNotFoundException;
-import com.log.dev.api.modules.user.entities.ArticleEntity;
-import com.log.dev.api.modules.user.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 
 @Service
 public class GetArticleWithDetailsUseCase {
     final private UserRepository userRepository;
 
-    final private ArticleRepository articleRepository;
+    final private PublishArticleRepository publishArticleRepository;
 
-    public GetArticleWithDetailsUseCase(UserRepository userRepository, ArticleRepository articleRepository) {
+    public GetArticleWithDetailsUseCase(UserRepository userRepository,  PublishArticleRepository publishArticleRepository) {
         this.userRepository = userRepository;
-        this.articleRepository = articleRepository;
+        this.publishArticleRepository = publishArticleRepository;
     }
 
     public ArticleWithDetailsDTO execute(UUID userId, UUID articleId) throws UserNotFoundException, ArticleNotFoundException {
         this.userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
 
-        ArticleEntity articleEntity = this.articleRepository.findById(articleId)
+        PublishArticleEntity publishArticle = this.publishArticleRepository.findById(articleId)
                 .orElseThrow(ArticleNotFoundException::new);
 
-        return ArticleWithDetailsDTO.fromEntity(articleEntity);
+        return ArticleWithDetailsDTO.fromEntity(publishArticle);
     }
 
 }
