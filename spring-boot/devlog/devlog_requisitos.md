@@ -59,7 +59,7 @@ POST   /auth/reset        # Redefinir senha
 ### Usuário
 
 ```http
-GET    /users/me          # Buscar dados do usuário logado  
+[ x ] GET    /users/me          # Buscar dados do usuário logado  
 GET    /users/:id         # Buscar perfil público de um autor  
 GET    /users             # Listar usuários (admin)  
 PATCH  /users/:id         # Atualizar dados (nome, bio, etc.)  
