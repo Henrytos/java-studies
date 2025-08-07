@@ -126,15 +126,12 @@ public class CreateArticleControllerTest {
     @DisplayName("Failure Tests")
     class FailureTests {
 
-        private UserEntity userEntity;
-
         private ArticleEntity articleEntity;
 
         private CreateArticleRequestDTO dto;
 
         @BeforeEach
         public void setup() {
-            userEntity = makeUserEntityFactory.make(UUID.randomUUID()); // user not exist in database
 
             articleEntity = makeArticleEntityFactory.make();
 
