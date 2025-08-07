@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.github.javafaker.Faker;
-import com.log.dev.api.modules.user.UserEntity;
+import com.log.dev.api.modules.user.entities.UserEntity;
 
 @Service
 public class MakeUserEntityFactory implements FactoryInterface<UserEntity> {
@@ -16,7 +16,9 @@ public class MakeUserEntityFactory implements FactoryInterface<UserEntity> {
                 .builder()
                 .username(faker.name().username())
                 .email(faker.internet().emailAddress())
-                .password(faker.internet().password())
+                .password(faker.i
+                
+                nternet().password())
                 .build();
 
         return user;

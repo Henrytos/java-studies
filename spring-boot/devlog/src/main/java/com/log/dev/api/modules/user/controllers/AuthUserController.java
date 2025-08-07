@@ -8,7 +8,7 @@ import com.log.dev.api.dtos.AuthUserResponseDTO;
 import com.log.dev.api.dtos.RegisterUserRequestDTO;
 import com.log.dev.api.dtos.ErrorMessageDTO;
 import com.log.dev.api.dtos.MessageResponseDTO;
-import com.log.dev.api.modules.user.UserEntity;
+import com.log.dev.api.modules.user.entities.UserEntity;
 import com.log.dev.api.modules.user.useCases.AuthUserUseCase;
 import com.log.dev.api.modules.user.useCases.RegisterUserUseCase;
 

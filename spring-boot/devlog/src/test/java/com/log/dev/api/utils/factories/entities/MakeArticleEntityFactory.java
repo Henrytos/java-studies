@@ -5,8 +5,8 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.github.javafaker.Faker;
-import com.log.dev.api.modules.user.ArticleEntity;
-import com.log.dev.api.modules.user.UserEntity;
+import com.log.dev.api.modules.user.entities.ArticleEntity;
+import com.log.dev.api.modules.user.entities.UserEntity;
 
 @Service
 public class MakeArticleEntityFactory implements FactoryInterface<ArticleEntity> {

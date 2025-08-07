@@ -1,4 +1,4 @@
-package com.log.dev.api.modules.user;
+package com.log.dev.api.modules.user.entities;
 
 import java.util.UUID;
 
@@ -12,7 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity(name = "avatars")
-@JsonIgnoreProperties(value = { "user" })
+@JsonIgnoreProperties(value = { "user
+" })
 public class AvatarEntity {
 
     @Id

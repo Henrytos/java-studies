@@ -47,4 +47,10 @@ public class ExceptionHandlerMiddleware {
         return ResponseEntity.status(ex.getStatusCode()).body(response);
     }
 
+    @ExceptionHandler(ArticleNotFoundException.class)
+    public ResponseEntity<MessageResponseDTO> handleArticleNotFoundException(ArticleNotFoundException ex) {
+        MessageResponseDTO response = new MessageResponseDTO(ex.getMessage());
+        return ResponseEntity.status(ex.getStatusCode()).body(response);
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.log.dev.api.modules.user;
+package com.log.dev.api.modules.user.entities;
 
 import java.util.List;
 import java.util.UUID;
@@ -49,6 +49,9 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user")
     private List<LikeUserEntity> likes;
+
+    @OneToMany(mappedBy = "user")
+    private List<CommentEntity> comments;
 
     @OneToOne
     @JoinColumn(name = "avatar_id")

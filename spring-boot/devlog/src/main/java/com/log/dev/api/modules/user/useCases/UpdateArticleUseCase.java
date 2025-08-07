@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.log.dev.api.dtos.UpdateArticleRequestDTO;
 import com.log.dev.api.exceptions.ArticleNotFoundException;
 import com.log.dev.api.exceptions.UserNotFoundException;
-import com.log.dev.api.modules.user.ArticleEntity;
+import com.log.dev.api.modules.user.entities.ArticleEntity;
 import com.log.dev.api.modules.user.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 

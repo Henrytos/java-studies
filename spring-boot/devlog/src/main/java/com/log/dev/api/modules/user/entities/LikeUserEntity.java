@@ -1,4 +1,4 @@
-package com.log.dev.api.modules.user;
+package com.log.dev.api.modules.user.entities;
 
 import java.util.UUID;
 

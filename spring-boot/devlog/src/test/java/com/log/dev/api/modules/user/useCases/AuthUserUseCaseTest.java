@@ -32,7 +32,7 @@ import com.log.dev.api.dtos.AuthUserRequestDTO;
 import com.log.dev.api.dtos.AuthUserResponseDTO;
 import com.log.dev.api.exceptions.UserNotFoundException;
 import com.log.dev.api.exceptions.WrongCredentialsException;
-import com.log.dev.api.modules.user.UserEntity;
+import com.log.dev.api.modules.user.entities.UserEntity;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 import com.log.dev.api.providers.JWTProviderService;
 import com.log.dev.api.utils.factories.entities.MakeUserEntityFactory;

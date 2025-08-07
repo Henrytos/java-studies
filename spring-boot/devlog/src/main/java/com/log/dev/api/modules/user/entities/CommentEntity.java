@@ -1,13 +1,10 @@
-package com.log.dev.api.modules.user;
+package com.log.dev.api.modules.user.entities;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,34 +13,25 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+@Entity(name = "comments")
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "articles")
-@JsonIgnoreProperties(value = { "author", "likes" })
-public class ArticleEntity {
+public class CommentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String title;
-
-    @Column(name = "sub_title")
-    private String subTitle;
-
     private String content;
 
     @ManyToOne
+    @JoinColumn(name = "article_id")
+    private ArticleEntity article;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity author;
+    private UserEntity user;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -52,10 +40,4 @@ public class ArticleEntity {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "article")
-    private List<LikeUserEntity> likes;
-
-    @Column(name = "reading_duration_in_minutes")
-    private int readingDurationInMinutes;
 }
