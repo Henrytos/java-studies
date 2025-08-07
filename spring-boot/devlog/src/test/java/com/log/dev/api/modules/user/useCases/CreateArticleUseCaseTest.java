@@ -31,7 +31,7 @@ import com.log.dev.api.utils.factories.entities.MakeUserEntityFactory;
 public class CreateArticleUseCaseTest {
 
     @InjectMocks
-    private CreateArticleUseCase createArticleUseCase; // sut = system under test = sistema em teste, one two
+    private WriteArticleUseCase createArticleUseCase; // sut = system under test = sistema em teste, one two
 
     @Mock
     private UserRepository userRepository;

@@ -33,7 +33,7 @@
 
 ## Regras de Negócio
 
-- [ ] Apenas usuários autenticados podem criar, editar ou excluir artigos  
+- [ x ] Apenas usuários autenticados podem criar, editar ou excluir artigos  
 - [ ] Apenas o autor de um artigo pode editá-lo ou excluí-lo  
 - [ ] Apenas usuários autenticados podem comentar  
 - [ ] Apenas o autor de um comentário pode editá-lo ou excluí-lo  

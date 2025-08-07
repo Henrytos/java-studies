@@ -4,38 +4,40 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.log.dev.api.dtos.CreateArticleRequestDTO;
+import com.log.dev.api.dtos.UpdateArticleRequestDTO;
+import com.log.dev.api.exceptions.ArticleNotFoundException;
 import com.log.dev.api.exceptions.UserNotFoundException;
 import com.log.dev.api.modules.user.entities.ArticleEntity;
-import com.log.dev.api.modules.user.entities.UserEntity;
 import com.log.dev.api.modules.user.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 
 @Service
-public class CreateArticleUseCase {
+public class EditArticleUseCase {
 
     private UserRepository userRepository;
-
     private ArticleRepository articleRepository;
 
-    public CreateArticleUseCase(UserRepository userRepository, ArticleRepository articleRepository) {
+    public EditArticleUseCase(
+            UserRepository userRepository,
+            ArticleRepository articleRepository) {
         this.userRepository = userRepository;
         this.articleRepository = articleRepository;
     }
 
-    public ArticleEntity execute(UUID authorId, CreateArticleRequestDTO dto) throws UserNotFoundException {
-        UserEntity user = this.userRepository.findById(authorId)
-                .orElseThrow(() -> new UserNotFoundException());
+    public void execute(UUID authorId, UUID articleId, UpdateArticleRequestDTO dto) throws UserNotFoundException {
+        this.userRepository.findById(authorId).orElseThrow(() -> new UserNotFoundException());
 
-        ArticleEntity articleEntity = ArticleEntity.builder()
-                .author(user)
+        this.articleRepository.findById(articleId).orElseThrow(() -> new ArticleNotFoundException());
+
+        ArticleEntity articleEntity = ArticleEntity
+                .builder()
                 .title(dto.getTitle())
                 .subTitle(dto.getSubTitle())
                 .content(dto.getContent())
                 .readingDurationInMinutes(dto.getReadingDurationInMinutes())
                 .build();
 
-        return this.articleRepository.save(articleEntity);
+        this.articleRepository.save(articleEntity);
     }
 
 }
