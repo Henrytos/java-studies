@@ -26,6 +26,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -53,6 +54,7 @@ public class ArticleController {
             @ApiResponse(responseCode = "404", description = "user not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
 
     })
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ArticleEntity> create(
             @Valid @RequestBody CreateArticleRequestDTO dto,
             HttpServletRequest request) {
@@ -72,6 +74,7 @@ public class ArticleController {
             @ApiResponse(responseCode = "404", description = "user not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
 
     })
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ArticleEntity> update(
             @Valid @RequestBody UpdateArticleRequestDTO dto,
             @PathVariable String articleId,
