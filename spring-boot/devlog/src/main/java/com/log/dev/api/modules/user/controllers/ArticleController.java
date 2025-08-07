@@ -1,5 +1,6 @@
 package com.log.dev.api.modules.user.controllers;
 
+import com.log.dev.api.modules.user.useCases.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,10 +10,6 @@ import com.log.dev.api.dtos.ErrorMessageDTO;
 import com.log.dev.api.dtos.MessageResponseDTO;
 import com.log.dev.api.dtos.UpdateArticleRequestDTO;
 import com.log.dev.api.modules.user.entities.ArticleEntity;
-import com.log.dev.api.modules.user.useCases.WriteArticleUseCase;
-import com.log.dev.api.modules.user.useCases.DeleteArticleUseCase;
-import com.log.dev.api.modules.user.useCases.GetArticleWithDetailsUseCase;
-import com.log.dev.api.modules.user.useCases.EditArticleUseCase;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -41,23 +38,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/articles")
 public class ArticleController {
 
-        private GetArticleWithDetailsUseCase getArticleWithDetailsUseCase;
+        final private GetArticleWithDetailsUseCase getArticleWithDetailsUseCase;
 
-        private WriteArticleUseCase createArticleUseCase;
+        final private WriteArticleUseCase createArticleUseCase;
 
-        private EditArticleUseCase updateArticleUseCase;
+        final private EditArticleUseCase updateArticleUseCase;
 
-        private DeleteArticleUseCase deleteArticleUseCase;
+        final private DeleteArticleUseCase deleteArticleUseCase;
+
+        final private PublishArticleByAuthorUseCase publishArticleByAuthorUseCase;
 
         public ArticleController(
                         GetArticleWithDetailsUseCase getArticleWithDetailsUseCase,
                         WriteArticleUseCase createArticleUseCase,
                         EditArticleUseCase updateArticleUseCase,
-                        DeleteArticleUseCase deleteArticleUseCase) {
+                        DeleteArticleUseCase deleteArticleUseCase,
+                        PublishArticleByAuthorUseCase publishArticleByAuthorUseCase) {
                 this.getArticleWithDetailsUseCase = getArticleWithDetailsUseCase;
                 this.createArticleUseCase = createArticleUseCase;
                 this.updateArticleUseCase = updateArticleUseCase;
                 this.deleteArticleUseCase = deleteArticleUseCase;
+                this.publishArticleByAuthorUseCase = publishArticleByAuthorUseCase;
         }
 
         @GetMapping("/{articleId}")
