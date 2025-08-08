@@ -46,15 +46,15 @@ public class UserEntity {
     private String password;
 
     @OneToMany(mappedBy = "author")
-    private List<ArticleEntity> articles;
+    private List<ArticleEntity> articles; // aponta o dono da relação
 
     @OneToMany(mappedBy = "user")
-    private List<LikeUserEntity> likes;
+    private List<LikeUserEntity> likes; // aponta o dono da relação
 
     @OneToMany(mappedBy = "user")
-    private List<CommentEntity> comments;
+    private List<CommentEntity> comments; // aponta o dono da relação
 
     @OneToOne
     @JoinColumn(name = "avatar_id")
-    private AvatarEntity avatar;
+    private AvatarEntity avatar; // aponta o lado inverso da relação
 }

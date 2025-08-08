@@ -5,7 +5,7 @@ import com.log.dev.api.modules.author.useCases.DeleteArticleUseCase;
 import com.log.dev.api.modules.author.useCases.EditArticleUseCase;
 import com.log.dev.api.modules.author.useCases.GetArticleWithDetailsUseCase;
 import com.log.dev.api.modules.author.useCases.PublishArticleByAuthorUseCase;
-import com.log.dev.api.modules.user.useCases.*;
+import com.log.dev.api.modules.author.useCases.WriteArticleUseCase;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

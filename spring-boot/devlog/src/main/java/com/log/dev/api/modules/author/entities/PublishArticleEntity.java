@@ -29,12 +29,15 @@ public class PublishArticleEntity {
     @OneToMany(mappedBy = "publishArticle")
     private List<LikeUserEntity> likes;
 
-    @OneToMany(mappedBy = "publishArticle")
+    @OneToMany(mappedBy = "publishArticle") // aponta o dono da relação
     private List<CommentEntity> comments;
 
+    @ManyToMany(mappedBy = "articles") // aponta o dono da relação
+    private List<TagEntity> tags;
+
     @OneToOne
-    @JoinColumn(name = "article_id")
-    private ArticleEntity article; // dono
+    @JoinColumn(name = "article_id") // aponta o dono da relação
+    private ArticleEntity article; 
 
     @CreationTimestamp
     @Column(name = "publish_at")

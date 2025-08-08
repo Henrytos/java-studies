@@ -1,4 +1,4 @@
-package com.log.dev.api.modules.user.useCases;
+package com.log.dev.api.modules.author.useCases;
 
 import java.util.UUID;
 

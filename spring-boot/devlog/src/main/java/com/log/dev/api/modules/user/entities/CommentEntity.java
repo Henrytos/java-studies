@@ -30,11 +30,11 @@ public class CommentEntity {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "publish_article_id")
+    @JoinColumn(name = "publish_article_id") // lado com fk
     private PublishArticleEntity publishArticle;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id") // lado com fk
     private UserEntity user;
 
     @Column(name = "created_at")
