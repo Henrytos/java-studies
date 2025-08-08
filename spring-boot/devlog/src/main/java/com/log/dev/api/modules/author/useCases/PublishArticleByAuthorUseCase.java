@@ -1,14 +1,14 @@
-package com.log.dev.api.modules.user.useCases;
+package com.log.dev.api.modules.author.useCases;
 
 import com.log.dev.api.dtos.PublishArticleRequestDTO;
 import com.log.dev.api.exceptions.ArticleNotFoundException;
 import com.log.dev.api.exceptions.UserNotFoundException;
 import com.log.dev.api.exceptions.WrongCredentialsException;
-import com.log.dev.api.modules.user.entities.ArticleEntity;
-import com.log.dev.api.modules.user.entities.PublishArticleEntity;
+import com.log.dev.api.modules.author.entities.ArticleEntity;
+import com.log.dev.api.modules.author.entities.PublishArticleEntity;
+import com.log.dev.api.modules.author.repositories.ArticleRepository;
+import com.log.dev.api.modules.author.repositories.PublishArticleRepository;
 import com.log.dev.api.modules.user.entities.UserEntity;
-import com.log.dev.api.modules.user.repositories.ArticleRepository;
-import com.log.dev.api.modules.user.repositories.PublishArticleRepository;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,20 +21,22 @@ public class PublishArticleByAuthorUseCase {
 
     final private PublishArticleRepository publishArticleRepository;
 
-    public  PublishArticleByAuthorUseCase(
+    public PublishArticleByAuthorUseCase(
             UserRepository userRepository,
             ArticleRepository articleRepository,
-            PublishArticleRepository publishArticleRepository){
+            PublishArticleRepository publishArticleRepository) {
         this.userRepository = userRepository;
         this.articleRepository = articleRepository;
         this.publishArticleRepository = publishArticleRepository;
     }
 
-    public void execute(PublishArticleRequestDTO dto) throws UserNotFoundException,ArticleNotFoundException,WrongCredentialsException {
+    public void execute(PublishArticleRequestDTO dto)
+            throws UserNotFoundException, ArticleNotFoundException, WrongCredentialsException {
         UserEntity user = this.userRepository.findById(dto.authorId()).orElseThrow(UserNotFoundException::new);
-        ArticleEntity article = this.articleRepository.findById(dto.articleId()).orElseThrow(ArticleNotFoundException::new);
+        ArticleEntity article = this.articleRepository.findById(dto.articleId())
+                .orElseThrow(ArticleNotFoundException::new);
 
-        if(article.getAuthor().getId() != user.getId()){
+        if (article.getAuthor().getId() != user.getId()) {
             throw new WrongCredentialsException();
         }
 

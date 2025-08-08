@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.log.dev.api.modules.author.entities.PublishArticleEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

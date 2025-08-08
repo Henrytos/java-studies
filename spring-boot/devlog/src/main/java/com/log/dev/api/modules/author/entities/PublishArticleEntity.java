@@ -1,4 +1,4 @@
-package com.log.dev.api.modules.user.entities;
+package com.log.dev.api.modules.author.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.log.dev.api.modules.user.entities.CommentEntity;
+import com.log.dev.api.modules.user.entities.LikeUserEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,7 +34,7 @@ public class PublishArticleEntity {
 
     @OneToOne
     @JoinColumn(name = "article_id")
-    private ArticleEntity article; //dono
+    private ArticleEntity article; // dono
 
     @CreationTimestamp
     @Column(name = "publish_at")

@@ -1,4 +1,4 @@
-package com.log.dev.api.modules.user.useCases;
+package com.log.dev.api.modules.author.useCases;
 
 import java.util.UUID;
 
@@ -8,8 +8,8 @@ import com.log.dev.api.dtos.UpdateArticleRequestDTO;
 import com.log.dev.api.exceptions.ArticleNotFoundException;
 import com.log.dev.api.exceptions.UserNotFoundException;
 import com.log.dev.api.exceptions.UserUnauthorizedException;
-import com.log.dev.api.modules.user.entities.ArticleEntity;
-import com.log.dev.api.modules.user.repositories.ArticleRepository;
+import com.log.dev.api.modules.author.entities.ArticleEntity;
+import com.log.dev.api.modules.author.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 
 @Service

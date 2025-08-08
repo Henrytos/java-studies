@@ -1,5 +1,10 @@
-package com.log.dev.api.modules.user.controllers;
+package com.log.dev.api.modules.author.controllers;
 
+import com.log.dev.api.modules.author.entities.ArticleEntity;
+import com.log.dev.api.modules.author.useCases.DeleteArticleUseCase;
+import com.log.dev.api.modules.author.useCases.EditArticleUseCase;
+import com.log.dev.api.modules.author.useCases.GetArticleWithDetailsUseCase;
+import com.log.dev.api.modules.author.useCases.PublishArticleByAuthorUseCase;
 import com.log.dev.api.modules.user.useCases.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +15,6 @@ import com.log.dev.api.dtos.ErrorMessageDTO;
 import com.log.dev.api.dtos.MessageResponseDTO;
 import com.log.dev.api.dtos.PublishArticleRequestDTO;
 import com.log.dev.api.dtos.UpdateArticleRequestDTO;
-import com.log.dev.api.modules.user.entities.ArticleEntity;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

@@ -20,9 +20,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.log.dev.api.dtos.CreateArticleRequestDTO;
 import com.log.dev.api.exceptions.UserNotFoundException;
-import com.log.dev.api.modules.user.entities.ArticleEntity;
+import com.log.dev.api.modules.author.entities.ArticleEntity;
+import com.log.dev.api.modules.author.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.entities.UserEntity;
-import com.log.dev.api.modules.user.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 import com.log.dev.api.utils.factories.entities.MakeArticleEntityFactory;
 import com.log.dev.api.utils.factories.entities.MakeUserEntityFactory;

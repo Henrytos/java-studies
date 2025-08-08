@@ -1,7 +1,6 @@
-package com.log.dev.api.modules.user.entities;
+package com.log.dev.api.modules.author.entities;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.*;
@@ -9,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.log.dev.api.modules.user.entities.UserEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

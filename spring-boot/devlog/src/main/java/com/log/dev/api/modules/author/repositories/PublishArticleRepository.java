@@ -1,7 +1,8 @@
-package com.log.dev.api.modules.user.repositories;
+package com.log.dev.api.modules.author.repositories;
 
-import com.log.dev.api.modules.user.entities.PublishArticleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.log.dev.api.modules.author.entities.PublishArticleEntity;
 
 import java.util.Optional;
 import java.util.UUID;

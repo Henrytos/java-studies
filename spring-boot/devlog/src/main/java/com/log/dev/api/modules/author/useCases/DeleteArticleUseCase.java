@@ -1,4 +1,4 @@
-package com.log.dev.api.modules.user.useCases;
+package com.log.dev.api.modules.author.useCases;
 
 import java.util.UUID;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.log.dev.api.exceptions.ArticleNotFoundException;
 import com.log.dev.api.exceptions.UserNotFoundException;
 import com.log.dev.api.exceptions.WrongCredentialsException;
-import com.log.dev.api.modules.user.repositories.ArticleRepository;
+import com.log.dev.api.modules.author.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 
 @Service

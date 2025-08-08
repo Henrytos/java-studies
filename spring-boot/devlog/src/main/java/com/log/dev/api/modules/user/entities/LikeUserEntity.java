@@ -3,6 +3,7 @@ package com.log.dev.api.modules.user.entities;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.log.dev.api.modules.author.entities.PublishArticleEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,9 +1,10 @@
-package com.log.dev.api.modules.user.useCases;
+package com.log.dev.api.modules.author.useCases;
 
 import java.util.UUID;
 
-import com.log.dev.api.modules.user.entities.PublishArticleEntity;
-import com.log.dev.api.modules.user.repositories.PublishArticleRepository;
+import com.log.dev.api.modules.author.entities.PublishArticleEntity;
+import com.log.dev.api.modules.author.repositories.PublishArticleRepository;
+
 import org.springframework.stereotype.Service;
 
 import com.log.dev.api.dtos.ArticleWithDetailsDTO;

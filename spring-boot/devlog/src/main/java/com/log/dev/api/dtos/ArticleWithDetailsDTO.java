@@ -3,9 +3,8 @@ package com.log.dev.api.dtos;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.log.dev.api.modules.user.entities.ArticleEntity;
+import com.log.dev.api.modules.author.entities.PublishArticleEntity;
 import com.log.dev.api.modules.user.entities.CommentEntity;
-import com.log.dev.api.modules.user.entities.PublishArticleEntity;
 import com.log.dev.api.modules.user.entities.UserEntity;
 
 import lombok.AllArgsConstructor;

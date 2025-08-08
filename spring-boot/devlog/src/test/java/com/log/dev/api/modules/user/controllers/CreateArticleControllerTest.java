@@ -23,9 +23,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.log.dev.api.dtos.CreateArticleRequestDTO;
-import com.log.dev.api.modules.user.entities.ArticleEntity;
+import com.log.dev.api.modules.author.entities.ArticleEntity;
+import com.log.dev.api.modules.author.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.entities.UserEntity;
-import com.log.dev.api.modules.user.repositories.ArticleRepository;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 import com.log.dev.api.providers.JWTProviderService;
 import com.log.dev.api.utils.UtilTest;
