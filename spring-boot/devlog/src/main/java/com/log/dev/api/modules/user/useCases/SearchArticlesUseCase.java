@@ -27,7 +27,7 @@ public class SearchArticlesUseCase {
         Pageable pageable = PageRequest.of(initialPage, search.perPage());
 
         Page<PublishArticleEntity> publishArticlesTargetPage = this.publishArticleRepository
-                .findByTitleContainingIgnoreCaseOrContentContainingIgnoreCaseOrTagsNameContainingIgnoreCase(
+                .search(
                         search.title(), search.content(), search.tags(), pageable);
 
         if (publishArticlesTargetPage.isEmpty()) {
