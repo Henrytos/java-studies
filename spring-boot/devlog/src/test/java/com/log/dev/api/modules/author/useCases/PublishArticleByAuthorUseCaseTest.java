@@ -50,7 +50,9 @@ public class PublishArticleByAuthorUseCaseTest {
 
     @AfterEach
     public void afterEach() {
-
+        this.publishArticleRepository.deleteAll();
+        this.articleRepository.deleteAll();
+        this.userRepository.deleteAll();
     }
 
     @Test
