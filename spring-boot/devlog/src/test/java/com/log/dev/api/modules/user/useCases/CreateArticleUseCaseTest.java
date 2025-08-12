@@ -22,7 +22,7 @@ import com.log.dev.api.dtos.CreateArticleRequestDTO;
 import com.log.dev.api.exceptions.UserNotFoundException;
 import com.log.dev.api.modules.author.entities.ArticleEntity;
 import com.log.dev.api.modules.author.repositories.ArticleRepository;
-import com.log.dev.api.modules.author.useCases.WriteArticleUseCase;
+import com.log.dev.api.modules.author.useCases.WriteArticleUseCaseTest;
 import com.log.dev.api.modules.user.entities.UserEntity;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 import com.log.dev.api.utils.factories.entities.MakeArticleEntityFactory;
@@ -32,7 +32,7 @@ import com.log.dev.api.utils.factories.entities.MakeUserEntityFactory;
 public class CreateArticleUseCaseTest {
 
     @InjectMocks
-    private WriteArticleUseCase createArticleUseCase; // sut = system under test = sistema em teste, one two
+    private WriteArticleUseCaseTest createArticleUseCase; // sut = system under test = sistema em teste, one two
 
     @Mock
     private UserRepository userRepository;
