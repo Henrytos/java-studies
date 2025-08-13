@@ -10,7 +10,13 @@ public class Exemplo02 {
             System.out.println("Pode tirar carteira");
         } else {
             System.out.println("Não Pode dirigir");
-
         }
+
+
+        String maiorDeIdade = idade >=18?"sim é maior de idade":
+                        idade >=16? "sim é maior de idade mas de 16":
+                        "não é maior de idade ";
+        System.out.printf(maiorDeIdade);
+
     }
 }
