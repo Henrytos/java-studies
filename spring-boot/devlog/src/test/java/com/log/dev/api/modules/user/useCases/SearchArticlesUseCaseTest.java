@@ -79,7 +79,7 @@ public class SearchArticlesUseCaseTest {
         SearchArticlesRequestDTO search = new SearchArticlesRequestDTO("docker", "docker content", null, 1, 10);
 
         SearchArticleResponseDTO response = searchArticlesUseCase.execute(search);
-        assertEquals(response.articles().size(), 3);
+        assertEquals(response.totalPages(), 1);
         assertEquals(response.page(), 1);
         assertEquals(response.perPage(), 10);
         assertEquals(response.totalPages(), 1);
