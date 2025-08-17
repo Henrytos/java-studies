@@ -2,7 +2,7 @@ package com.log.dev.api.dtos;
 
 import java.util.List;
 
-public record SearchArticleResponseDTO(
+public record SearchPublishArticleResponseDTO(
                 List<SearchArticleDTO> articles,
                 int page,
                 int perPage,

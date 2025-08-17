@@ -8,8 +8,8 @@
 - [ x ] O sistema deve permitir que usuários criem, editem, visualizem e excluam artigos  
 - [ x ] O sistema deve suportar rascunhos e publicações de artigos  
 - [ ] O sistema deve permitir que artigos tenham tags e imagens de capa  (aws s3)
-- [ ] O sistema deve permitir a busca de artigos por título, conteúdo ou tags  (entidade tags)
-- [ ] O sistema deve listar artigos públicos com paginação  (paginação)
+- [ x ] O sistema deve permitir a busca de artigos por título, conteúdo ou tags  (entidade tags)
+- [  ] O sistema deve listar artigos públicos com paginação  (paginação)
 - [ ] O sistema deve permitir que usuários curtam e salvem artigos  
 - [ ] O sistema deve permitir comentários em artigos  
 - [ ] O sistema deve permitir comentários aninhados (respostas)  

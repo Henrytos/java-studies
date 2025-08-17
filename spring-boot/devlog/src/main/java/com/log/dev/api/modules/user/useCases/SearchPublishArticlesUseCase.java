@@ -9,22 +9,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.log.dev.api.dtos.SearchArticleDTO;
-import com.log.dev.api.dtos.SearchArticleResponseDTO;
-import com.log.dev.api.dtos.SearchArticlesRequestDTO;
+import com.log.dev.api.dtos.SearchPublishArticleResponseDTO;
+import com.log.dev.api.dtos.SearchPublishArticleRequestDTO;
 import com.log.dev.api.exceptions.ArticleNotFoundException;
 import com.log.dev.api.modules.author.entities.PublishArticleEntity;
 import com.log.dev.api.modules.author.repositories.PublishArticleRepository;
 
 @Service
-public class SearchArticlesUseCase {
+public class SearchPublishArticlesUseCase {
 
     private PublishArticleRepository publishArticleRepository;
 
-    public SearchArticlesUseCase(PublishArticleRepository publishArticleRepository) {
+    public SearchPublishArticlesUseCase(PublishArticleRepository publishArticleRepository) {
         this.publishArticleRepository = publishArticleRepository;
     }
 
-    public SearchArticleResponseDTO execute(SearchArticlesRequestDTO search) throws ArticleNotFoundException {
+    public SearchPublishArticleResponseDTO execute(SearchPublishArticleRequestDTO search)
+            throws ArticleNotFoundException {
         int initialPage = search.page() - 1;
         Pageable pageable = PageRequest.of(initialPage, search.perPage());
 
@@ -44,7 +45,7 @@ public class SearchArticlesUseCase {
             return searchArticleDTO;
         }).collect(Collectors.toList());
 
-        return new SearchArticleResponseDTO(
+        return new SearchPublishArticleResponseDTO(
                 articleDTOs,
                 search.page(),
                 search.perPage(),

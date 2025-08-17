@@ -12,8 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.log.dev.api.dtos.SearchArticleResponseDTO;
-import com.log.dev.api.dtos.SearchArticlesRequestDTO;
+import com.log.dev.api.dtos.SearchPublishArticleResponseDTO;
+import com.log.dev.api.dtos.SearchPublishArticleRequestDTO;
 import com.log.dev.api.modules.author.entities.ArticleEntity;
 import com.log.dev.api.modules.author.entities.PublishArticleEntity;
 import com.log.dev.api.modules.author.repositories.ArticleRepository;
@@ -29,10 +29,10 @@ import jakarta.transaction.Transactional;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @Transactional
-public class SearchArticlesUseCaseTest {
+public class SearchPublishArticlesUseCaseTest {
 
     @Autowired
-    private SearchArticlesUseCase searchArticlesUseCase;
+    private SearchPublishArticlesUseCase SearchPublishArticlesUseCase;
 
     @Autowired
     private PublishArticleRepository publishArticleRepository;
@@ -76,9 +76,10 @@ public class SearchArticlesUseCaseTest {
             publishArticleRepository.save(publishArticleEntity);
         }
 
-        SearchArticlesRequestDTO search = new SearchArticlesRequestDTO("docker", "docker content", null, 1, 10);
+        SearchPublishArticleRequestDTO search = new SearchPublishArticleRequestDTO("docker", "docker content", null, 1,
+                10);
 
-        SearchArticleResponseDTO response = searchArticlesUseCase.execute(search);
+        SearchPublishArticleResponseDTO response = SearchPublishArticlesUseCase.execute(search);
         assertEquals(response.totalPages(), 1);
         assertEquals(response.page(), 1);
         assertEquals(response.perPage(), 10);
@@ -92,9 +93,10 @@ public class SearchArticlesUseCaseTest {
     @Test
     @DisplayName("should be able search in application return 0")
     public void should_be_able_search_in_application_return_0() {
-        SearchArticlesRequestDTO search = new SearchArticlesRequestDTO("docker", "docker content", null, 1, 10);
+        SearchPublishArticleRequestDTO search = new SearchPublishArticleRequestDTO("docker", "docker content", null, 1,
+                10);
 
-        SearchArticleResponseDTO response = searchArticlesUseCase.execute(search);
+        SearchPublishArticleResponseDTO response = SearchPublishArticlesUseCase.execute(search);
         assertEquals(response.articles().size(), 0);
         assertEquals(response.page(), 1);
         assertEquals(response.perPage(), 10);
