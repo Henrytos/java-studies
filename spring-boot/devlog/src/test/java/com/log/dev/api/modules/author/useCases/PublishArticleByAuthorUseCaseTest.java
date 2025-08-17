@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.UUID;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,11 @@ import com.log.dev.api.modules.user.repositories.UserRepository;
 import com.log.dev.api.utils.factories.entities.MakeArticleEntityFactory;
 import com.log.dev.api.utils.factories.entities.MakeUserEntityFactory;
 
+import jakarta.transaction.Transactional;
+
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@Transactional
 public class PublishArticleByAuthorUseCaseTest {
 
     @Autowired
@@ -47,13 +49,6 @@ public class PublishArticleByAuthorUseCaseTest {
 
     @Autowired
     private MakeArticleEntityFactory makeArticleEntityFactory;
-
-    @AfterEach
-    public void afterEach() {
-        this.publishArticleRepository.deleteAll();
-        this.articleRepository.deleteAll();
-        this.userRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("should be able return list articles")

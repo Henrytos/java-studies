@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.log.dev.api.modules.user.entities.CommentEntity;
 import com.log.dev.api.modules.user.entities.LikeUserEntity;
 
@@ -19,6 +20,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value = { "comments", "likes" })
 public class PublishArticleEntity {
 
     @Id

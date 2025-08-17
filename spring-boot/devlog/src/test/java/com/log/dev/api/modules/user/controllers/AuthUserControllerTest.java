@@ -22,8 +22,11 @@ import com.log.dev.api.modules.user.repositories.UserRepository;
 import com.log.dev.api.utils.UtilTest;
 import com.log.dev.api.utils.factories.entities.MakeUserEntityFactory;
 
+import jakarta.transaction.Transactional;
+
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@Transactional
 public class AuthUserControllerTest {
 
         private MockMvc mvc;

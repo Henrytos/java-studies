@@ -17,10 +17,13 @@ import org.springframework.web.context.WebApplicationContext;
 import com.log.dev.api.dtos.RegisterUserRequestDTO;
 import com.log.dev.api.utils.UtilTest;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@Transactional
 public class RegisterUserControllerTest {
         private MockMvc mvc;
 

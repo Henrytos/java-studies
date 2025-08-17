@@ -16,12 +16,13 @@ public interface PublishArticleRepository extends JpaRepository<PublishArticleEn
         Optional<PublishArticleEntity> findByArticleId(UUID articleId);
 
         @Query("""
-                          SELECT p FROM publish_articles p
-                          JOIN p.tags t
-                          WHERE LOWER(p.article.title) LIKE LOWER(CONCAT('%', :title, '%'))
-                             OR LOWER(p.article.content) LIKE LOWER(CONCAT('%', :content, '%'))
-                             OR LOWER(t.name) IN :tags
-                        """)
+                        SELECT pa FROM publish_articles pa
+                        LEFT JOIN pa.article a
+                        LEFT JOIN pa.tags t
+                        WHERE LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%'))
+                           OR LOWER(a.content) LIKE LOWER(CONCAT('%', :content, '%'))
+                           OR LOWER(t.name) IN :tags
+                                """)
         Page<PublishArticleEntity> search(
                         @Param("title") String title,
                         @Param("content") String content,
