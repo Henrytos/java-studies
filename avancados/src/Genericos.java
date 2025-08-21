@@ -14,6 +14,10 @@ class Lista<T>{
     public T obter(Integer indice){
         return list.get(indice);
     }
+
+    public static <T> T obeterDeUmaLista(Lista<T> lista, Integer indice){
+        return  lista.obter(indice);
+    }
 }
 
 public class Genericos {
@@ -35,7 +39,7 @@ public class Genericos {
         System.out.println(numeros.obter(2));
         System.out.println(numeros.obter(3));
 
-
+        System.out.println(Lista.obeterDeUmaLista(numeros,1));
 
     }
 }
