@@ -1,6 +1,11 @@
 // wild card => corigna, estabelece uma classe desconhecida que extend uma
 // classe conhecida ou determinada
 
+// UPPER BOUNDED WILDCARDS => somente com subclasses (extends)
+// LOWER BOUNDED WILDCARDS => somente com superclasse (super)
+// BOUNDED WILDCARDS => => os w acima mas sem tipagem segura
+
+import java.util.ArrayList;
 import java.util.List;
 
 abstract  class Animal{
@@ -20,7 +25,7 @@ class Cachorro extends Animal{
     }
 }
 
-public class WildCard {
+public class UpperBoundedWildCard {
 
     static void mostarAnimais(List<? extends Animal> animais){
 
@@ -36,17 +41,25 @@ public class WildCard {
         Gato gato = new Gato();
 
         System.out.println("----------ANIMAIS----------");
-        List<Animal> animais = List.of(cachorro, gato);
+        List<Animal> animais = new ArrayList<>();
+        animais.add(cachorro);
+        animais.add(gato);
         mostarAnimais(animais);
 
         System.out.println("----------GATOS----------");
-        List<Gato> gatos = List.of(gato, gato);
+        List<Gato> gatos = new ArrayList<>();
+        gatos.add(gato);
+        gatos.add(gato);
         mostarAnimais(gatos);
 
         System.out.println("----------CACHORROS----------");
-        List<Cachorro> cachorros = List.of(cachorro, cachorro);
+        List<Cachorro> cachorros = new ArrayList<>();
+        cachorros.add(cachorro);
+        cachorros.add(cachorro);
+        
         mostarAnimais(cachorros);
 
     }
 
 }
+
