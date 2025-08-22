@@ -1,3 +1,4 @@
+package generics;
 // wild card => corigna, estabelece uma classe desconhecida que extend uma
 // classe conhecida ou determinada
 

@@ -1,6 +1,8 @@
+package generics;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 class ToDoList<T>{
     private final List<T> list = new ArrayList<>();
@@ -11,7 +13,7 @@ class ToDoList<T>{
     // possíveis erros de tipo
     @SafeVarargs
     public final void addTodo(T... todo){
-        list.addAll(Arrays.stream(todo).toList());
+        list.addAll(Arrays.stream(todo).collect(Collectors.toList()));
     }
 
     public void showAll(){
