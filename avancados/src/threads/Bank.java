@@ -14,7 +14,7 @@ public class Bank {
         System.out.println("credit value = "+ valueCredit.toString());
         this.value = this.value.add(valueCredit);
     }
-
+//    synchronized usada para garantir que apenas uma thread por vez possa executar um bloco de código
     public synchronized void withdraw(BigDecimal valueWithdraw){
         if(-1 == this.value.compareTo(valueWithdraw)){
             System.out.println("invalid value");
