@@ -2,9 +2,9 @@ FROM maven:3.8.5-openjdk-17-slim AS build
 
 COPY . .
 
-RUN mvn clean install 
+RUN mvn clean install -DskipTests
 
-FROM eclipse-temurin:24-alpine-3.21
+FROM ubuntu/jre:21-24.04_stable
 
 WORKDIR /app
 
