@@ -96,7 +96,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -140,5 +140,12 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<profiles>
+    <profile>
+        <id>test</id>
+        <properties>
+            <spring.profiles.active>test</spring.profiles.active>
+        </properties>
+    </profile>
+</profiles>
 </project>

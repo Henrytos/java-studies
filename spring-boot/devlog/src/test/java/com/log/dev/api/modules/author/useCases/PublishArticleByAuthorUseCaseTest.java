@@ -9,7 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.log.dev.api.dtos.PublishArticleRequestDTO;
@@ -27,7 +26,7 @@ import com.log.dev.api.utils.factories.entities.MakeUserEntityFactory;
 
 import jakarta.transaction.Transactional;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @ActiveProfiles("test")
 @Transactional
 public class PublishArticleByAuthorUseCaseTest {
