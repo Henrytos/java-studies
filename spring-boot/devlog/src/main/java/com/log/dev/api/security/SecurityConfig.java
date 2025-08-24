@@ -32,7 +32,11 @@ public class SecurityConfig {
                     .requestMatchers("/auth/user").permitAll()
                     .requestMatchers("/auth/register").permitAll()
                     .requestMatchers("/articles").permitAll()
+                    .requestMatchers("/articles/{articleId}").permitAll()
                     .requestMatchers("/publishArticles/recent").permitAll()
+                    .requestMatchers("/publishArticles/search").permitAll()
+                    .requestMatchers("/publishArticles/{articleId}").permitAll()
+
                     .requestMatchers(
                             PERMIT_ALL_LIST)
                     .permitAll()

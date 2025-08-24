@@ -34,7 +34,7 @@ public class LikeUserEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "publish_article_id")
     private PublishArticleEntity publishArticle;
 

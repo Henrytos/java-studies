@@ -1,32 +1,5 @@
 package com.log.dev.api.modules.author.controllers;
 
-import com.log.dev.api.modules.author.entities.ArticleEntity;
-import com.log.dev.api.modules.author.useCases.DeleteArticleUseCase;
-import com.log.dev.api.modules.author.useCases.EditArticleUseCase;
-import com.log.dev.api.modules.author.useCases.GetArticleWithDetailsUseCase;
-import com.log.dev.api.modules.author.useCases.PublishArticleByAuthorUseCase;
-import com.log.dev.api.modules.author.useCases.WriteArticleUseCase;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.log.dev.api.dtos.ArticleWithDetailsDTO;
-import com.log.dev.api.dtos.CreateArticleRequestDTO;
-import com.log.dev.api.dtos.ErrorMessageDTO;
-import com.log.dev.api.dtos.MessageResponseDTO;
-import com.log.dev.api.dtos.PublishArticleRequestDTO;
-import com.log.dev.api.dtos.UpdateArticleRequestDTO;
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
-
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -38,15 +11,34 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.log.dev.api.dtos.CreateArticleRequestDTO;
+import com.log.dev.api.dtos.ErrorMessageDTO;
+import com.log.dev.api.dtos.MessageResponseDTO;
+import com.log.dev.api.dtos.PublishArticleRequestDTO;
+import com.log.dev.api.dtos.UpdateArticleRequestDTO;
+import com.log.dev.api.modules.author.entities.ArticleEntity;
+import com.log.dev.api.modules.author.useCases.DeleteArticleUseCase;
+import com.log.dev.api.modules.author.useCases.EditArticleUseCase;
+import com.log.dev.api.modules.author.useCases.PublishArticleByAuthorUseCase;
+import com.log.dev.api.modules.author.useCases.WriteArticleUseCase;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/articles")
 public class ArticleController {
-
-        final private GetArticleWithDetailsUseCase getArticleWithDetailsUseCase;
-
-        final private WriteArticleUseCase createArticleUseCase;
+        final private WriteArticleUseCase writeArticleUseCase;
 
         final private EditArticleUseCase updateArticleUseCase;
 
@@ -55,40 +47,14 @@ public class ArticleController {
         final private PublishArticleByAuthorUseCase publishArticleByAuthorUseCase;
 
         public ArticleController(
-                        GetArticleWithDetailsUseCase getArticleWithDetailsUseCase,
-                        WriteArticleUseCase createArticleUseCase,
+                        WriteArticleUseCase writeArticleUseCase,
                         EditArticleUseCase updateArticleUseCase,
                         DeleteArticleUseCase deleteArticleUseCase,
                         PublishArticleByAuthorUseCase publishArticleByAuthorUseCase) {
-                this.getArticleWithDetailsUseCase = getArticleWithDetailsUseCase;
-                this.createArticleUseCase = createArticleUseCase;
+                this.writeArticleUseCase = writeArticleUseCase;
                 this.updateArticleUseCase = updateArticleUseCase;
                 this.deleteArticleUseCase = deleteArticleUseCase;
                 this.publishArticleByAuthorUseCase = publishArticleByAuthorUseCase;
-        }
-
-        @GetMapping("/{articleId}")
-        @Tag(name = "Article")
-        @Operation(summary = "get article", description = "get article by user authenticate")
-        @ApiResponses(value = {
-                        @ApiResponse(responseCode = "200", description = "article found success", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ArticleEntity.class))),
-                        @ApiResponse(responseCode = "400", description = "bad request", content = @Content(array = @ArraySchema(arraySchema = @Schema(implementation = ErrorMessageDTO.class)), mediaType = MediaType.APPLICATION_JSON_VALUE)),
-                        @ApiResponse(responseCode = "401", description = "wrong credentials", content = @Content(array = @ArraySchema(arraySchema = @Schema(implementation = ErrorMessageDTO.class)), mediaType = MediaType.APPLICATION_JSON_VALUE)),
-                        @ApiResponse(responseCode = "404", description = "user not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
-                        @ApiResponse(responseCode = "404", description = "article not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MessageResponseDTO.class))),
-
-        })
-        @PreAuthorize("hasRole('USER')")
-        public ResponseEntity<ArticleWithDetailsDTO> get(
-                        @PathVariable String articleId,
-                        HttpServletRequest request) {
-
-                var userId = request.getAttribute("userId");
-
-                ArticleWithDetailsDTO article = getArticleWithDetailsUseCase.execute(UUID.fromString(userId.toString()),
-                                UUID.fromString(articleId));
-
-                return ResponseEntity.ok().body(article);
         }
 
         @PostMapping("/{articleId}")
@@ -130,7 +96,7 @@ public class ArticleController {
                         HttpServletRequest request) {
                 var userId = request.getAttribute("userId");
 
-                ArticleEntity article = this.createArticleUseCase.execute(UUID.fromString(userId.toString()), dto);
+                ArticleEntity article = this.writeArticleUseCase.execute(UUID.fromString(userId.toString()), dto);
 
                 return ResponseEntity.status(HttpStatus.CREATED).body(article);
         }

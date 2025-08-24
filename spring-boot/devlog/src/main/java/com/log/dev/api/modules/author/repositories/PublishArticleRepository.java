@@ -29,4 +29,12 @@ public interface PublishArticleRepository extends JpaRepository<PublishArticleEn
                         @Param("tags") List<String> tags,
                         Pageable pageable);
 
+        @Query("""
+                        SELECT pa FROM publish_articles pa
+                                LEFT JOIN pa.article a
+                                LEFT JOIN pa.tags t
+                                ORDER BY pa.publish_at DESC
+                        """)
+        Page<PublishArticleEntity> findRecentArticles(Pageable pageable);
+
 }

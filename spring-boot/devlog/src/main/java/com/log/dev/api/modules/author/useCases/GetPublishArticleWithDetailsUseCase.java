@@ -13,12 +13,13 @@ import com.log.dev.api.exceptions.UserNotFoundException;
 import com.log.dev.api.modules.user.repositories.UserRepository;
 
 @Service
-public class GetArticleWithDetailsUseCase {
+public class GetPublishArticleWithDetailsUseCase {
+
     final private UserRepository userRepository;
 
     final private PublishArticleRepository publishArticleRepository;
 
-    public GetArticleWithDetailsUseCase(UserRepository userRepository,
+    public GetPublishArticleWithDetailsUseCase(UserRepository userRepository,
             PublishArticleRepository publishArticleRepository) {
         this.userRepository = userRepository;
         this.publishArticleRepository = publishArticleRepository;
