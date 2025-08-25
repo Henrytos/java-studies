@@ -72,9 +72,9 @@ DELETE /users/:id         # Banir usuário (admin)
 [ x ] POST   /articles          # Criar novo artigo  
 [ x ] POST   /articles/:articleId # Publicar novo artigo  
 
-GET    /articles          # Listar artigos públicos  
-GET    /articles/me       # Listar artigos do usuário logado  
-GET    /articles/:slug    # Buscar artigo por slug  
+[ x ] GET    /publishArticles/recent          # Listar artigos públicos  
+[ x ] GET    /articles/me       # Listar artigos do usuário logado  
+[ x ] GET    /articles/:slug    # Buscar artigo por slug  
 [ x ] PATCH  /articles/:id      # Editar artigo  
 [ x ] DELETE /articles/:id      # Excluir artigo  
 ```

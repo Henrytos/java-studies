@@ -37,4 +37,13 @@ public interface PublishArticleRepository extends JpaRepository<PublishArticleEn
                         """)
         Page<PublishArticleEntity> findRecentArticles(Pageable pageable);
 
+        @Query("""
+                        SELECT pa FROM publish_articles pa
+                                LEFT JOIN pa.article a
+                                LEFT JOIN a.author au
+                                WHERE au.user_id = :authorId
+                                ORDER BY pa.publish_at DESC
+                        """)
+        Page<PublishArticleEntity> findManyByAuthorId(UUID authorId, Pageable pageable);
+
 }

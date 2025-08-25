@@ -39,5 +39,5 @@ public class LikeUserEntity {
     private PublishArticleEntity publishArticle;
 
     @Column(name = "is_like", nullable = false)
-    private Boolean isLike = false;
+    private Boolean isLike;
 }
