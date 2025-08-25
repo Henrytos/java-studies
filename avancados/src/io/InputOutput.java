@@ -1,5 +1,11 @@
 package io;
 
+/*
+*   Buffer é um espaço de memoria temporal para
+* tranferencia de dados em diferentes compontes do
+* computado, muito utilizado em leitura e escrita de dados(BufferedReader && BufferedWriter)
+* */
+
 import java.io.*;
 
 public class InputOutput {
