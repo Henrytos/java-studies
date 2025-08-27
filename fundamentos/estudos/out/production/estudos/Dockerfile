@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk-slim AS builder
+FROM openjdk:10 AS builder
 
 WORKDIR /app
 
@@ -10,6 +10,6 @@ FROM ubuntu/jre:21-24.04_stable
 
 WORKDIR /app
 
-COPY --from=builder ./app/Main.class .
+COPY --from=builder ./app/Main.class ./Main.class
 
 ENTRYPOINT ["java", "Main"]
