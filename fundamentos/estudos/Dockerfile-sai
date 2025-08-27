@@ -1,0 +1,23 @@
+# Use uma imagem base leve que já inclui o JRE
+FROM openjdk:10-jdk-slim AS builder
+
+# Defina o diretório de trabalho
+WORKDIR /app
+
+# Copie o código-fonte para o contêiner
+COPY Main.java .
+
+# Compile o código Java
+RUN javac Main.java
+
+# Use uma imagem leve apenas para execução
+FROM openjdk:10-jre-slim
+
+# Defina o diretório de trabalho
+WORKDIR /app
+
+# Copie apenas o arquivo .class do estágio de build
+COPY --from=builder /app/Main.class .
+
+# Execute o aplicativo Java
+ENTRYPOINT ["java", "Main"]
