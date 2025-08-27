@@ -14,7 +14,7 @@
     <ul>
         <li th:each="reunion:${reuniones}">
             <span th:text="${reunion.asunto}">Assunto</span>
-            ( <span th:text="${reunion.fecha}">fecha</span>)
+            ( <span th:text="${#temporals.format(reunion.fecha, 'dd-MMM-yyyy')}">fecha</span>)
 
         </li>
     </ul>
