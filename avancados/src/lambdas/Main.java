@@ -11,5 +11,17 @@ public class Main {
 
         System.out.println("Meu valor eh " + myValue.getValue());
         System.out.println("Raiz quadrada " + raizQuadrada.calcular(9.0));
+
+        OperadorBinario<String> operadorBinarioString = (String nome, String sobrenome) ->{
+            return nome.concat(" ").concat(sobrenome);
+        };
+
+        System.out.println(operadorBinarioString.somar("henry", "franz"));
+
+        OperadorBinario<Integer> operadorBinarioInteger =
+                Integer::sum;
+
+        System.out.println(operadorBinarioInteger.somar(10, 20));
+
     }
 }
