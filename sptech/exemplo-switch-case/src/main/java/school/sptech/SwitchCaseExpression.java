@@ -2,7 +2,7 @@ package school.sptech;
 
 import java.util.Scanner;
 
-public class DiaDaSemana {
+public class SwitchCaseExpression {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

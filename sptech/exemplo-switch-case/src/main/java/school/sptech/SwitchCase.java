@@ -2,7 +2,7 @@ package school.sptech;
 
 import java.util.Scanner;
 
-public class Main {
+public class SwitchCase {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
