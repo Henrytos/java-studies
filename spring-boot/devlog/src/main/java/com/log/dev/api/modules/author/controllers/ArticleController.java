@@ -66,26 +66,6 @@ public class ArticleController {
 
         }
 
-        @GetMapping("/me")
-        @Tag(name = "Article")
-        @Operation(summary = "list me article published", description = "list articles published by the authenticated user")
-        @ApiResponses(value = {
-        })
-        @PreAuthorize("hasRole('USER')")
-        public ResponseEntity<MessageResponseDTO> me(
-                        HttpServletRequest request,
-                        @RequestParam(defaultValue = "0") int page,
-                        @RequestParam(defaultValue = "10") int perPage) {
-                var userId = request.getAttribute("userId");
-                PublishArticleRequestDTO dto = new PublishArticleRequestDTO(UUID.fromString(userId.toString()),
-                                UUID.fromString(articleId));
-
-                this.publishArticleByAuthorUseCase.execute(dto);
-
-                return ResponseEntity.status(HttpStatus.CREATED)
-                                .body(new MessageResponseDTO("article published success"));
-        }
-
         @PostMapping("/{articleId}")
         @Tag(name = "Article")
         @Operation(summary = "write article", description = "write article by user authenticate")
