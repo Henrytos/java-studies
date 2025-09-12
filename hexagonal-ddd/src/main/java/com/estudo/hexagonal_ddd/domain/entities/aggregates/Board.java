@@ -1,4 +1,4 @@
-package com.estudo.hexagonal_ddd.domain.aggregates;
+package com.estudo.hexagonal_ddd.domain.entities.aggregates;
 
 import com.estudo.hexagonal_ddd.domain.entities.User;
 

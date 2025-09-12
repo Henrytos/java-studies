@@ -1,4 +1,4 @@
-package com.estudo.hexagonal_ddd.domain.value_objects;
+package com.estudo.hexagonal_ddd.domain.entities.value_objects;
 
 import com.estudo.hexagonal_ddd.domain.exceptions.WrongCredentials;
 
@@ -14,6 +14,20 @@ public class Email {
 
     public boolean isValidEmail(String email) {
         return email != null && EMAIL_PATTERN.matcher(email).matches();
+    }
+
+    public static boolean isValid(String email){
+         String EMAIL_REGEX =
+                "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
+
+        Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+
+        return email != null && EMAIL_PATTERN.matcher(email).matches();
+
+    }
+
+    public static Email of(String value){
+        return new Email(value);
     }
 
     public String getValue() {

@@ -1,6 +1,7 @@
 package com.estudo.hexagonal_ddd.domain.entities;
 
-import com.estudo.hexagonal_ddd.domain.value_objects.Email;
+import com.estudo.hexagonal_ddd.domain.entities.value_objects.Email;
+import com.estudo.hexagonal_ddd.domain.entities.value_objects.Role;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -10,15 +11,11 @@ public class User {
     private String name;
     private Email email;
     private String password;
-    private String role;
+    private Role role;
 
-    public User() {
+
+    public User(String name, Email email, String password, Role role) {
         this.id = UUID.randomUUID();
-    }
-
-
-    public User(String name, Email email, String password, String role) {
-        this();
         this.name = name;
         this.email = email;
         this.password = password;
@@ -51,11 +48,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

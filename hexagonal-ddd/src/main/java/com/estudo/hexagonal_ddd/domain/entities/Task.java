@@ -1,6 +1,6 @@
 package com.estudo.hexagonal_ddd.domain.entities;
 
-import com.estudo.hexagonal_ddd.domain.value_objects.TaskStatus;
+import com.estudo.hexagonal_ddd.domain.entities.value_objects.TaskStatus;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
