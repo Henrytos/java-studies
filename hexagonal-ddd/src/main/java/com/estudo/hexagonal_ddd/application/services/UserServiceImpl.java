@@ -7,8 +7,8 @@ import com.estudo.hexagonal_ddd.application.exceptions.UserNotFoundException;
 import com.estudo.hexagonal_ddd.application.exceptions.WrongCredentialException;
 
 import com.estudo.hexagonal_ddd.application.ports.inbound.TokenService;
+import com.estudo.hexagonal_ddd.application.ports.inbound.UserServicePort;
 import com.estudo.hexagonal_ddd.application.ports.outbound.HashEncoder;
-import com.estudo.hexagonal_ddd.application.ports.inbound.UserServices;
 
 import com.estudo.hexagonal_ddd.domain.entities.value_objects.Email;
 import com.estudo.hexagonal_ddd.domain.entities.value_objects.Role;
@@ -16,13 +16,13 @@ import com.estudo.hexagonal_ddd.domain.repositories.UserRepository;
 
 import com.estudo.hexagonal_ddd.domain.entities.User;
 
-public class UserServiceImplementation implements UserServices {
+public class UserServiceImpl implements UserServicePort {
     private final UserRepository userRepository;
     private final HashEncoder hashEncoder;
     private final TokenService tokenService;
 
 
-    public UserServiceImplementation(
+    public UserServiceImpl(
             UserRepository userRepository,
             HashEncoder hashEncoder,
             TokenService tokenService) {
@@ -73,10 +73,7 @@ public class UserServiceImplementation implements UserServices {
             throw new WrongCredentialException("email/password invalid");
         }
 
-        String token = this.tokenService.generate(userFind.getId().toString());
-
-        return token;
-
+        return this.tokenService.generate(userFind.getId().toString());
     }
 
 }
