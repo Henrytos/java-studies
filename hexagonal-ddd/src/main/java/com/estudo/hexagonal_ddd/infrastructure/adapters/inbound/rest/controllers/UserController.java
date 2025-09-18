@@ -22,7 +22,6 @@ public class UserController {
     public ResponseEntity<String> create(
             @RequestBody RegisterUserDTO dto
             ){
-        System.out.println("register user");
         this.userService.register(dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("created user");
