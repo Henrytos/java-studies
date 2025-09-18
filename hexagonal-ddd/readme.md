@@ -164,3 +164,45 @@ PATCH  /tasks/:id
 ---
 
 Se quiser, posso te ajudar com o **esqueleto inicial do projeto em Spring Boot ou Angular**, ou ainda com **diagramas (casos de uso, classes, etc.)**. Deseja isso também?
+
+
+src/main/java/com/estudo/hexagonal_ddd
+│
+├── application                # Casos de uso (Application Services)
+│   ├── dtos                   # Objetos de transporte (entrada/saída)
+│   ├── exceptions             # Exceções da camada de aplicação
+│   └── services               # Implementações dos casos de uso
+│
+├── domain                     # Núcleo do negócio (puro, sem dependência externa)
+│   ├── entities               # Entidades do domínio
+│   ├── repositories           # Interfaces (ports outbound) de repositórios
+│   ├── services               # Domain services (regras de negócio que não cabem só em entities)
+│   └── valueobjects           # Value Objects (imutáveis, ricos em regra de negócio)
+│
+├── infrastructure             # Implementações técnicas (adapters)
+│   ├── adapters
+│   │   ├── inbound            # Pontos de entrada (ex: REST, gRPC, CLI, Kafka consumer)
+│   │   │   └── rest           # Controllers REST
+│   │   │
+│   │   └── outbound           # Pontos de saída (banco, mensageria, APIs externas)
+│   │       └── persistence
+│   │           └── database
+│   │               ├── entities   # Entidades persistentes (JPA, Hibernate, etc.)
+│   │               ├── mapper     # Conversores (Domain <-> Entity)
+│   │               └── repository # Implementações de repositórios (JpaRepository, etc.)
+│   │
+│   └── configuration          # Configuração do Spring (beans, etc.)
+│
+├── ports                      # Interfaces que definem a fronteira do app
+│   ├── inbound                # Interfaces de caso de uso (ex: UserServicePort)
+│   └── outbound               # Interfaces de persistência, mensageria, etc.
+│
+└── HexagonalDddApplication    # Classe principal (Spring Boot)
+
+
+flowchart LR
+A[Controller\n(infrastructure.adapters.inbound.rest)] --> B[Port Inbound\n(ports.inbound)]
+B --> C[Application Service\n(application.services)]
+C --> D[Port Outbound\n(ports.outbound)]
+D --> E[Repository Impl\n(infrastructure.adapters.outbound.persistence.database.repository)]
+E --> F[(Database)]
