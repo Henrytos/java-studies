@@ -1,6 +1,5 @@
 package com.estudo.hexagonal_ddd.infrastructure.adapters.outbound.persistence.database.entities;
 
-import com.estudo.hexagonal_ddd.domain.entities.value_objects.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +23,5 @@ public class UserEntity {
 
     private String password;
 
-    private Role role;
+    private String role;
 }

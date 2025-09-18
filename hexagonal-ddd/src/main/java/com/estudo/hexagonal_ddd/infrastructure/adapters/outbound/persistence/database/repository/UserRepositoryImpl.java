@@ -17,6 +17,12 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void save(User user) {
+        Optional<UserEntity> userFind = this.jpaUserRepository.findById(user.getId());
+
+        if(userFind.isEmpty()){
+            user.setId(null);
+        }
+
         this.jpaUserRepository.save(JpaUserMapper.toEntity(user));
     }
 

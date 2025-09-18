@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class User {
-    private final UUID id;
+    private UUID id;
     private String name;
     private Email email;
     private String password;
@@ -26,6 +26,9 @@ public class User {
         return id;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

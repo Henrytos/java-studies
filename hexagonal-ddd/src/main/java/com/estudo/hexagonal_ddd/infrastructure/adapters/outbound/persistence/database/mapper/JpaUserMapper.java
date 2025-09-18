@@ -2,6 +2,7 @@ package com.estudo.hexagonal_ddd.infrastructure.adapters.outbound.persistence.da
 
 import com.estudo.hexagonal_ddd.domain.entities.User;
 import com.estudo.hexagonal_ddd.domain.entities.value_objects.Email;
+import com.estudo.hexagonal_ddd.domain.entities.value_objects.Role;
 import com.estudo.hexagonal_ddd.infrastructure.adapters.outbound.persistence.database.entities.UserEntity;
 
 public class JpaUserMapper {
@@ -11,7 +12,7 @@ public class JpaUserMapper {
                 userEntity.getName(),
                 Email.of(userEntity.getEmail()),
                 userEntity.getPassword(),
-                userEntity.getRole()
+                Role.valueOf(userEntity.getRole())
         );
     }
 
@@ -19,9 +20,9 @@ public class JpaUserMapper {
         return new UserEntity(
                 user.getId(),
                 user.getName(),
-                user.getEmail().toString(),
+                user.getEmail().getValue(),
                 user.getPassword(),
-                user.getRole()
+                user.getRole().toString()
         );
     }
 }
