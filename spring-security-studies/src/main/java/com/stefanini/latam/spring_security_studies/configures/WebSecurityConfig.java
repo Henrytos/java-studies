@@ -2,6 +2,7 @@ package com.stefanini.latam.spring_security_studies.configures;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,6 +26,8 @@ public class WebSecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> {
                     auth
+                            .requestMatchers(HttpMethod.POST, "/api/auth").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/auth/admin").permitAll()
                             .anyRequest().authenticated();
                 }).csrf(AbstractHttpConfigurer::disable);
 //                .antMatchers(HttpMethod.GET, "/parking-spot/**").permitAll()
