@@ -4,5 +4,5 @@ public interface HashEncoder {
     String encode(String plan);
     String encode(String plan, Integer salt);
 
-    Boolean decode(String plan, String hash);
+    Boolean valid(String plan, String hash);
 }

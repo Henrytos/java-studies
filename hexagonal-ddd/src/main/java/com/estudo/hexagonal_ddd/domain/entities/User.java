@@ -34,6 +34,9 @@ public class User {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Email getEmail() {
         return email;
@@ -68,6 +71,10 @@ public class User {
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 '}';
+    }
+
+    public boolean isAdmin(){
+        return !this.getRole().equals(Role.ADMIN);
     }
 
     @Override
