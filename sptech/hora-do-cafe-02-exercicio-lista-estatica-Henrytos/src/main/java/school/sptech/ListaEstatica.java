@@ -1,6 +1,8 @@
 package school.sptech;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ListaEstatica {
 
@@ -79,36 +81,13 @@ public class ListaEstatica {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("[");
-        Integer lastIndex = this.lastIndex()-1;
+        List<Integer> listValida = new ArrayList<>();
 
-        if(lastIndex.equals(-2)){
-            return Arrays.toString(this.vetor);
+        for (Integer item : this.vetor) {
+            if(item != null)
+                listValida.add(item);
         }
 
-        for (int i = 0; i < this.vetor.length && this.vetor[i] !=null; i++) {
-
-            if(lastIndex.equals(0)){
-                builder.append(this.vetor[i]);
-                break;
-            }
-
-            if (i == 0 && this.vetor.length > 1) {
-                builder.append("" + this.vetor[i] + ",");
-                continue;
-            }
-
-            if (i == lastIndex) {
-                builder.append(" " + this.vetor[i]);
-                continue;
-            }
-
-            builder.append(" " + this.vetor[i] + ",");
-        }
-        builder.append("]");
-
-        return builder.toString();
-
+        return Arrays.toString(listValida.toArray());
     }
 }

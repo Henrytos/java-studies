@@ -1,5 +1,7 @@
 package school.sptech;
 
+import java.util.Objects;
+
 public class Roupa extends Produto {
 
     private String cor;
@@ -53,6 +55,18 @@ public class Roupa extends Produto {
             precoFinal = precoFinal * 0.85;
 
         return precoFinal;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Produto produto = (Produto) o;
+        return Objects.equals(peso, produto.peso) && Objects.equals(preco, produto.preco) && Objects.equals(nome, produto.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(peso, preco, nome);
     }
 
 }

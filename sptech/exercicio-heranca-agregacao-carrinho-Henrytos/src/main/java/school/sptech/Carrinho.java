@@ -98,7 +98,7 @@ public class Carrinho {
         }
         for (int i = celulares.size() - 1; i >= 0; i--) {
             Celular celular = celulares.get(i);
-            if(!celular.getMarca().equals(marca)){
+            if (!celular.getMarca().equals(marca)) {
                 celulares.remove(celular);
             }
 
@@ -127,7 +127,7 @@ public class Carrinho {
 
         for (int i = celulares.size() - 1; i >= 0; i--) {
             Celular celular = celulares.get(i);
-            if(!(mesesDeUso > celular.getGarantiaMeses())){
+            if (!(mesesDeUso > celular.getGarantiaMeses())) {
                 celulares.remove(celular);
             }
         }
@@ -165,48 +165,29 @@ public class Carrinho {
         return produtoMaisCaro;
     }
 
-//    public List<Produto> buscarTopCincoProdutosMaisBaratos() {
-//        if (this.produtos.isEmpty()) {
-//            return new ArrayList<>();
-//        }
-//
-//        Integer lastIndex = Math.min(this.produtos.size(), 5);
-//
-//        return this.produtos.stream().sorted((a, b) -> {
-//            if (a.calcularPrecoFinal() < b.calcularPrecoFinal()) {
-//                return -1;
-//            }
-//
-//            return 1;
-//        }).toList().subList(0, lastIndex);
-//    }
-
     public List<Produto> buscarTopCincoProdutosMaisBaratos() {
-        if (this.produtos.isEmpty()) {
-            return new ArrayList<>();
-        }
-        List<Produto> produtosFiltrados = new ArrayList<>();
+        List<Produto> produtosMaisBaratos = new ArrayList<>();
+        Integer lastIndex = Math.min(this.produtos.size(), 5);
 
-        int lastIndex = Math.min(this.produtos.size(), 5);
+        while (produtosMaisBaratos.size() < lastIndex) {
+            Produto produtoMaisBarato = this.produtos.get(0);
 
-        while (produtosFiltrados.size() < lastIndex) {
-
-            Produto produtoMaisBarato = produtos.getFirst();
-
-            for (int i = 1; i < produtos.size(); i++) {
-                Produto produto = produtos.get(i);
-
-                if (produto.calcularPrecoFinal() < produtoMaisBarato.calcularPrecoFinal()) {
-                    produtoMaisBarato = produto;
+            for (int i = 1; i < this.produtos.size(); i++) {
+                Produto produtoAtual = this.produtos.get(i);
+                if (
+                        produtoAtual.calcularPrecoFinal() < produtoMaisBarato.calcularPrecoFinal()
+                ) {
+                    produtoMaisBarato = produtoAtual;
                 }
             }
 
-            produtosFiltrados.add(produtoMaisBarato);
-            produtos.remove(produtoMaisBarato);
+            produtosMaisBaratos.add(produtoMaisBarato);
+            this.produtos.remove(produtoMaisBarato);
         }
 
-        return produtosFiltrados;
+        return produtosMaisBaratos;
     }
+
 
     public Integer getId() {
         return id;

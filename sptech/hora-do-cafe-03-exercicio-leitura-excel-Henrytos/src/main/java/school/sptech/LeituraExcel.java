@@ -103,6 +103,8 @@ public class LeituraExcel {
         Iterator<Row> rowIterator = sheet.rowIterator();
         rowIterator.next();
 
+//        COLETA DE DADOS (FATURAMENTO DE TODAS CIDADE ATÈ MESMO REPITIDOS)
+
         List<VendasCidade> vendas = new ArrayList<>();
 
         while (rowIterator.hasNext()) {
@@ -118,7 +120,7 @@ public class LeituraExcel {
                 vendas.add(venda);
             }
         }
-
+        System.out.println(vendas   );
         List<VendasCidade> vendasPorCidade = new ArrayList<>();
 
         for (VendasCidade vendaAtual : vendas) {
@@ -144,6 +146,7 @@ public class LeituraExcel {
                     faturaTotal += venda.getFaturamentoTotal();
             }
 
+            System.out.println(faturaTotal);
             vendaAtual.setFaturamentoTotal(faturaTotal);
         }
 

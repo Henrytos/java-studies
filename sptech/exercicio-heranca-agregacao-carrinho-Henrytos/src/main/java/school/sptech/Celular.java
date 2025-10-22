@@ -1,5 +1,7 @@
 package school.sptech;
 
+import java.util.Objects;
+
 public class Celular extends Produto {
     private Integer garantiaMeses;
     private String marca;
@@ -36,5 +38,17 @@ public class Celular extends Produto {
 
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Produto produto = (Produto) o;
+        return Objects.equals(peso, produto.peso) && Objects.equals(preco, produto.preco) && Objects.equals(nome, produto.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(peso, preco, nome);
     }
 }

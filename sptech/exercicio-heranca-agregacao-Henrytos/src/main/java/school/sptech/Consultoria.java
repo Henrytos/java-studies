@@ -46,31 +46,27 @@ public class Consultoria {
     }
 
     public List<Desenvolvedor> buscarPorTecnologia(String tecnologia) {
-        return this.desenvolvedores.stream().filter(dev ->
-        {
-            if (dev instanceof DesenvolvedorMobile mobile) {
-                return mobile.getPlataforma().contains(tecnologia) || mobile.getLinguagem().contains(tecnologia);
+        return this.desenvolvedores.stream().filter(d->{
+            if(d instanceof DesenvolvedorWeb web){
+                return web.getFrontend().equals(tecnologia) || web.getBackend().equals(tecnologia) || web.getSgbd().equals(tecnologia);
             }
 
-            if (dev instanceof DesenvolvedorWeb desenvolvedorWeb) {
-                return desenvolvedorWeb.getSgbd().contains(tecnologia) || desenvolvedorWeb.getBackend().contains(tecnologia) || desenvolvedorWeb.getFrontend().contains(tecnologia);
+            if(d instanceof DesenvolvedorMobile mobile){
+                return mobile.getPlataforma().equals(tecnologia) || mobile.getLinguagem().equals(tecnologia);
             }
-
             return false;
         }).toList();
-
     }
 
     public Double getTotalSalariosPorTecnologia(String tecnologia){
-        List<Desenvolvedor> desenvolvedores = this.buscarPorTecnologia(tecnologia);
+        List<Double> salarios = this.buscarPorTecnologia(tecnologia).stream().mapToDouble(t-> t.calcularSalario()).boxed().toList();
+        Double salarioTotal = 0.0;
 
-        Double total = Double.valueOf(0.0);
-
-        for (Desenvolvedor desenvolvedor : desenvolvedores) {
-            total += desenvolvedor.calcularSalario();
+        for (Double salario : salarios) {
+            salarioTotal+=salario;
         }
 
-        return total;
+        return salarioTotal;
     }
 
     public Integer qtdDesenvolvedoresMobile() {
