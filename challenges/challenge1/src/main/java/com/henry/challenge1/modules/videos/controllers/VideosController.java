@@ -48,7 +48,6 @@ public class VideosController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<VideoResponseDTO> register(@RequestBody @Valid RegisterVideoRequestDTO body, UriComponentsBuilder uriBuilder) {
         VideoResponseDTO response = this.registerVideoUseCase.execute(body);
 
