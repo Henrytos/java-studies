@@ -1,10 +1,13 @@
 package com.henry.challenge1.modules.videos.controllers;
 
 import com.henry.challenge1.modules.videos.controllers.dtos.RegisterVideoRequestDTO;
+import com.henry.challenge1.modules.videos.controllers.dtos.UpdateVideoRequestDTO;
 import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
+import com.henry.challenge1.modules.videos.useCases.EditVideoUseCase;
 import com.henry.challenge1.modules.videos.useCases.FetchVideosUseCase;
 import com.henry.challenge1.modules.videos.useCases.FindByVideoIdUseCase;
 import com.henry.challenge1.modules.videos.useCases.RegisterVideoUseCase;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,6 +29,8 @@ public class VideosController {
 
     private final FindByVideoIdUseCase findByVideoIdUseCase;
 
+    private final EditVideoUseCase editVideoUseCase;
+
     @GetMapping
     public ResponseEntity<Page<VideoResponseDTO>> fetch(
             Pageable pageable
@@ -44,6 +49,7 @@ public class VideosController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<VideoResponseDTO> register(@RequestBody @Valid RegisterVideoRequestDTO body, UriComponentsBuilder uriBuilder) {
         VideoResponseDTO response = this.registerVideoUseCase.execute(body);
 
@@ -51,5 +57,18 @@ public class VideosController {
 
         return ResponseEntity.created(uri).body(response);
     }
+
+    @PutMapping("/{videoId}")
+    @Transactional
+    public ResponseEntity<VideoResponseDTO> update(
+            @PathVariable Long videoId,
+            @RequestBody UpdateVideoRequestDTO body
+    ){
+        VideoResponseDTO response = this.editVideoUseCase.execute(videoId, body);
+
+        return ResponseEntity.ok(response);
+    }
+
+
 
 }
