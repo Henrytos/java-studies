@@ -1,6 +1,7 @@
 package com.henry.challenge1.modules.videos.models;
 
 import com.henry.challenge1.modules.videos.controllers.dtos.RegisterVideoRequestDTO;
+import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,10 +28,6 @@ public class VideoEntity {
 
 
 
-    public VideoEntity(RegisterVideoRequestDTO dto){
-        this.title = dto.title();
-        this.description = dto.description();
-        this.url = dto.url();
-    }
+
 
 }

@@ -1,9 +1,10 @@
 package com.henry.challenge1.modules.videos.useCases;
 
 import com.henry.challenge1.modules.videos.controllers.dtos.RegisterVideoRequestDTO;
-import com.henry.challenge1.modules.videos.controllers.dtos.RegisterVideoResponseDTO;
+import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
 import com.henry.challenge1.modules.videos.models.VideoEntity;
 import com.henry.challenge1.modules.videos.repositories.JpaVideoRepository;
+import com.henry.challenge1.modules.videos.useCases.mappers.VideoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,15 @@ public class RegisterVideoUseCase {
 
     public final JpaVideoRepository jpaVideoRepository;
 
-    public RegisterVideoResponseDTO execute(
+    private final VideoMapper videoMapper;
+
+    public VideoResponseDTO execute(
             RegisterVideoRequestDTO dto
     ) {
-        VideoEntity videoEntity = new VideoEntity(dto);
+        VideoEntity videoEntity = videoMapper.toDomain(dto);
         videoEntity = this.jpaVideoRepository.save(videoEntity);
 
-        return new RegisterVideoResponseDTO(videoEntity.getId(), videoEntity.getTitle(), videoEntity.getDescription(), videoEntity.getUrl());
+        return videoMapper.toInfra(videoEntity);
     }
 
 }

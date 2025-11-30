@@ -1,0 +1,24 @@
+package com.henry.challenge1.modules.videos.useCases;
+
+import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
+import com.henry.challenge1.modules.videos.repositories.JpaVideoRepository;
+import com.henry.challenge1.modules.videos.useCases.mappers.VideoMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+
+@Service
+@RequiredArgsConstructor
+public class FetchVideosUseCase {
+
+    private final JpaVideoRepository jpaVideoRepository;
+
+    private final VideoMapper videoMapper;
+
+    public Page<VideoResponseDTO> execute(Pageable pageable) {
+        return this.jpaVideoRepository.findAll(pageable)
+                .map(videoMapper::toInfra);
+    }
+}
