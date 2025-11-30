@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: school.sptech.FiguraTest$AtributosTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in school.sptech.FiguraTest$AtributosTest

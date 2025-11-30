@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b14225f0-c944-4ec8-8455-a8862d136773" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../exemplo-enumeradores/src/main/java/school/sptech/Carta.java" beforeDir="false" afterPath="$PROJECT_DIR$/../exemplo-enumeradores/src/main/java/school/sptech/Carta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exemplo-enumeradores/src/main/java/school/sptech/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../exemplo-enumeradores/src/main/java/school/sptech/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exemplo-enumeradores/src/main/java/school/sptech/Naipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/../exemplo-enumeradores/src/main/java/school/sptech/Naipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exemplo-enumeradores/src/main/java/school/sptech/Simbolo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../exemplo-enumeradores/src/main/java/school/sptech/Simbolo.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Henrytos&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Henrytos/java-studies.git&quot;,
+    &quot;accountId&quot;: &quot;25b54696-e008-42fc-956a-d7e0b6d56622&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="3525qW2MwOso8oAa9EUb3jdnH49" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.TEST.executor": "Run",
+    "JUnit.Unnamed.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/henry/Documentos/java-studies/sptech/hora-do-cafe-06-exercicio-algoritmos-ordenacao-pseudo-codigo-Henrytos",
+    "settings.editor.selected.configurable": "preferences.keymap"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="TEST" type="JUnit" factoryName="JUnit">
+      <module name="template-tarefa-java" />
+      <option name="PACKAGE_NAME" value="school.sptech" />
+      <option name="MAIN_CLASS_NAME" value="school.sptech.ExerciciosTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b14225f0-c944-4ec8-8455-a8862d136773" name="Changes" comment="" />
+      <created>1762295516447</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762295516447</updated>
+    </task>
+    <servers />
+  </component>
+</project>
