@@ -2,14 +2,15 @@ package com.henry.challenge1.modules.videos.controllers;
 
 import com.henry.challenge1.modules.videos.controllers.dtos.RegisterVideoRequestDTO;
 import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
+import com.henry.challenge1.modules.videos.useCases.FetchVideosUseCase;
+import com.henry.challenge1.modules.videos.useCases.FindByVideoIdUseCase;
 import com.henry.challenge1.modules.videos.useCases.RegisterVideoUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -17,9 +18,30 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/v1/videos")
 @RequiredArgsConstructor
-public class RegisterVideoController {
+public class VideosController {
+
+    private final FetchVideosUseCase fetchVideosUseCase;
 
     private final RegisterVideoUseCase registerVideoUseCase;
+
+    private final FindByVideoIdUseCase findByVideoIdUseCase;
+
+    @GetMapping
+    public ResponseEntity<Page<VideoResponseDTO>> fetch(
+            Pageable pageable
+    ) {
+        Page<VideoResponseDTO> videos = this.fetchVideosUseCase.execute(pageable);
+        return ResponseEntity.ok(videos);
+    }
+
+    @GetMapping("/{videoId}")
+    public ResponseEntity<VideoResponseDTO> get(
+            @PathVariable Long videoId
+    ) {
+        VideoResponseDTO video = this.findByVideoIdUseCase.execute(videoId);
+
+        return ResponseEntity.ok(video);
+    }
 
     @PostMapping
     public ResponseEntity<VideoResponseDTO> register(@RequestBody @Valid RegisterVideoRequestDTO body, UriComponentsBuilder uriBuilder) {
