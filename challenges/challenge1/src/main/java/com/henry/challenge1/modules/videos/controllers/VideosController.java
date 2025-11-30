@@ -3,10 +3,7 @@ package com.henry.challenge1.modules.videos.controllers;
 import com.henry.challenge1.modules.videos.controllers.dtos.RegisterVideoRequestDTO;
 import com.henry.challenge1.modules.videos.controllers.dtos.UpdateVideoRequestDTO;
 import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
-import com.henry.challenge1.modules.videos.useCases.EditVideoUseCase;
-import com.henry.challenge1.modules.videos.useCases.FetchVideosUseCase;
-import com.henry.challenge1.modules.videos.useCases.FindByVideoIdUseCase;
-import com.henry.challenge1.modules.videos.useCases.RegisterVideoUseCase;
+import com.henry.challenge1.modules.videos.useCases.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +27,8 @@ public class VideosController {
     private final FindByVideoIdUseCase findByVideoIdUseCase;
 
     private final EditVideoUseCase editVideoUseCase;
+
+    private final DeleteByIdUseCase deleteByIdUseCase;
 
     @GetMapping
     public ResponseEntity<Page<VideoResponseDTO>> fetch(
@@ -63,12 +62,19 @@ public class VideosController {
     public ResponseEntity<VideoResponseDTO> update(
             @PathVariable Long videoId,
             @RequestBody UpdateVideoRequestDTO body
-    ){
+    ) {
         VideoResponseDTO response = this.editVideoUseCase.execute(videoId, body);
 
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("/{videoId}")
+    @Transactional
+    public ResponseEntity<Object> delete(
+            @PathVariable Long videoId
+    ) {
+        this.deleteByIdUseCase.execute(videoId);
 
-
+        return ResponseEntity.noContent().build();
+    }
 }

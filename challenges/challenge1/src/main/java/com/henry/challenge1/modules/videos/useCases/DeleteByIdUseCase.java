@@ -1,24 +1,22 @@
 package com.henry.challenge1.modules.videos.useCases;
 
-import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
 import com.henry.challenge1.modules.videos.models.VideoEntity;
+import com.henry.challenge1.modules.videos.models.enums.Status;
 import com.henry.challenge1.modules.videos.repositories.JpaVideoRepository;
-import com.henry.challenge1.modules.videos.useCases.mappers.VideoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class FindByVideoIdUseCase {
+public class DeleteByIdUseCase {
 
-    private final JpaVideoRepository  jpaVideoRepository;
+    private final JpaVideoRepository jpaVideoRepository;
 
-    private final VideoMapper videoMapper;
-
-    public VideoResponseDTO execute(Long videoId) {
+    public void execute(Long videoId){
         VideoEntity video = this.jpaVideoRepository.findByIdActive(videoId).orElseThrow(RuntimeException::new);
+        video.setStatus(Status.INACTIVE);
 
-        return this.videoMapper.toInfra(video);
+        this.jpaVideoRepository.save(video);
     }
 
 }

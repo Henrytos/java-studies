@@ -1,11 +1,7 @@
 package com.henry.challenge1.modules.videos.models;
 
-import com.henry.challenge1.modules.videos.controllers.dtos.RegisterVideoRequestDTO;
-import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.henry.challenge1.modules.videos.models.enums.Status;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity(name = "videos")
@@ -26,8 +22,6 @@ public class VideoEntity {
 
     private String url;
 
-
-
-
-
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ACTIVE;
 }

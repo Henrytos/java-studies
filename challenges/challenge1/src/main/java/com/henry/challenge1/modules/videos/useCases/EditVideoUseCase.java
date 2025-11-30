@@ -20,7 +20,7 @@ public class EditVideoUseCase {
 
     public VideoResponseDTO execute(Long videoId, UpdateVideoRequestDTO dto) {
 
-        VideoEntity video = this.jpaVideoRepository.findById(videoId).orElseThrow(RuntimeException::new);
+        VideoEntity video = this.jpaVideoRepository.findByIdActive(videoId).orElseThrow(RuntimeException::new);
 
         if(!StringUtil.isNullOrEmpty(dto.title()))
             video.setTitle(dto.title());
