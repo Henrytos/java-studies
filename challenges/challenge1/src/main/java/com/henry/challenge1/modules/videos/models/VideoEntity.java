@@ -1,10 +1,12 @@
 package com.henry.challenge1.modules.videos.models;
 
+import com.henry.challenge1.modules.categories.models.CategoryEntity;
 import com.henry.challenge1.modules.videos.models.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "videos")
+@Entity
+@Table(name = "videos")
 @Data
 @EqualsAndHashCode( of = "id")
 @Builder
@@ -24,4 +26,10 @@ public class VideoEntity {
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_category", referencedColumnName = "category_id")
+    private CategoryEntity category;
+
+
 }

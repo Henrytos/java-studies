@@ -8,5 +8,8 @@ public record RegisterVideoRequestDTO(
         @NotBlank
         String description,
         @NotBlank
-        String url) {
+        String url,
+        Long categoryId
+
+        ) {
 }
