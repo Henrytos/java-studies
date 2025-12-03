@@ -4,6 +4,7 @@ public record VideoResponseDTO(
         Long id,
         String title,
         String description,
-        String url
+        String url,
+        Long categoryId
 ) {
 }

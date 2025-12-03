@@ -27,6 +27,6 @@ public class VideoMapper implements EntityMapper<VideoEntity, VideoResponseDTO> 
 
     @Override
     public VideoResponseDTO toInfra(VideoEntity videoEntity) {
-        return new VideoResponseDTO(videoEntity.getId(), videoEntity.getTitle(), videoEntity.getDescription(), videoEntity.getUrl());
+        return new VideoResponseDTO(videoEntity.getId(), videoEntity.getTitle(), videoEntity.getDescription(), videoEntity.getUrl(), videoEntity.getCategory().getId());
     }
 }

@@ -1,6 +1,6 @@
 package com.henry.challenge1.modules.categories.dtos;
 
-public record RegisterCategoryResponseDTO(
+public record CategoryResponseDTO(
         Long id,
         String title,
         String color

@@ -1,15 +1,15 @@
 package com.henry.challenge1.modules.categories.controllers;
 
 import com.henry.challenge1.modules.categories.dtos.RegisterCategoryRequestDTO;
-import com.henry.challenge1.modules.categories.dtos.RegisterCategoryResponseDTO;
+import com.henry.challenge1.modules.categories.dtos.CategoryResponseDTO;
+import com.henry.challenge1.modules.categories.useCases.FetchCategoryUseCase;
 import com.henry.challenge1.modules.categories.useCases.RegisterCategoryUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -21,16 +21,34 @@ public class CategoryController {
 
     private final RegisterCategoryUseCase registerCategoryUseCase;
 
+    private final FetchCategoryUseCase fetchCategoryUseCase;
+
+    @GetMapping
+    public ResponseEntity<Page<CategoryResponseDTO>> findAll(Pageable pageable) {
+        Page<CategoryResponseDTO> categories = this.fetchCategoryUseCase.execute(pageable);
+
+        return ResponseEntity.ok(categories);
+    }
+
+    @GetMapping("/{categoryId}")
+    public ResponseEntity<CategoryResponseDTO> findByCategoryId(
+            @PathVariable Long categoryId
+    ) {
+        CategoryResponseDTO category = this.fetchCategoryUseCase.findByCategoryId(categoryId);
+
+        return ResponseEntity.ok(category);
+    }
+
     @PostMapping
-    public ResponseEntity<RegisterCategoryResponseDTO> register(
-            @RequestBody @Valid  RegisterCategoryRequestDTO dto,
+    public ResponseEntity<CategoryResponseDTO> register(
+            @RequestBody @Valid RegisterCategoryRequestDTO dto,
             UriComponentsBuilder uriBuilder
-    ){
-        RegisterCategoryResponseDTO response = this.registerCategoryUseCase.execute(dto);
+    ) {
+        CategoryResponseDTO response = this.registerCategoryUseCase.execute(dto);
 
         URI uri = uriBuilder.buildAndExpand("/api/v1/categories/{categoryId}", response.id()).toUri();
 
-        return  ResponseEntity.created(uri).body(response);
+        return ResponseEntity.created(uri).body(response);
     }
 
 }
