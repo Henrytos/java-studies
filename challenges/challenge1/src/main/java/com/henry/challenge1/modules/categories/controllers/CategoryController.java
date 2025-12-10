@@ -2,6 +2,7 @@ package com.henry.challenge1.modules.categories.controllers;
 
 import com.henry.challenge1.modules.categories.dtos.RegisterCategoryRequestDTO;
 import com.henry.challenge1.modules.categories.dtos.CategoryResponseDTO;
+import com.henry.challenge1.modules.categories.useCases.DeleteCategoryByCategoryIdUseCase;
 import com.henry.challenge1.modules.categories.useCases.FetchCategoryUseCase;
 import com.henry.challenge1.modules.categories.useCases.RegisterCategoryUseCase;
 import jakarta.validation.Valid;
@@ -23,20 +24,31 @@ public class CategoryController {
 
     private final FetchCategoryUseCase fetchCategoryUseCase;
 
+    private final DeleteCategoryByCategoryIdUseCase deleteCategoryByCategoryIdUseCase;
+
     @GetMapping
-    public ResponseEntity<Page<CategoryResponseDTO>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<CategoryResponseDTO>> fetch(Pageable pageable) {
         Page<CategoryResponseDTO> categories = this.fetchCategoryUseCase.execute(pageable);
 
         return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/{categoryId}")
-    public ResponseEntity<CategoryResponseDTO> findByCategoryId(
+    public ResponseEntity<CategoryResponseDTO> find(
             @PathVariable Long categoryId
     ) {
         CategoryResponseDTO category = this.fetchCategoryUseCase.findByCategoryId(categoryId);
 
         return ResponseEntity.ok(category);
+    }
+
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<CategoryResponseDTO> delete(
+            @PathVariable Long categoryId
+    ) {
+        this.deleteCategoryByCategoryIdUseCase.execute(categoryId);
+
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping

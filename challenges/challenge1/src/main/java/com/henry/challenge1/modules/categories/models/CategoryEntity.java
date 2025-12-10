@@ -1,6 +1,7 @@
 package com.henry.challenge1.modules.categories.models;
 
 import com.henry.challenge1.modules.videos.models.VideoEntity;
+import com.henry.challenge1.modules.videos.models.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,4 +28,15 @@ public class CategoryEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<VideoEntity> videos;
 
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ACTIVE;
+
+
+    public void inactiveCategory() {
+        this.status = Status.INACTIVE;
+    }
+
+    public void activeCategory() {
+        this.status = Status.ACTIVE;
+    }
 }

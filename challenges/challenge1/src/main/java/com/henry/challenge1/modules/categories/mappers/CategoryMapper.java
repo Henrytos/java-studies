@@ -13,11 +13,19 @@ public class CategoryMapper implements EntityMapper<CategoryEntity, CategoryResp
 
     @Override
     public CategoryEntity toDomain(CategoryResponseDTO dto) {
-        return new  CategoryEntity(dto.id(), dto.title(), dto.color(), List.of());
+
+        return CategoryEntity.builder()
+                .id(dto.id())
+                .title(dto.title())
+                .color(dto.color())
+                .build();
     }
 
     public CategoryEntity toDomain(RegisterCategoryRequestDTO dto) {
-        return new  CategoryEntity(null, dto.title(), dto.color(), List.of());
+        return CategoryEntity.builder()
+                .title(dto.title())
+                .color(dto.color())
+                .build();
     }
 
     @Override

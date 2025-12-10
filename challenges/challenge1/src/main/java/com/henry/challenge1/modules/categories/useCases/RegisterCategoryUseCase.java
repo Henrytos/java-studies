@@ -17,12 +17,15 @@ public class RegisterCategoryUseCase {
     private final CategoryMapper categoryMapper;
 
     public CategoryResponseDTO execute(RegisterCategoryRequestDTO dto) {
-        boolean categoryExists = this.jpaCategoryRepository.findByTitle(dto.title()).isPresent();
+        boolean categoryExists = this.jpaCategoryRepository.findByTitleActive(dto.title()).isPresent();
 
         if (categoryExists)
             throw new RuntimeException("Category already exists");
 
-        CategoryEntity category = this.jpaCategoryRepository.save(this.categoryMapper.toDomain(dto));
+        CategoryEntity category = this.categoryMapper.toDomain(dto);
+        category.activeCategory();
+
+        this.jpaCategoryRepository.save(category);
 
         return this.categoryMapper.toInfra(category);
     }

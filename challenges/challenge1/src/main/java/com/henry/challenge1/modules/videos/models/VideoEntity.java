@@ -31,5 +31,4 @@ public class VideoEntity {
     @JoinColumn(name = "fk_category", referencedColumnName = "category_id")
     private CategoryEntity category;
 
-
 }

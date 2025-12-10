@@ -18,12 +18,15 @@ public class FetchCategoryUseCase {
 
     public Page<CategoryResponseDTO> execute(Pageable pageable) {
 
-        return this.jpaCategoryRepository.findAll(pageable).map(categoryMapper::toInfra);
+        return this.jpaCategoryRepository.findAllActive(pageable)
+                .map(categoryMapper::toInfra);
     }
 
 
     public CategoryResponseDTO findByCategoryId(Long categoryId) {
-        return this.jpaCategoryRepository.findById(categoryId).stream().map(categoryMapper::toInfra).findFirst().orElse(null);
+        return this.jpaCategoryRepository.findByIdActive(categoryId)
+                .stream().map(categoryMapper::toInfra)
+                .findFirst().orElse(null);
     }
 
 }
