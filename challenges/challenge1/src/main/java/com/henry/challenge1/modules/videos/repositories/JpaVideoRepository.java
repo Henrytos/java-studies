@@ -19,6 +19,11 @@ public interface JpaVideoRepository extends JpaRepository<VideoEntity, Long> {
     @Query(value = """
                 SELECT * FROM videos WHERE fk_category = :categoryId
             """, nativeQuery = true)
+    Page<VideoEntity> findAllByCategoryId(@Param("categoryId") long categoryId, Pageable pageable);
+
+    @Query(value = """
+                SELECT * FROM videos WHERE fk_category = :categoryId
+            """, nativeQuery = true)
     List<VideoEntity> findAllByCategoryId(@Param("categoryId") long categoryId);
 
     Page<VideoEntity> findAllByStatus(Status status, Pageable pageable);

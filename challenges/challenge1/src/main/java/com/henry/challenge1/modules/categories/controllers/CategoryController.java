@@ -1,6 +1,5 @@
 package com.henry.challenge1.modules.categories.controllers;
 
-import com.henry.challenge1.modules.categories.dtos.CategoryWithVideoResponseDTO;
 import com.henry.challenge1.modules.categories.dtos.RegisterCategoryRequestDTO;
 import com.henry.challenge1.modules.categories.dtos.CategoryResponseDTO;
 import com.henry.challenge1.modules.categories.dtos.UpdateCategoryRequestDTO;
@@ -8,16 +7,18 @@ import com.henry.challenge1.modules.categories.useCases.DeleteCategoryByCategory
 import com.henry.challenge1.modules.categories.useCases.EditCategoryByCategoryIdUseCase;
 import com.henry.challenge1.modules.categories.useCases.FetchCategoryUseCase;
 import com.henry.challenge1.modules.categories.useCases.RegisterCategoryUseCase;
+import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/categories")
@@ -33,7 +34,8 @@ public class CategoryController {
     private final EditCategoryByCategoryIdUseCase editCategoryByCategoryIdUseCase;
 
     @GetMapping
-    public ResponseEntity<Page<CategoryResponseDTO>> fetch(Pageable pageable) {
+    public ResponseEntity<Page<CategoryResponseDTO>> fetch(
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable) {
         Page<CategoryResponseDTO> categories = this.fetchCategoryUseCase.execute(pageable);
 
         return ResponseEntity.ok(categories);
@@ -50,10 +52,11 @@ public class CategoryController {
 
 
     @GetMapping("/{categoryId}/videos")
-    public ResponseEntity<List<CategoryWithVideoResponseDTO>> findVideos(
+    public ResponseEntity<Page<VideoResponseDTO>> fetchVideos(
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable,
             @PathVariable Long categoryId
     ) {
-        List<CategoryWithVideoResponseDTO> categories  = this.fetchCategoryUseCase.fetchCategoriesWithVideo(categoryId);
+        Page<VideoResponseDTO> categories = this.fetchCategoryUseCase.fetchCategoriesWithVideo(categoryId, pageable);
 
         return ResponseEntity.ok(categories);
     }

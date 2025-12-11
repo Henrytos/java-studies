@@ -34,7 +34,7 @@ public class VideosController {
 
     @GetMapping
     public ResponseEntity<Page<VideoResponseDTO>> fetch(
-            @PageableDefault(sort= {"id"} , direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(sort= {"id"} , direction = Sort.Direction.DESC, size = 5) Pageable pageable,
             @RequestParam(name = "search", defaultValue = "", required = false) String search,
             Sort sort) {
         Page<VideoResponseDTO> videos = this.fetchVideosUseCase.execute(search, pageable);

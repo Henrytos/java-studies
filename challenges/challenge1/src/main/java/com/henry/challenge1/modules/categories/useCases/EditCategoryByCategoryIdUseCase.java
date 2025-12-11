@@ -6,9 +6,9 @@ import com.henry.challenge1.modules.categories.mappers.CategoryMapper;
 import com.henry.challenge1.modules.categories.models.CategoryEntity;
 import com.henry.challenge1.modules.categories.repositories.JpaCategoryRepository;
 import com.henry.challenge1.modules.categories.useCases.exceptions.CategoryNotFoundException;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -25,10 +25,10 @@ public class EditCategoryByCategoryIdUseCase {
 
         CategoryEntity category = this.jpaCategoryRepository.findByIdActive(categoryId).orElseThrow(CategoryNotFoundException::new);
 
-        if(!StringUtils.isEmpty(dto.title()))
+        if(!StringUtils.isBlank(dto.title()))
             category.setTitle(dto.title());
 
-        if(!StringUtils.isEmpty(dto.color()))
+        if(!StringUtils.isBlank(dto.color()))
             category.setColor(dto.color());
 
         this.jpaCategoryRepository.save(category);

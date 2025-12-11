@@ -6,6 +6,7 @@ import com.henry.challenge1.modules.categories.useCases.exceptions.CategoryNotFo
 import com.henry.challenge1.modules.videos.models.VideoEntity;
 import com.henry.challenge1.modules.videos.repositories.JpaVideoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

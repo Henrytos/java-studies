@@ -27,7 +27,7 @@ public class RegisterVideoUseCase {
         videoEntity.setStatus(Status.ACTIVE);
 
         if(dto.categoryId() != null)
-            this.jpaCategoryRepository.findById(dto.categoryId()).orElseThrow(RuntimeException::new);
+            videoEntity.setCategory(this.jpaCategoryRepository.findById(dto.categoryId()).orElseThrow(RuntimeException::new));
         else
             videoEntity.setCategory(this.jpaCategoryRepository.findAll().get(0));
 

@@ -4,6 +4,11 @@ import com.henry.challenge1.modules.categories.dtos.CategoryResponseDTO;
 import com.henry.challenge1.modules.categories.dtos.CategoryWithVideoResponseDTO;
 import com.henry.challenge1.modules.categories.mappers.CategoryMapper;
 import com.henry.challenge1.modules.categories.repositories.JpaCategoryRepository;
+import com.henry.challenge1.modules.categories.useCases.exceptions.CategoryNotFoundException;
+import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
+import com.henry.challenge1.modules.videos.models.VideoEntity;
+import com.henry.challenge1.modules.videos.repositories.JpaVideoRepository;
+import com.henry.challenge1.modules.videos.useCases.mappers.VideoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +22,11 @@ public class FetchCategoryUseCase {
 
     private final JpaCategoryRepository jpaCategoryRepository;
 
+    private final JpaVideoRepository jpaVideoRepository;
+
     private final CategoryMapper categoryMapper;
+
+    private final VideoMapper videoMapper;
 
     public Page<CategoryResponseDTO> execute(Pageable pageable) {
 
@@ -32,13 +41,13 @@ public class FetchCategoryUseCase {
                 .findFirst().orElse(null);
     }
 
-    public List<CategoryWithVideoResponseDTO> fetchCategoriesWithVideo(Long categoryId) {
-        return this.jpaCategoryRepository
-                .findByIdActive(categoryId)
-                .stream()
-                .map(categoryMapper::toInfraWithVideo)
-                .toList()
-                ;
+
+    public Page<VideoResponseDTO> fetchCategoriesWithVideo(Long categoryId, Pageable pageable) {
+
+        this.jpaCategoryRepository.findByIdActive(categoryId).orElseThrow(CategoryNotFoundException::new);
+
+        return this.jpaVideoRepository.findAllByCategoryId(categoryId, pageable)
+                .map(videoMapper::toInfra);
     }
 
 }
