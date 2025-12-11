@@ -30,7 +30,7 @@ public class DeleteCategoryByCategoryIdUseCase {
 
         CategoryEntity categoryDefault = this.jpaCategoryRepository.findById(1L).get();
 
-        List<VideoEntity> videos = jpaVideoRepository.findAllByCategoryId(categoryId);
+        List<VideoEntity> videos = this.jpaVideoRepository.findAllByCategoryId(categoryId);
         for (VideoEntity video : videos) {
             video.setCategory(categoryDefault);
         }
