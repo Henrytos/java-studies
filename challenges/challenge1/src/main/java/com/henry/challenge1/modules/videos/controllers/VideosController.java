@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -32,9 +34,10 @@ public class VideosController {
 
     @GetMapping
     public ResponseEntity<Page<VideoResponseDTO>> fetch(
-            Pageable pageable
-    ) {
-        Page<VideoResponseDTO> videos = this.fetchVideosUseCase.execute(pageable);
+            @PageableDefault(sort= {"id"} , direction = Sort.Direction.DESC) Pageable pageable,
+            @RequestParam(name = "search", defaultValue = "", required = false) String search,
+            Sort sort) {
+        Page<VideoResponseDTO> videos = this.fetchVideosUseCase.execute(search, pageable);
         return ResponseEntity.ok(videos);
     }
 

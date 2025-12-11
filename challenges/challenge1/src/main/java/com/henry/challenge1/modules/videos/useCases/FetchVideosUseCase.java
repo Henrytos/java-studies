@@ -17,8 +17,9 @@ public class FetchVideosUseCase {
 
     private final VideoMapper videoMapper;
 
-    public Page<VideoResponseDTO> execute(Pageable pageable) {
-        return this.jpaVideoRepository.findAllActive(pageable)
+    public Page<VideoResponseDTO> execute(String search, Pageable pageable) {
+
+        return this.jpaVideoRepository.findAllActive(search, pageable)
                 .map(videoMapper::toInfra);
     }
 }

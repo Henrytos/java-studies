@@ -2,6 +2,7 @@ package com.henry.challenge1.modules.videos.repositories;
 
 import com.henry.challenge1.modules.videos.models.VideoEntity;
 import com.henry.challenge1.modules.videos.models.enums.Status;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,9 +25,14 @@ public interface JpaVideoRepository extends JpaRepository<VideoEntity, Long> {
 
     Optional<VideoEntity> findByIdAndStatus(Long videoId, Status status);
 
-    default Page<VideoEntity> findAllActive(Pageable pageable) {
-        return findAllByStatus(Status.ACTIVE, pageable);
+    default Page<VideoEntity> findAllActive(String search, Pageable pageable) {
+        if(StringUtils.isBlank(search)) {
+            return findAllByStatus(Status.ACTIVE, pageable);
+        }
+        return  findAllByStatusAndTitleContainingIgnoreCase(Status.ACTIVE, search, pageable);
     }
+
+    Page<VideoEntity> findAllByStatusAndTitleContainingIgnoreCase(Status status, String search, Pageable pageable);
 
     default Optional<VideoEntity> findByIdActive(Long videoId) {
         return findByIdAndStatus(videoId, Status.ACTIVE);
