@@ -1,5 +1,6 @@
 package com.henry.challenge1.modules.videos.repositories;
 
+import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
 import com.henry.challenge1.modules.videos.models.VideoEntity;
 import com.henry.challenge1.modules.videos.models.enums.Status;
 import io.micrometer.common.util.StringUtils;
@@ -42,4 +43,6 @@ public interface JpaVideoRepository extends JpaRepository<VideoEntity, Long> {
     default Optional<VideoEntity> findByIdActive(Long videoId) {
         return findByIdAndStatus(videoId, Status.ACTIVE);
     }
+
+    List<VideoEntity> findTop5ByOrderByIdDesc();
 }

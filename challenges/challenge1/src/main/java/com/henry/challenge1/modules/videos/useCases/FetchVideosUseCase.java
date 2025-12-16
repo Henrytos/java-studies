@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -21,5 +23,9 @@ public class FetchVideosUseCase {
 
         return this.jpaVideoRepository.findAllActive(search, pageable)
                 .map(videoMapper::toInfra);
+    }
+
+    public List<VideoResponseDTO> free() {
+        return this.jpaVideoRepository.findTop5ByOrderByIdDesc().stream().map(videoMapper::toInfra).toList();
     }
 }

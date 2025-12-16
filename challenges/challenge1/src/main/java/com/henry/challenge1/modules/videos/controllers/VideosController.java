@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/videos")
@@ -38,6 +39,12 @@ public class VideosController {
             @RequestParam(name = "search", defaultValue = "", required = false) String search,
             Sort sort) {
         Page<VideoResponseDTO> videos = this.fetchVideosUseCase.execute(search, pageable);
+        return ResponseEntity.ok(videos);
+    }
+
+    @GetMapping("/free")
+    public ResponseEntity<List<VideoResponseDTO>> free() {
+        List<VideoResponseDTO> videos = this.fetchVideosUseCase.free();
         return ResponseEntity.ok(videos);
     }
 
