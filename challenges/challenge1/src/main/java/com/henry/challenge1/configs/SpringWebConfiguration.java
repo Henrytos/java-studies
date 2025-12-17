@@ -1,5 +1,6 @@
 package com.henry.challenge1.configs;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,6 +46,13 @@ public class SpringWebConfiguration {
                         authorizeRequests
                                 .requestMatchers(ROUTES_PUBLIC).permitAll()
                                 .requestMatchers(ROUTES_PRIVATE).authenticated()
+                )
+                .exceptionHandling(exceptionHandler ->
+                        exceptionHandler
+                                .authenticationEntryPoint((req, res, ex) ->
+                                        res.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+                                .accessDeniedHandler((req, res, ex) ->
+                                        res.sendError(HttpServletResponse.SC_FORBIDDEN))
                 )
                 .addFilterBefore(userTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

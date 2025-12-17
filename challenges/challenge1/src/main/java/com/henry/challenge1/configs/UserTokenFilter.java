@@ -31,34 +31,40 @@ public class UserTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String authorizationHeader = request.getHeader("Authorization");
-        String token = authorizationHeader == null ? null : authorizationHeader.replace("Bearer ", "");
-
-        // Rotas públicas não precisam de autenticação
         if (Arrays.asList(SpringWebConfiguration.ROUTES_PUBLIC).contains(request.getRequestURI())) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Extrai o subject do token
+
+        String authorizationHeader = request.getHeader("Authorization");
+        String token = authorizationHeader == null ? null : authorizationHeader.replace("Bearer ", "");
+
+        System.out.println("authorizationHeader=" + authorizationHeader);
+        System.out.println("token=" + token);
+
+        if (StringUtils.isEmpty(token) || StringUtils.isEmpty(authorizationHeader)) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED); // 401
+            return;
+        }
+
         String subject = this.tokenUseCase.getSubject(token);
 
         if (StringUtils.isEmpty(subject)) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED); // 401
-            return; // não continua o chain
+            return;
         }
 
         Optional<UserEntity> user = this.jpaUserRepository.findByUsername(subject);
 
         if (user.isEmpty()) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN); // 403
-            return; // não continua o chain
+            return;
         }
 
-        // Cria autenticação com o usuário encontrado
         Authentication authentication = new UsernamePasswordAuthenticationToken(
-                user.get(), // principal é o próprio UserEntity
-                null,       // credenciais não são necessárias aqui
+                user.get(),
+                null,
                 user.get().getAuthorities()
         );
 
