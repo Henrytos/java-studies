@@ -1,5 +1,6 @@
 package com.henry.challenge1.modules.categories.useCases;
 
+import com.henry.challenge1.modules._core.exceptions.ConflictResourceException;
 import com.henry.challenge1.modules.categories.dtos.RegisterCategoryRequestDTO;
 import com.henry.challenge1.modules.categories.dtos.CategoryResponseDTO;
 import com.henry.challenge1.modules.categories.mappers.CategoryMapper;
@@ -20,7 +21,7 @@ public class RegisterCategoryUseCase {
         boolean categoryExists = this.jpaCategoryRepository.findByTitleActive(dto.title()).isPresent();
 
         if (categoryExists)
-            throw new RuntimeException("Category already exists");
+            throw new ConflictResourceException("Category already exists");
 
         CategoryEntity category = this.categoryMapper.toDomain(dto);
         category.activeCategory();

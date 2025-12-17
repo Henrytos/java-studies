@@ -4,6 +4,7 @@ import com.henry.challenge1.modules.auth.UserEntity;
 import com.henry.challenge1.modules.auth.dtos.SignInAccountRequestDTO;
 import com.henry.challenge1.modules.auth.dtos.SignInAccountResponseDTO;
 import com.henry.challenge1.modules.auth.repositories.JpaUserRepository;
+import com.henry.challenge1.modules._core.exceptions.WrongCredentialsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +25,7 @@ public class SignInAccountUseCase {
 
     public SignInAccountResponseDTO execute(SignInAccountRequestDTO requestDTO) {
         UserEntity user = jpaUserRepository.findByEmail(requestDTO.email())
-                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
+                .orElseThrow(() -> new WrongCredentialsException("Invalid email or password"));
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -34,7 +35,6 @@ public class SignInAccountUseCase {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
 
 
         return tokenUseCase.generate(user);

@@ -5,10 +5,10 @@ import com.henry.challenge1.modules.videos.controllers.dtos.UpdateVideoRequestDT
 import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
 import com.henry.challenge1.modules.videos.models.VideoEntity;
 import com.henry.challenge1.modules.videos.repositories.JpaVideoRepository;
+import com.henry.challenge1.modules._core.exceptions.ResourceNotFoundException;
 import com.henry.challenge1.modules.videos.useCases.mappers.VideoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +20,8 @@ public class EditVideoUseCase {
 
     public VideoResponseDTO execute(Long videoId, UpdateVideoRequestDTO dto) {
 
-        VideoEntity video = this.jpaVideoRepository.findByIdActive(videoId).orElseThrow(RuntimeException::new);
+        VideoEntity video = this.jpaVideoRepository.findByIdActive(videoId)
+                .orElseThrow(()-> new ResourceNotFoundException("Video not found"));
 
         if(!StringUtil.isNullOrEmpty(dto.title()))
             video.setTitle(dto.title());

@@ -1,5 +1,6 @@
 package com.henry.challenge1.modules.videos.useCases.mappers;
 
+import com.henry.challenge1.modules._core.useCases.mappers.EntityMapper;
 import com.henry.challenge1.modules.videos.controllers.dtos.RegisterVideoRequestDTO;
 import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
 import com.henry.challenge1.modules.videos.models.VideoEntity;

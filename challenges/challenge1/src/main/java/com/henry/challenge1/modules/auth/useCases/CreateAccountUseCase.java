@@ -5,6 +5,7 @@ import com.henry.challenge1.modules.auth.dtos.CreateAccountRequestDTO;
 import com.henry.challenge1.modules.auth.dtos.CreateAccountResponseDTO;
 import com.henry.challenge1.modules.auth.mappers.UserMapper;
 import com.henry.challenge1.modules.auth.repositories.JpaUserRepository;
+import com.henry.challenge1.modules._core.exceptions.ConflictResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class CreateAccountUseCase {
                 .findByEmailOrUsername(user.getEmail(), user.getUsername()).isPresent();
 
         if (userExists)
-            throw new RuntimeException("Username already exists");
+            throw new ConflictResourceException("User already exists");
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 

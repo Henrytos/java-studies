@@ -1,4 +1,4 @@
-package com.henry.challenge1.modules.videos.useCases.mappers;
+package com.henry.challenge1.modules._core.useCases.mappers;
 
 public interface EntityMapper<Domain, Infra> {
 

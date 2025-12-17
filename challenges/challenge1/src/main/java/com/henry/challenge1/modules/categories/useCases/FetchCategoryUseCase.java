@@ -1,20 +1,16 @@
 package com.henry.challenge1.modules.categories.useCases;
 
 import com.henry.challenge1.modules.categories.dtos.CategoryResponseDTO;
-import com.henry.challenge1.modules.categories.dtos.CategoryWithVideoResponseDTO;
 import com.henry.challenge1.modules.categories.mappers.CategoryMapper;
 import com.henry.challenge1.modules.categories.repositories.JpaCategoryRepository;
-import com.henry.challenge1.modules.categories.useCases.exceptions.CategoryNotFoundException;
 import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
-import com.henry.challenge1.modules.videos.models.VideoEntity;
 import com.henry.challenge1.modules.videos.repositories.JpaVideoRepository;
+import com.henry.challenge1.modules._core.exceptions.ResourceNotFoundException;
 import com.henry.challenge1.modules.videos.useCases.mappers.VideoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +40,7 @@ public class FetchCategoryUseCase {
 
     public Page<VideoResponseDTO> fetchCategoriesWithVideo(Long categoryId, Pageable pageable) {
 
-        this.jpaCategoryRepository.findByIdActive(categoryId).orElseThrow(CategoryNotFoundException::new);
+        this.jpaCategoryRepository.findByIdActive(categoryId).orElseThrow(() -> new ResourceNotFoundException("category not found"));
 
         return this.jpaVideoRepository.findAllByCategoryId(categoryId, pageable)
                 .map(videoMapper::toInfra);

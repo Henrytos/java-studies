@@ -3,7 +3,7 @@ package com.henry.challenge1.modules.auth.mappers;
 import com.henry.challenge1.modules.auth.UserEntity;
 import com.henry.challenge1.modules.auth.dtos.CreateAccountRequestDTO;
 import com.henry.challenge1.modules.auth.dtos.CreateAccountResponseDTO;
-import com.henry.challenge1.modules.videos.useCases.mappers.EntityMapper;
+import com.henry.challenge1.modules._core.useCases.mappers.EntityMapper;
 import org.springframework.stereotype.Component;
 
 @Component

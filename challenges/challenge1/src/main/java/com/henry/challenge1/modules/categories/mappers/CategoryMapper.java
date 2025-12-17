@@ -4,13 +4,10 @@ import com.henry.challenge1.modules.categories.dtos.CategoryWithVideoResponseDTO
 import com.henry.challenge1.modules.categories.dtos.RegisterCategoryRequestDTO;
 import com.henry.challenge1.modules.categories.dtos.CategoryResponseDTO;
 import com.henry.challenge1.modules.categories.models.CategoryEntity;
-import com.henry.challenge1.modules.videos.controllers.dtos.VideoResponseDTO;
-import com.henry.challenge1.modules.videos.useCases.mappers.EntityMapper;
+import com.henry.challenge1.modules._core.useCases.mappers.EntityMapper;
 import com.henry.challenge1.modules.videos.useCases.mappers.VideoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class CategoryMapper implements EntityMapper<CategoryEntity, CategoryResponseDTO> {

@@ -1,6 +1,7 @@
 package com.henry.challenge1.modules.auth.useCases;
 
 import com.henry.challenge1.modules.auth.repositories.JpaUserRepository;
+import com.henry.challenge1.modules._core.exceptions.WrongCredentialsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +16,6 @@ public class UserDetailsUseCase implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.jpaUserRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("user not exists"));
+        return this.jpaUserRepository.findByUsername(username).orElseThrow(WrongCredentialsException::new);
     }
 }

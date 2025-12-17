@@ -2,7 +2,6 @@ package com.henry.challenge1.modules.categories.useCases;
 
 import com.henry.challenge1.modules.categories.models.CategoryEntity;
 import com.henry.challenge1.modules.categories.repositories.JpaCategoryRepository;
-import com.henry.challenge1.modules.categories.useCases.exceptions.CategoryNotFoundException;
 import com.henry.challenge1.modules.videos.models.VideoEntity;
 import com.henry.challenge1.modules.videos.repositories.JpaVideoRepository;
 import org.junit.jupiter.api.Assertions;
