@@ -23,17 +23,19 @@ public class SignInAccountUseCase {
 
 
     public SignInAccountResponseDTO execute(SignInAccountRequestDTO requestDTO) {
+        UserEntity user = jpaUserRepository.findByEmail(requestDTO.email())
+                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        requestDTO.email(),
+                        user.getUsername(),
                         requestDTO.password()
                 )
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserEntity user = jpaUserRepository.findByEmail(requestDTO.email())
-                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
+
 
         return tokenUseCase.generate(user);
     }

@@ -25,12 +25,7 @@ public class TokenUseCase {
 
         Instant expiresAt = generateExpirationDate();
 
-        String token = JWT
-                .create()
-                .withSubject(userDetails.getUsername())
-                .withExpiresAt(expiresAt)
-                .withArrayClaim("ROLES", Arrays.stream(userDetails.getAuthorities().toArray()).map(a -> a.toString()).toArray(String[]::new))
-                .sign(algorithm);
+        String token = JWT.create().withSubject(userDetails.getUsername()).withExpiresAt(expiresAt).withArrayClaim("ROLES", Arrays.stream(userDetails.getAuthorities().toArray()).map(a -> a.toString()).toArray(String[]::new)).sign(algorithm);
 
         return new SignInAccountResponseDTO(token, expiresAt.toEpochMilli());
     }
@@ -38,6 +33,10 @@ public class TokenUseCase {
 
     public Instant generateExpirationDate() {
         return Instant.now().plus(Duration.ofMinutes(20));
+    }
+
+    public String getSubject(String token) {
+        return JWT.require(Algorithm.HMAC256(secretKey)).build().verify(token).getSubject();
     }
 
 }

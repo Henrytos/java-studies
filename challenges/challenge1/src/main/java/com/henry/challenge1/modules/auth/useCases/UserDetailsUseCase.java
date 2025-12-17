@@ -15,6 +15,6 @@ public class UserDetailsUseCase implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.jpaUserRepository.findByEmail(username).orElseThrow(() -> new RuntimeException("user not exists"));
+        return this.jpaUserRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("user not exists"));
     }
 }
