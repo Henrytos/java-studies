@@ -1,5 +1,6 @@
 package com.henry.challenge1.configs;
 
+import com.henry.challenge1.configs.dtos.ErrorMessageResponseDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import tools.jackson.databind.ObjectMapper;
 
 @Configuration
 @EnableWebSecurity
@@ -35,6 +37,9 @@ public class SpringWebConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
@@ -47,12 +52,26 @@ public class SpringWebConfiguration {
                                 .requestMatchers(ROUTES_PUBLIC).permitAll()
                                 .requestMatchers(ROUTES_PRIVATE).authenticated()
                 )
+                /*
+                 * throw new AuthenticationCredentialsNotFoundException("Token ausente ou inválido"); // 401
+                 * throw new BadCredentialsException("Token inválido"); // 401
+                 * throw new AccessDeniedException("Usuário não encontrado"); // 403
+                 */
                 .exceptionHandling(exceptionHandler ->
                         exceptionHandler
-                                .authenticationEntryPoint((req, res, ex) ->
-                                        res.sendError(HttpServletResponse.SC_UNAUTHORIZED))
-                                .accessDeniedHandler((req, res, ex) ->
-                                        res.sendError(HttpServletResponse.SC_FORBIDDEN))
+                                .authenticationEntryPoint((req, res, ex) -> { //401
+                                    ErrorMessageResponseDTO errorMessageResponseDTO = new ErrorMessageResponseDTO(ex.getMessage(), HttpServletResponse.SC_UNAUTHORIZED);
+                                                    res.setStatus(errorMessageResponseDTO.statusCode());
+                                    res.setContentType("application/json");
+                                    res.getWriter().write(objectMapper.writeValueAsString(errorMessageResponseDTO));
+                                })
+                                .accessDeniedHandler((req, res, ex) -> { // 403
+                                    ErrorMessageResponseDTO errorMessageResponseDTO = new ErrorMessageResponseDTO(ex.getMessage(), HttpServletResponse.SC_FORBIDDEN);
+
+                                    res.setStatus(errorMessageResponseDTO.statusCode());
+                                    res.setContentType("application/json");
+                                    res.getWriter().write(objectMapper.writeValueAsString(errorMessageResponseDTO));
+                                })
                 )
                 .addFilterBefore(userTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

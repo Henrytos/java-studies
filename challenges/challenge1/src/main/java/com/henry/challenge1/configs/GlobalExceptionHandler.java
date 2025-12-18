@@ -32,21 +32,5 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(ex.getStatusCode()).body(new ErrorMessageResponseDTO(ex.getMessage(), ex.getStatusCode()));
     }
 
-//    Spring security
 
-    @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ErrorMessageResponseDTO> handleAuthenticationException(AuthenticationException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessageResponseDTO(ex.getMessage(), HttpStatus.UNAUTHORIZED.value()));
-    }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorMessageResponseDTO> handleAccessDeniedException(AccessDeniedException ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorMessageResponseDTO(ex.getMessage(), HttpStatus.FORBIDDEN.value()));
-    }
-
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorMessageResponseDTO> handleGenericException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorMessageResponseDTO(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value()));
-    }
 }

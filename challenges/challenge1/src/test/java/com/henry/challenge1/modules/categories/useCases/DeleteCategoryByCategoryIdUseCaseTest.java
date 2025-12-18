@@ -1,5 +1,6 @@
 package com.henry.challenge1.modules.categories.useCases;
 
+import com.henry.challenge1.modules._core.exceptions.ResourceNotFoundException;
 import com.henry.challenge1.modules.categories.models.CategoryEntity;
 import com.henry.challenge1.modules.categories.repositories.JpaCategoryRepository;
 import com.henry.challenge1.modules.videos.models.VideoEntity;
@@ -71,9 +72,9 @@ class DeleteCategoryByCategoryIdUseCaseTest {
 
         Mockito.when(this.jpaCategoryRepository.findById(categoryId)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(CategoryNotFoundException.class, ()->this.deleteCategoryByCategoryIdUseCase.execute(categoryId));
+        Exception exception = assertThrows(ResourceNotFoundException.class, ()->this.deleteCategoryByCategoryIdUseCase.execute(categoryId));
 
-        Assertions.assertEquals(CategoryNotFoundException.class, exception.getClass());
+        Assertions.assertEquals(ResourceNotFoundException.class, exception.getClass());
     }
 
 }
