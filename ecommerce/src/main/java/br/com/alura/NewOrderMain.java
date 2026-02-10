@@ -13,10 +13,9 @@ public class NewOrderMain {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         var producer = new KafkaProducer<String, String>(properties());
 
-        var TOPIC = "ECOOMERCE_NEW_ORDER";
         var value = "1000,1001,200";
 
-        var record = new ProducerRecord<>(TOPIC, value, value);
+        var record = new ProducerRecord<>("ECOMMERCE_NEW_ORDER_DEV", value, value);
 
         producer.send(record, (data, ex) -> {
             if (ex != null) {
