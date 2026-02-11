@@ -17,17 +17,18 @@ public class KafkaService implements Runnable, Closeable {
     private final KafkaConsumer<String, String> consumer;
     private final ConsumerFunction parse;
 
-    public KafkaService(String consumerId, String topic, ConsumerFunction parse) {
-        this.consumer = new KafkaConsumer<String, String>(properties(consumerId));
+    KafkaService(String consumerId, String topic, ConsumerFunction parse) {
+        this(consumerId, parse);
         this.consumer.subscribe(Collections.singletonList(topic));
-
-        this.parse = parse;
     }
 
-    public KafkaService(String consumerId, Pattern topic, ConsumerFunction parse) {
-        this.consumer = new KafkaConsumer<>(properties(consumerId));
+    KafkaService(String consumerId, Pattern topic, ConsumerFunction parse) {
+        this(consumerId, parse);
         this.consumer.subscribe(topic);
+    }
 
+    private KafkaService(String consumerId, ConsumerFunction parse) {
+        this.consumer = new KafkaConsumer<>(properties(consumerId));
         this.parse = parse;
     }
 
@@ -59,7 +60,7 @@ public class KafkaService implements Runnable, Closeable {
     }
 
     @Override
-    public void close()  {
+    public void close() {
         this.consumer.close();
     }
 }
