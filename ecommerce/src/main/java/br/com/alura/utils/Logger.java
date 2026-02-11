@@ -1,5 +1,7 @@
-package br.com.alura;
+package br.com.alura.utils;
 
+
+import br.com.alura.TipoLog;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

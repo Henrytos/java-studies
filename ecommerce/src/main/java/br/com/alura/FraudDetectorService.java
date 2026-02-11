@@ -1,54 +1,28 @@
 package br.com.alura;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.serialization.StringDeserializer;
-
-import java.time.Duration;
-import java.util.Collections;
-import java.util.Properties;
 
 public class FraudDetectorService {
 
     public static void main(String[] args) {
+        FraudDetectorService fraudDetectorService = new FraudDetectorService();
 
-        var consumer = new KafkaConsumer<>(properties());
+        var kafkaService = new KafkaService(FraudDetectorService.class.getSimpleName(), "ECOMMERCE_NEW_ORDER_DEV", fraudDetectorService::parse);
 
-        consumer.subscribe(Collections.singletonList("ECOMMERCE_NEW_ORDER_DEV"));
+        kafkaService.run();
+    }
 
-        while (true) {
+    public void parse(ConsumerRecord<String, String> record) {
 
-            var records = consumer.poll(Duration.ofMillis(100));
+        System.out.println("----------------");
+        System.out.println("KEY=" + record.key() + " - VALUE:" + record.value() + " - PARTITION:" + record.partition() + " - OFFSET:" + record.offset());
 
-            if (!records.isEmpty()) {
-
-                for (ConsumerRecord<Object, Object> record : records) {
-                    System.out.println("----------------");
-                    System.out.println("KEY=" + record.key() + " - VALUE:" + record.value() + " - PARTITION:" + record.partition() + " - OFFSET:" + record.offset());
-
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    System.out.println("Processo de pedido finalizado");
-                }
-            }
-
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
+
+        System.out.println("Processo de pedido finalizado");
     }
-
-    public static Properties properties() {
-        Properties properties = new Properties();
-
-        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, FraudDetectorService.class.getSimpleName());
-
-        return properties;
-    }
-
 }
