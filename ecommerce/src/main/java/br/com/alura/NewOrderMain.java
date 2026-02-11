@@ -1,23 +1,8 @@
 package br.com.alura;
-
-import org.apache.kafka.clients.producer.Callback;
-
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-
 public class NewOrderMain {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-
-        Callback callback = (data, ex) -> {
-            if (ex != null) {
-                ex.printStackTrace();
-                return;
-            }
-
-            System.out.println("TOPICO :: " + data.topic() + " / ofset " + data.offset() + " / timestamp" + data.timestamp());
-        };
-
+    public static void main(String[] args) {
         try (var kafkaDispatchService = new KafkaDispatch()) {
             try (var emailSend = new KafkaDispatch()) {
 

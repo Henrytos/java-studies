@@ -5,13 +5,14 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import java.io.Closeable;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class KafkaService implements Runnable {
+public class KafkaService implements Runnable, Closeable {
 
     private final KafkaConsumer<String, String> consumer;
     private final ConsumerFunction parse;
@@ -31,8 +32,6 @@ public class KafkaService implements Runnable {
     }
 
     public void run() {
-
-
         while (true) {
             var records = consumer.poll(Duration.ofMillis(100));
 
@@ -57,5 +56,10 @@ public class KafkaService implements Runnable {
         properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "1");
 
         return properties;
+    }
+
+    @Override
+    public void close()  {
+        this.consumer.close();
     }
 }
