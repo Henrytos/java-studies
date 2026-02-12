@@ -1,8 +1,12 @@
 package br.com.alura;
 
 import br.com.alura.utils.Logger;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class LogService {
@@ -10,7 +14,13 @@ public class LogService {
     public static void main(String[] args) {
         LogService logService = new LogService();
 
-        try (KafkaService<String> kafkaService = new KafkaService<>(LogService.class.getSimpleName(), Pattern.compile("ECOMMERCE.*"), logService::parse, String.class)) {
+        try (var kafkaService = new KafkaService<String>(
+                LogService.class.getSimpleName(),
+                Pattern.compile("ECOMMERCE.*"),
+                logService::parse,
+                String.class,
+                Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+        )){
             kafkaService.run();
         }
     }
