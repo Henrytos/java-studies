@@ -10,7 +10,7 @@ public class LogService {
     public static void main(String[] args) {
         LogService logService = new LogService();
 
-        try (KafkaService kafkaService = new KafkaService(LogService.class.getSimpleName(), Pattern.compile("ECOMMERCE.*"), logService::parse)) {
+        try (KafkaService<String> kafkaService = new KafkaService<>(LogService.class.getSimpleName(), Pattern.compile("ECOMMERCE.*"), logService::parse, String.class)) {
             kafkaService.run();
         }
     }

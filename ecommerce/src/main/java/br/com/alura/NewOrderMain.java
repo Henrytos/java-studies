@@ -7,7 +7,7 @@ public class NewOrderMain {
 
     public static void main(String[] args) {
         try (var orderDispatch = new KafkaDispatch<Order>()) {
-            try (var emailDispatch = new KafkaDispatch<String>()) {
+            try (var emailDispatch = new KafkaDispatch<Email>()) {
 
                 for (int i = 0; i < 10; i++) {
                     var userId = UUID.randomUUID().toString();
@@ -18,7 +18,7 @@ public class NewOrderMain {
                     var order = new Order(userId, orderId, value);
                     orderDispatch.send("ECOMMERCE_NEW_ORDER_DEV", userId, order);
 
-                    var email = "thank you for you order!";
+                    var email = new Email("jhondoe@gmail.com", "thank you for you order!");
                     emailDispatch.send("ECOMMERCE_SEND_EMAIL_DEV", userId, email);
                 }
             }

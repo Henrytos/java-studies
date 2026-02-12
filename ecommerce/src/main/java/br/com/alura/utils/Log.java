@@ -1,7 +1,5 @@
 package br.com.alura.utils;
 
-import br.com.alura.TipoLog;
-
 import java.time.Instant;
 
 public class Log {
