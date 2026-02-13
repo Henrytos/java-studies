@@ -35,6 +35,9 @@ public class NewOrderServlet extends HttpServlet {
 
             var email = new Email(subject, "thank you for you order!");
             emailDispatch.send("ECOMMERCE_SEND_EMAIL_DEV", subject, email);
+
+            resp.setStatus(HttpServletResponse.SC_CREATED);
+            resp.getWriter().println("New Order sent");
         } catch (Exception e) {
             e.printStackTrace();
         }
