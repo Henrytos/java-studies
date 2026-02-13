@@ -30,4 +30,8 @@ public class Order {
                 ", amount=" + amount +
                 '}';
     }
+
+    public String getEmail() {
+        return "example";
+    }
 }

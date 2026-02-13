@@ -8,7 +8,6 @@ public class NewOrderMain {
     public static void main(String[] args) {
         try (var orderDispatch = new KafkaDispatch<Order>()) {
             try (var emailDispatch = new KafkaDispatch<Email>()) {
-
                 for (int i = 0; i < 10; i++) {
                     var userId = UUID.randomUUID().toString();
                     var orderId = UUID.randomUUID().toString();
@@ -24,6 +23,4 @@ public class NewOrderMain {
             }
         }
     }
-
-
 }

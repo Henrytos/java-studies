@@ -39,7 +39,11 @@ public class KafkaService<T> implements Runnable, Closeable {
 
             if (!records.isEmpty()) {
                 for (ConsumerRecord<String, T> record : records) {
-                    this.parse.consume(record);
+                    try {
+                        this.parse.consume(record);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
