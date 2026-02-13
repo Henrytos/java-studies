@@ -23,10 +23,10 @@ public class FraudDetectorService {
         var order = record.value();
         if (isFraud(order)) {
             System.out.println("Order is fraud!!!!");
-            orderKafkaDispatch.send("ECOMMERCE_ORDER_REJECT", order.getUserId(), order);
+            orderKafkaDispatch.send("ECOMMERCE_ORDER_REJECT", order.getEmail(), order);
         } else {
             System.out.println("Approved: " + order);
-            orderKafkaDispatch.send("ECOMMERCE_ORDER_APPROVED", order.getUserId(), order);
+            orderKafkaDispatch.send("ECOMMERCE_ORDER_APPROVED", order.getEmail(), order);
         }
 
         System.out.println("Processo de pedido finalizado");
